@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quan ly dang ky</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <main class="content">
+        <h1>Quan ly dang ky (Admin/Giang vien)</h1>
+        <p><a class="btn ghost" href="/">Trang chu</a></p>
+        <section class="card">
+            <h3>Danh sach don</h3>
+            <p>GET /api/v1/registrations?course_id=&status=</p>
+        </section>
+        <section class="card" style="margin-top:14px;">
+            <h3>Thao tac don</h3>
+            <p>Approve: POST /api/v1/registrations/{id}/approve</p>
+            <p>Reject: POST /api/v1/registrations/{id}/reject</p>
+            <p>Cancel: POST /api/v1/registrations/{id}/cancel</p>
+            <p>Timeline: GET /api/v1/registrations/{id}/logs</p>
+        </section>
+    </main>
+</body>
+</html>

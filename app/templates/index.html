@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>He thong dang ky khoa hoc</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-glow"></div>
+        <h1>He Thong Dang Ky Khoa Hoc Truc Tuyen</h1>
+        <div class="hero-actions">
+            <a href="/pages/courses" class="btn primary">Danh sach khoa hoc</a>
+            <a href="/pages/login" class="btn ghost">Dang nhap</a>
+            <a href="/pages/student-dashboard" class="btn ghost">Dashboard hoc vien</a>
+            <a href="/pages/admin-registrations" class="btn ghost">Quan ly dang ky</a>
+            <a href="/pages/certificate-verify" class="btn ghost">Xac thuc chung chi</a>
+            <a href="/docs" class="btn primary">Mo Swagger</a>
+            <a href="/api/v1/courses" class="btn ghost">Xem API khoa hoc</a>
+        </div>
+    </header>
+
+    <main class="content">
+        <section>
+            <h2>Khoa hoc dang mo</h2>
+            <div class="course-grid">
+                {% for c in courses %}
+                <article class="card">
+                    <h3>{{ c.title }}</h3>
+                    <p>{{ c.description }}</p>
+                    <div class="meta">
+                        <span>Slug: {{ c.slug }}</span>
+                        <span>Suc chua: {{ c.max_capacity }}</span>
+                    </div>
+                </article>
+                {% else %}
+                <p>Chua co khoa hoc nao o trang thai PUBLISHED.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

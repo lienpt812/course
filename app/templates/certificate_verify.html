@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xac thuc chung chi</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <main class="content">
+        <h1>Xac thuc chung chi</h1>
+        <p><a class="btn ghost" href="/">Trang chu</a></p>
+
+        <form id="verify-form" class="card form-grid" style="margin-top: 14px;">
+            <label for="code">Nhap ma chung chi</label>
+            <input id="code" name="code" type="text" placeholder="verification code" required>
+            <button type="submit" class="btn primary">Kiem tra</button>
+        </form>
+
+        <pre id="result" class="card" style="margin-top: 14px;"></pre>
+    </main>
+
+    <script>
+        document.getElementById('verify-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const code = document.getElementById('code').value.trim();
+            const res = await fetch(`/api/v1/certificates/verify/${code}`);
+            const data = await res.json();
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>

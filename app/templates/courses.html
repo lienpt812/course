@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sach khoa hoc</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <main class="content">
+        <h1>Danh sach khoa hoc</h1>
+        <p><a class="btn ghost" href="/">Trang chu</a></p>
+        <div class="course-grid">
+            {% for c in courses %}
+            <article class="card">
+                <h3>{{ c.title }}</h3>
+                <p>{{ c.description }}</p>
+                <div class="meta">
+                    <span>Cap do: {{ c.level }}</span>
+                    <span>Suc chua: {{ c.max_capacity }}</span>
+                </div>
+                <p style="margin-top: 12px;"><a class="btn primary" href="/pages/courses/{{ c.id }}">Xem chi tiet</a></p>
+            </article>
+            {% else %}
+            <p>Khong co khoa hoc dang mo.</p>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

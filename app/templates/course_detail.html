@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiet khoa hoc</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <main class="content">
+        <p><a class="btn ghost" href="/pages/courses">Quay lai danh sach</a></p>
+        {% if course %}
+        <h1>{{ course.title }}</h1>
+        <p>{{ course.description }}</p>
+        <div class="meta">
+            <span>Trang thai: {{ course.status.value }}</span>
+            <span>Da xac nhan: {{ confirmed_count }}</span>
+            <span>Con trong: {{ remaining_slots }}</span>
+            <span>Gia: {{ course.price }}</span>
+        </div>
+        <section class="card" style="margin-top:16px;">
+            <h3>Dang ky nhanh (API)</h3>
+            <p>Su dung endpoint POST /api/v1/registrations voi body: {"course_id": {{ course.id }}}</p>
+            <p><a class="btn primary" href="/docs">Mo Swagger de thao tac</a></p>
+        </section>
+        {% else %}
+        <h1>Khong tim thay khoa hoc</h1>
+        {% endif %}
+    </main>
+</body>
+</html>

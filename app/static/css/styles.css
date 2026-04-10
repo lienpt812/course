@@ -1,0 +1,143 @@
+:root {
+    --bg: #f5efe5;
+    --ink: #1f2a37;
+    --accent: #0e7490;
+    --accent-2: #ea580c;
+    --card: #fffaf2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 10% 10%, #fef3c7 0%, #f5efe5 50%, #e6f4f1 100%);
+    min-height: 100vh;
+}
+
+.hero {
+    text-align: center;
+    padding: 72px 20px 36px;
+    position: relative;
+    overflow: hidden;
+    animation: reveal 0.8s ease;
+}
+
+.hero-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(14, 116, 144, 0.25), rgba(234, 88, 12, 0.25));
+    filter: blur(28px);
+    left: calc(50% - 150px);
+    top: -140px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 48px);
+    letter-spacing: 0.5px;
+}
+
+.hero p {
+    margin: 14px auto;
+    max-width: 760px;
+    line-height: 1.6;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: white;
+}
+
+.btn.ghost {
+    border-color: var(--ink);
+    color: var(--ink);
+}
+
+.content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px 18px 48px;
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid #e6d9c7;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 10px 18px rgba(31, 42, 55, 0.08);
+    animation: reveal 0.6s ease;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+}
+
+.card p {
+    margin: 0;
+    color: #374151;
+}
+
+.meta {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #4b5563;
+}
+
+.form-grid {
+    display: grid;
+    gap: 10px;
+    max-width: 560px;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
