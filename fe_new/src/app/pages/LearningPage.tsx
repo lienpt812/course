@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import { ArrowLeft, CheckCircle, Circle, PlayCircle, FileText, HelpCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Circle, PlayCircle, FileText, HelpCircle, Award, X } from 'lucide-react';
 import {
   courseApi,
   registrationApi,
@@ -11,6 +11,42 @@ import {
   LearningLessonItem,
 } from '../lib/api';
 
+// Certificate Congratulation Modal
+function CertificateModal({ courseName, onClose }: { courseName: string; onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
+        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600">
+          <X className="w-5 h-5" />
+        </button>
+        <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Award className="w-10 h-10 text-yellow-500" />
+        </div>
+        <h2 className="text-2xl font-bold text-neutral-900 mb-2">Chúc mừng! 🎉</h2>
+        <p className="text-neutral-600 mb-1">Bạn đã hoàn thành khóa học</p>
+        <p className="text-emerald-700 font-semibold text-lg mb-6">"{courseName}"</p>
+        <p className="text-neutral-500 text-sm mb-6">
+          Chứng chỉ đã được cấp và lưu vào tài khoản của bạn.
+        </p>
+        <div className="flex gap-3 justify-center">
+          <Link
+            to="/student/dashboard"
+            className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 font-medium"
+          >
+            Xem chứng chỉ
+          </Link>
+          <button
+            onClick={onClose}
+            className="px-5 py-2.5 bg-neutral-100 text-neutral-700 rounded-xl hover:bg-neutral-200 font-medium"
+          >
+            Tiếp tục học
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LearningPage() {
   const { courseId } = useParams<{ courseId: string }>();
   const [course, setCourse] = useState<CourseDetail | null>(null);
@@ -20,6 +56,9 @@ export function LearningPage() {
   const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
   const [isCompleting, setIsCompleting] = useState(false);
   const [message, setMessage] = useState('');
+  const [showCertModal, setShowCertModal] = useState(false);
+  const [hasCert, setHasCert] = useState(false);
+  const [isIssuingCert, setIsIssuingCert] = useState(false);
 
   useEffect(() => {
     if (!courseId) return;
@@ -30,12 +69,32 @@ export function LearningPage() {
       registrationApi.list(),
       learningApi.outline(numericCourseId),
       learningApi.progressDetail(numericCourseId),
+      learningApi.myCertificates(),
     ])
-      .then(([courseData, registrationData, outlineData, progressDetail]) => {
+      .then(([courseData, registrationData, outlineData, progressDetail, certs]) => {
         setCourse(courseData);
         setRegistrations(registrationData);
         setOutline(outlineData);
-        setCompletedLessons(new Set(progressDetail.completed_lesson_ids));
+
+        const completedSet = new Set(progressDetail.completed_lesson_ids);
+        setCompletedLessons(completedSet);
+
+        // Check if already has cert for this course
+        const existingCert = (certs as any[]).find((c) => c.course_id === numericCourseId);
+        if (existingCert) {
+          setHasCert(true);
+          // Auto-show modal once per session if 100% complete
+          const allLessons = outlineData.flatMap((x) => x.lessons);
+          const sessionKey = `cert_modal_shown_${numericCourseId}`;
+          if (
+            allLessons.length > 0 &&
+            allLessons.every((l) => completedSet.has(l.id)) &&
+            !sessionStorage.getItem(sessionKey)
+          ) {
+            sessionStorage.setItem(sessionKey, '1');
+            setShowCertModal(true);
+          }
+        }
 
         const firstLessonId = outlineData.flatMap((x) => x.lessons).sort((a, b) => a.position - b.position)[0]?.id ?? null;
         setSelectedLesson(firstLessonId);
@@ -92,27 +151,49 @@ export function LearningPage() {
     setMessage('');
     try {
       const updated = await learningApi.upsertProgress({ lesson_id: currentLesson.id, completion_pct: 100 });
+
+      const newCompleted = new Set(completedLessons);
       if (updated.completed) {
-        setCompletedLessons((prev) => {
-          const next = new Set(prev);
-          next.add(currentLesson.id);
-          return next;
-        });
+        newCompleted.add(currentLesson.id);
+        setCompletedLessons(newCompleted);
       }
-      if (updated.certificate_issued) {
-        setMessage('Chuc mung! Ban da hoan thanh khoa hoc va duoc cap chung chi.');
+
+      const allDone = lessons.length > 0 && lessons.every((l) => newCompleted.has(l.id));
+
+      if (updated.certificate_issued || allDone) {
+        setHasCert(true);
+        setShowCertModal(true);
       } else {
-        setMessage('Da danh dau bai hoc hoan thanh.');
+        setMessage('Đã đánh dấu bài học hoàn thành.');
       }
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : 'Khong cap nhat duoc tien do');
+      setMessage(err instanceof Error ? err.message : 'Không cập nhật được tiến độ');
     } finally {
       setIsCompleting(false);
     }
   };
 
+  const claimCertificate = async () => {
+    if (!course) return;
+    setIsIssuingCert(true);
+    try {
+      await learningApi.issueCertificate(course.id);
+      setHasCert(true);
+      setShowCertModal(true);
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : 'Không thể cấp chứng chỉ');
+    } finally {
+      setIsIssuingCert(false);
+    }
+  };
+
+  const allLessonsDone = lessons.length > 0 && lessons.every((l) => completedLessons.has(l.id));
+
   return (
     <div className="flex h-[calc(100vh-4rem)]">
+      {showCertModal && course && (
+        <CertificateModal courseName={course.title} onClose={() => setShowCertModal(false)} />
+      )}
       <div className="w-96 bg-white border-r border-neutral-200 flex flex-col">
         <div className="p-6 border-b border-neutral-200">
           <Link to="/student/dashboard" className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 mb-4">
@@ -126,6 +207,18 @@ export function LearningPage() {
           <div className="h-2 bg-neutral-100 rounded-full overflow-hidden">
             <div className="h-full bg-emerald-600" style={{ width: `${progress}%` }} />
           </div>
+          {hasCert && (
+            <div className="mt-3 flex items-center gap-2 bg-yellow-50 border border-yellow-200 rounded-xl px-3 py-2">
+              <Award className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+              <span className="text-xs text-yellow-800 font-medium">Đã có chứng chỉ</span>
+              <button
+                onClick={() => setShowCertModal(true)}
+                className="ml-auto text-xs text-emerald-700 hover:underline font-medium"
+              >
+                Xem
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -185,20 +278,37 @@ export function LearningPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-emerald-800/40 disabled:cursor-not-allowed"
               >
                 {completedLessons.has(currentLesson.id) ? (
-                  <>
-                    <CheckCircle className="w-4 h-4" />
-                    Da hoan thanh
-                  </>
+                  <><CheckCircle className="w-4 h-4" />Đã hoàn thành</>
                 ) : (
-                  <>
-                    <Circle className="w-4 h-4" />
-                    {isCompleting ? 'Dang cap nhat...' : 'Danh dau hoan thanh'}
-                  </>
+                  <><Circle className="w-4 h-4" />{isCompleting ? 'Đang cập nhật...' : 'Đánh dấu hoàn thành'}</>
                 )}
               </button>
             )}
-            {message && <div className="mt-3 text-sm text-emerald-300">{message}</div>}
-          </div>
+
+            {/* Show claim cert button when all done but no cert yet */}
+            {allLessonsDone && !hasCert && (
+              <button
+                onClick={claimCertificate}
+                disabled={isIssuingCert}
+                className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 disabled:opacity-50 font-medium"
+              >
+                <Award className="w-5 h-5" />
+                {isIssuingCert ? 'Đang cấp...' : 'Nhận chứng chỉ'}
+              </button>
+            )}
+
+            {/* Show view cert button when already has cert */}
+            {hasCert && (
+              <button
+                onClick={() => setShowCertModal(true)}
+                className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 font-medium"
+              >
+                <Award className="w-5 h-5" />
+                Xem chứng chỉ
+              </button>
+            )}
+
+            {message && <div className="mt-3 text-sm text-red-400">{message}</div>}          </div>
         </div>
       </div>
     </div>

@@ -16,10 +16,19 @@ def _is_course_open(course: Course) -> bool:
     now = datetime.now(timezone.utc)
     if course.status != CourseStatus.PUBLISHED:
         return False
-    if course.registration_open_at and now < course.registration_open_at:
-        return False
-    if course.registration_close_at and now > course.registration_close_at:
-        return False
+    # Make timezone-aware comparison
+    open_at = course.registration_open_at
+    close_at = course.registration_close_at
+    if open_at is not None:
+        if open_at.tzinfo is None:
+            open_at = open_at.replace(tzinfo=timezone.utc)
+        if now < open_at:
+            return False
+    if close_at is not None:
+        if close_at.tzinfo is None:
+            close_at = close_at.replace(tzinfo=timezone.utc)
+        if now > close_at:
+            return False
     return True
 
 

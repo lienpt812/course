@@ -5,3 +5,31 @@ __pycache__/
 .env
 .git/
 .gitignore
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local development and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Frontend dependencies and build outputs
+node_modules/
+fe_new/node_modules/
+fe_new/dist/
+
+# Keep image focused on runtime app files
+tests/
+docs/
+*.md

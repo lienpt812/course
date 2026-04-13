@@ -476,7 +476,7 @@ export function InstructorDashboard() {
                       </td>
                       <td className="px-6 py-4">
                         <Link to={`/courses/${course.id}`} className="text-sm text-emerald-700 hover:underline">
-                          Quản Lý
+                          Chỉnh Sửa
                         </Link>
                       </td>
                     </tr>

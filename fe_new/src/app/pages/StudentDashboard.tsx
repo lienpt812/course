@@ -1,23 +1,50 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
-import { BookOpen, Clock, Award, TrendingUp } from 'lucide-react';
-import { courseApi, dashboardApi, registrationApi, CourseItem, RegistrationItem } from '../lib/api';
+import { BookOpen, Clock, Award, TrendingUp, ExternalLink, PlayCircle, CheckCircle, BookMarked } from 'lucide-react';
+import { courseApi, dashboardApi, registrationApi, learningApi, CourseItem, RegistrationItem } from '../lib/api';
 import { RegistrationStatusBadge } from '../components/RegistrationStatusBadge';
 import { InsightModal } from '../components/InsightModal';
+
+interface CertificateItem {
+  id: number;
+  course_id: number;
+  verification_code: string;
+  issued_at: string;
+  pdf_url?: string;
+}
+
+type ProgressMap = Record<number, number>; // courseId -> completion_pct
 
 export function StudentDashboard() {
   const [stats, setStats] = useState<{ current_courses: number; registration_history: number } | null>(null);
   const [registrations, setRegistrations] = useState<RegistrationItem[]>([]);
   const [courses, setCourses] = useState<CourseItem[]>([]);
+  const [certificates, setCertificates] = useState<CertificateItem[]>([]);
+  const [progressMap, setProgressMap] = useState<ProgressMap>({});
   const [error, setError] = useState('');
   const [selectedInsight, setSelectedInsight] = useState<'learning' | 'pending' | 'waitlist' | 'history' | null>(null);
 
   useEffect(() => {
-    Promise.all([dashboardApi.student(), registrationApi.list(), courseApi.list()])
-      .then(([studentStats, registrationItems, courseItems]) => {
+    Promise.all([dashboardApi.student(), registrationApi.list(), courseApi.list(), learningApi.myCertificates()])
+      .then(async ([studentStats, registrationItems, courseItems, certItems]) => {
         setStats(studentStats);
         setRegistrations(registrationItems);
         setCourses(courseItems);
+        setCertificates(certItems as CertificateItem[]);
+
+        // Fetch progress for all confirmed courses
+        const confirmedIds = (registrationItems as RegistrationItem[])
+          .filter((r) => r.status === 'CONFIRMED')
+          .map((r) => r.course_id);
+
+        if (confirmedIds.length > 0) {
+          const results = await Promise.allSettled(
+            confirmedIds.map((id) => learningApi.progress(id).then((p) => ({ id, pct: p.completion_pct })))
+          );
+          const map: ProgressMap = {};
+          results.forEach((r) => { if (r.status === 'fulfilled') map[r.value.id] = r.value.pct; });
+          setProgressMap(map);
+        }
       })
       .catch((err) => setError(err instanceof Error ? err.message : 'Không tải được dashboard'));
   }, []);
@@ -28,6 +55,7 @@ export function StudentDashboard() {
     return map;
   }, [courses]);
 
+  const certCourseIds = useMemo(() => new Set(certificates.map((c) => c.course_id)), [certificates]);
   const confirmedRegs = registrations.filter((r) => r.status === 'CONFIRMED');
   const insightText = (() => {
     if (!selectedInsight) return '';
@@ -98,34 +126,113 @@ export function StudentDashboard() {
 
         {confirmedRegs.length > 0 && (
           <div className="mb-12">
-            <h2 className="text-2xl mb-6">Khóa Học Đang Học</h2>
-            <div className="space-y-4">
+            <h2 className="text-2xl mb-6">Khóa Học Của Tôi</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {confirmedRegs.map((reg) => {
                 const course = courseById.get(reg.course_id);
                 if (!course) return null;
+                const isCompleted = certCourseIds.has(reg.course_id);
+                const pct = progressMap[reg.course_id] ?? 0;
 
                 return (
-                  <div key={reg.id} className="bg-white border border-neutral-200 p-6">
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg mb-1">{course.title}</h3>
-                        <div className="text-sm text-neutral-600">{course.category || 'General'}</div>
+                  <div key={reg.id} className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                    {/* Course image */}
+                    {course.image_url ? (
+                      <img src={course.image_url} alt={course.title} className="w-full h-32 object-cover rounded-xl mb-4" />
+                    ) : (
+                      <div className="w-full h-32 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl mb-4 flex items-center justify-center">
+                        <BookOpen className="w-10 h-10 text-emerald-400" />
+                      </div>
+                    )}
+
+                    <div className="text-xs text-neutral-500 mb-1">{course.category || 'General'} • {course.level}</div>
+                    <h3 className="font-semibold text-neutral-900 mb-3 line-clamp-2">{course.title}</h3>
+
+                    {isCompleted ? (
+                      // Đã hoàn thành
+                      <>
+                        <div className="h-1.5 bg-emerald-100 rounded-full mb-2">
+                          <div className="h-full bg-emerald-500 rounded-full w-full" />
+                        </div>
+                        <div className="flex items-center justify-between text-xs text-neutral-500 mb-3">
+                          <span>Tiến trình</span>
+                          <span className="text-emerald-600 font-medium">100%</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 w-full py-2 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium">
+                          <CheckCircle className="w-4 h-4" />
+                          Đã hoàn thành
+                        </div>
+                      </>
+                    ) : (
+                      // Đang học
+                      <>
+                        <div className="h-1.5 bg-neutral-100 rounded-full mb-2">
+                          <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                        </div>
+                        <div className="flex items-center justify-between text-xs text-neutral-500 mb-3">
+                          <span>Tiến trình</span>
+                          <span className="text-emerald-600 font-medium">{pct}%</span>
+                        </div>
                         <Link
                           to={`/learn/${course.id}`}
-                          className="inline-block mt-4 px-6 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                          className="flex items-center justify-center gap-2 w-full py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm font-medium"
                         >
-                          Tiếp Tục Học
+                          <PlayCircle className="w-4 h-4" />
+                          Tiếp tục học
                         </Link>
-                      </div>
-
-                      <RegistrationStatusBadge status={reg.status as any} />
-                    </div>
+                      </>
+                    )}
                   </div>
                 );
               })}
             </div>
           </div>
         )}
+
+        <div>
+          <h2 className="text-2xl mb-6">Chứng Chỉ Của Tôi</h2>
+          {certificates.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+              {certificates.map((cert) => {
+                const course = courseById.get(cert.course_id);
+                return (
+                  <div key={cert.id} className="bg-white border border-yellow-200 rounded-2xl p-6 shadow-sm">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-yellow-500" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-neutral-900 text-sm line-clamp-2">
+                          {course?.title ?? `Khóa học #${cert.course_id}`}
+                        </p>
+                        <p className="text-xs text-neutral-500 mt-0.5">
+                          Cấp ngày: {new Date(cert.issued_at).toLocaleDateString('vi-VN')}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-xs text-neutral-400 font-mono bg-neutral-50 rounded-lg px-3 py-2 mb-3 truncate">
+                      Mã: {cert.verification_code}
+                    </div>
+                    <a
+                      href={`/api/v1/certificates/verify/${cert.verification_code}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-emerald-700 hover:text-emerald-900 font-medium"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      Xác minh chứng chỉ
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="bg-white border border-neutral-100 rounded-2xl p-8 text-center text-neutral-500 mb-12">
+              <Award className="w-10 h-10 mx-auto mb-3 text-neutral-300" />
+              <p>Bạn chưa có chứng chỉ nào. Hoàn thành khóa học để nhận chứng chỉ!</p>
+            </div>
+          )}
+        </div>
 
         <div>
           <h2 className="text-2xl mb-6">Lịch Sử Đăng Ký</h2>

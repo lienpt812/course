@@ -1,25 +1,77 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Search, SlidersHorizontal } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { CourseCard } from '../components/CourseCard';
-import { courseApi, CourseItem } from '../lib/api';
+import { courseApi, registrationApi, learningApi, CourseItem, RegistrationItem } from '../lib/api';
 
 type CourseLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 
+interface CertItem { course_id: number; }
+interface ProgressMap { [courseId: number]: number; } // courseId -> completion_pct
+
 export function CoursesPage() {
   const [courses, setCourses] = useState<CourseItem[]>([]);
+  const [registrations, setRegistrations] = useState<RegistrationItem[]>([]);
+  const [certificates, setCertificates] = useState<CertItem[]>([]);
+  const [progressMap, setProgressMap] = useState<ProgressMap>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedLevel, setSelectedLevel] = useState<CourseLevel | 'all'>('all');
 
+  const isLoggedIn = !!localStorage.getItem('access_token');
+
   useEffect(() => {
-    courseApi
-      .list()
-      .then((items) => setCourses(items))
+    const baseRequests: Promise<any>[] = [courseApi.list()];
+
+    if (isLoggedIn) {
+      baseRequests.push(registrationApi.list());
+      baseRequests.push(learningApi.myCertificates());
+    }
+
+    Promise.all(baseRequests)
+      .then(async ([courseItems, regItems, certItems]) => {
+        setCourses(courseItems);
+
+        if (isLoggedIn) {
+          setRegistrations(regItems ?? []);
+          setCertificates((certItems ?? []) as CertItem[]);
+
+          // Fetch progress for confirmed courses
+          const confirmedCourseIds = (regItems as RegistrationItem[])
+            .filter((r) => r.status === 'CONFIRMED')
+            .map((r) => r.course_id);
+
+          if (confirmedCourseIds.length > 0) {
+            const progressResults = await Promise.allSettled(
+              confirmedCourseIds.map((id) => learningApi.progress(id).then((p) => ({ id, pct: p.completion_pct })))
+            );
+            const map: ProgressMap = {};
+            progressResults.forEach((r) => {
+              if (r.status === 'fulfilled') map[r.value.id] = r.value.pct;
+            });
+            setProgressMap(map);
+          }
+        }
+      })
       .catch((err) => setError(err instanceof Error ? err.message : 'Không tải được khóa học'))
       .finally(() => setIsLoading(false));
   }, []);
+
+  const certCourseIds = useMemo(() => new Set(certificates.map((c) => c.course_id)), [certificates]);
+
+  // Map courseId -> registration
+  const regByCourse = useMemo(() => {
+    const map = new Map<number, RegistrationItem>();
+    registrations.forEach((r) => {
+      // Keep the most relevant status (CONFIRMED > PENDING > WAITLIST > others)
+      const existing = map.get(r.course_id);
+      if (!existing) { map.set(r.course_id, r); return; }
+      const priority = (s: string) => s === 'CONFIRMED' ? 4 : s === 'WAITLIST' ? 3 : s === 'PENDING' ? 2 : 1;
+      if (priority(r.status) > priority(existing.status)) map.set(r.course_id, r);
+    });
+    return map;
+  }, [registrations]);
 
   const categories = useMemo(
     () => Array.from(new Set(courses.map((c) => c.category || 'General'))),
@@ -27,11 +79,11 @@ export function CoursesPage() {
   );
 
   const filteredCourses = courses.filter((course) => {
-    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch =
+      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || (course.category || 'General') === selectedCategory;
     const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
-
     return matchesSearch && matchesCategory && matchesLevel;
   });
 
@@ -68,7 +120,7 @@ export function CoursesPage() {
                 className="w-full px-3 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50/40 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
               >
                 <option value="all">Tất cả danh mục</option>
-                {categories.map(cat => (
+                {categories.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
               </select>
@@ -90,23 +142,32 @@ export function CoursesPage() {
           </div>
         </div>
 
-        {/* Results */}
-        <div className="mb-5">
-          <div className="text-neutral-600 text-sm">
-            Tìm thấy <span className="text-neutral-900">{filteredCourses.length}</span> khóa học
-          </div>
+        <div className="mb-5 text-neutral-600 text-sm">
+          Tìm thấy <span className="text-neutral-900">{filteredCourses.length}</span> khóa học
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
-          {filteredCourses.map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCourses.map((course) => {
+            const reg = regByCourse.get(course.id);
+            const isCompleted = certCourseIds.has(course.id);
+            const pct = progressMap[course.id] ?? null;
+
+            return (
+              <CourseCard
+                key={course.id}
+                course={course}
+                registrationStatus={reg?.status ?? null}
+                progressPct={pct}
+                isCompleted={isCompleted}
+              />
+            );
+          })}
         </div>
 
         {isLoading && <p className="text-neutral-500 mt-6">Đang tải khóa học...</p>}
         {error && <p className="text-red-600 mt-6">{error}</p>}
 
-        {filteredCourses.length === 0 && (
+        {!isLoading && filteredCourses.length === 0 && (
           <div className="text-center py-20">
             <div className="text-neutral-400 mb-2">Không tìm thấy khóa học phù hợp</div>
             <div className="text-sm text-neutral-500">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</div>

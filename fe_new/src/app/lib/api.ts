@@ -252,6 +252,26 @@ export const courseApi = {
       body: JSON.stringify(payload),
     });
   },
+  async update(courseId: number, payload: {
+    title?: string;
+    description?: string;
+    image_url?: string;
+    category?: string;
+    max_capacity?: number;
+    estimated_hours?: number;
+    level?: string;
+    status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | 'COMING_SOON';
+    price?: number;
+    prerequisites?: string;
+    registration_open_at?: string;
+    registration_close_at?: string;
+    certificate_enabled?: boolean;
+  }) {
+    return request<CourseDetail>(`/courses/${courseId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    });
+  },
 };
 
 export const registrationApi = {
@@ -360,13 +380,31 @@ export const learningApi = {
     );
   },
   async upsertProgress(payload: { lesson_id: number; completion_pct: number }) {
-    return request<{ id: number; lesson_id: number; completion_pct: number; completed: boolean; certificate_issued?: boolean }>(
+    return request<{ id: number; lesson_id: number; completion_pct: number; completed: boolean; certificate_issued?: boolean; certificate_id?: number }>(
       '/learning/progress',
       {
         method: 'POST',
         body: JSON.stringify(payload),
       }
     );
+  },
+  async myCertificates() {
+    return request<Array<{
+      id: number;
+      course_id: number;
+      verification_code: string;
+      issued_at: string;
+      pdf_url?: string;
+    }>>('/certificates/me');
+  },
+  async issueCertificate(courseId: number) {
+    return request<{
+      id: number;
+      course_id: number;
+      verification_code: string;
+      issued_at: string;
+      pdf_url?: string;
+    }>(`/certificates/issue/${courseId}`, { method: 'POST' });
   },
 };
 
