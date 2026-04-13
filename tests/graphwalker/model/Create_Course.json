@@ -1,1 +1,104 @@
-{"models":[{"name":"Create_Course","generator":"random(edge_coverage(100))","startElementId":"e_InitInstructor","vertices":[{"id":"v_InstructorDashboard","name":"v_InstructorDashboard","sharedState":"INSTRUCTOR_START","description":"Màn hình chính của giảng viên","properties":{"x":840.281711576389,"y":179.83889030048178}},{"id":"v_RegistrationForm","name":"v_RegistrationForm","actions":["isDataValid = false;"],"description":"Form đăng ký khóa học đang hiển thị","properties":{"x":1002.7812962045241,"y":351.3051567263438}},{"id":"v_ValidationErrorHint","name":"v_ValidationErrorHint","description":"Hiển thị các thông báo lỗi đỏ tại các trường bắt buộc","properties":{"x":1326.1431342511837,"y":535.4845790261763}},{"id":"v_CourseDetailDisplay","name":"v_CourseDetailDisplay","description":"Màn hình hiển thị thông tin khóa học sau khi tạo thành công","properties":{"x":762.8662588354623,"y":593.5207078614727}}],"edges":[{"id":"e_InitInstructor","sourceVertexId":null,"targetVertexId":"v_InstructorDashboard","name":"e_Init"},{"id":"e_ClickRegister","sourceVertexId":"v_InstructorDashboard","targetVertexId":"v_RegistrationForm","name":"e_ClickRegisterCourseButton"},{"id":"e_SubmitMissingInfo","sourceVertexId":"v_RegistrationForm","targetVertexId":"v_ValidationErrorHint","name":"e_SubmitInvalidForm","guard":"isDataValid == false","description":"Giảng viên để trống các trường bắt buộc"},{"id":"e_SubmitValidInfo","sourceVertexId":"v_RegistrationForm","targetVertexId":"v_CourseDetailDisplay","name":"e_SubmitValidForm","guard":"isDataValid == true","description":"Điền đầy đủ thông tin hợp lệ"},{"id":"e_FixData","sourceVertexId":"v_ValidationErrorHint","targetVertexId":"v_RegistrationForm","name":"e_InputRequiredFields","actions":["isDataValid = true;"],"description":"Giảng viên quay lại điền bù các thông tin thiếu"},{"id":"e_CreateAnother","sourceVertexId":"v_CourseDetailDisplay","targetVertexId":"v_InstructorDashboard","name":"e_BackToDashboard"}],"id":"ef1239ea-09f5-4307-8273-f4e64904be13"}],"selectedModelIndex":0,"selectedElementId":null}
+{
+  "name": "InstructorCourseRegistrationModel",
+  "models": [
+    {
+      "id": "CourseRegistration",
+      "name": "CourseRegistration",
+      "generator": "random(edge_coverage(100))",
+      "startElement": "v_InstructorDashboard",
+      "vertices": [
+        {
+          "id": "v_Start",
+          "name": "v_Start",
+          "properties": {
+            "description": "Starting point"
+          }
+        },
+        {
+          "id": "v_InstructorDashboard",
+          "name": "v_InstructorDashboard",
+          "properties": {
+            "description": "Instructor is on the Dashboard"
+          }
+        },
+        {
+          "id": "v_RegistrationForm",
+          "name": "v_RegistrationForm",
+          "properties": {
+            "description": "Registration form is displayed"
+          }
+        },
+        {
+          "id": "v_CourseDetailDisplay",
+          "name": "v_CourseDetailDisplay",
+          "properties": {
+            "description": "Course detail page is shown (optional)"
+          }
+        },
+        {
+          "id": "v_ValidationErrorHint",
+          "name": "v_ValidationErrorHint",
+          "properties": {
+            "description": "Validation error message is shown"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_Init",
+          "name": "e_Init",
+          "sourceVertexId": "v_Start",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Initialize and go to Dashboard"
+          }
+        },
+        {
+          "id": "e_ClickRegisterCourseButton",
+          "name": "e_ClickRegisterCourseButton",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_RegistrationForm",
+          "properties": {
+            "description": "Click button to open registration form"
+          }
+        },
+        {
+          "id": "e_SubmitValidForm",
+          "name": "e_SubmitValidForm",
+          "sourceVertexId": "v_RegistrationForm",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Submit valid form → back to Dashboard with new course"
+          }
+        },
+        {
+          "id": "e_SubmitInvalidForm",
+          "name": "e_SubmitInvalidForm",
+          "sourceVertexId": "v_RegistrationForm",
+          "targetVertexId": "v_ValidationErrorHint",
+          "properties": {
+            "description": "Submit invalid form → show validation error"
+          }
+        },
+        {
+          "id": "e_InputRequiredFields",
+          "name": "e_InputRequiredFields",
+          "sourceVertexId": "v_RegistrationForm",
+          "targetVertexId": "v_ValidationErrorHint",
+          "properties": {
+            "description": "Input missing required fields"
+          }
+        },
+        {
+          "id": "e_BackToDashboard",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_CourseDetailDisplay",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Back to Dashboard from course detail"
+          }
+        }
+      ]
+    }
+  ]
+}
