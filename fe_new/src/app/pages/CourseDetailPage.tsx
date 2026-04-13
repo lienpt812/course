@@ -246,7 +246,8 @@ export function CourseDetailPage() {
 
   const authUserRaw = localStorage.getItem('auth_user');
   const authUser = authUserRaw ? JSON.parse(authUserRaw) : null;
-  const isInstructor = authUser?.role === 'INSTRUCTOR' || authUser?.role === 'ADMIN';
+  // Chỉ instructor mới được chỉnh sửa, và chỉ khóa học của chính mình
+  const isInstructor = authUser?.role === 'INSTRUCTOR' && course?.instructor_id === authUser?.id;
 
   useEffect(() => {
     if (!courseId) return;

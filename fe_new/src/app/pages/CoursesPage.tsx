@@ -20,6 +20,10 @@ export function CoursesPage() {
   const [selectedLevel, setSelectedLevel] = useState<CourseLevel | 'all'>('all');
 
   const isLoggedIn = !!localStorage.getItem('access_token');
+  const authUser = (() => {
+    try { return JSON.parse(localStorage.getItem('auth_user') || 'null'); } catch { return null; }
+  })();
+  const userRole = authUser?.role ?? null;
 
   useEffect(() => {
     const baseRequests: Promise<any>[] = [courseApi.list()];
@@ -156,6 +160,7 @@ export function CoursesPage() {
               <CourseCard
                 key={course.id}
                 course={course}
+                userRole={userRole}
                 registrationStatus={reg?.status ?? null}
                 progressPct={pct}
                 isCompleted={isCompleted}

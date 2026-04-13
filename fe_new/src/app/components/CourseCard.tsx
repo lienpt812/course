@@ -1,29 +1,49 @@
 import { Link } from 'react-router';
-import { BookOpen, Users, User, Clock3, CheckCircle, PlayCircle, BookMarked } from 'lucide-react';
-import { CourseItem } from '../lib/api';
+import { BookOpen, Users, User, Clock3, CheckCircle, PlayCircle, BookMarked, Settings } from 'lucide-react';
+import { CourseItem, UserRole } from '../lib/api';
 
 interface Props {
   course: CourseItem;
-  registrationStatus?: string | null; // PENDING | CONFIRMED | WAITLIST | CANCELLED | null
-  progressPct?: number | null;        // 0-100, only when CONFIRMED
-  isCompleted?: boolean;              // true when progress = 100 and has cert
+  userRole?: UserRole | null;
+  registrationStatus?: string | null;
+  progressPct?: number | null;
+  isCompleted?: boolean;
 }
 
 function formatPrice(price: number | undefined): string {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price ?? 0);
 }
 
-export function CourseCard({ course, registrationStatus, progressPct, isCompleted }: Props) {
+export function CourseCard({ course, userRole, registrationStatus, progressPct, isCompleted }: Props) {
+  const isStudent = !userRole || userRole === 'STUDENT' || userRole === 'GUEST';
+  const isAdminOrInstructor = userRole === 'ADMIN' || userRole === 'INSTRUCTOR';
+
   const isConfirmed = registrationStatus === 'CONFIRMED';
   const isPending = registrationStatus === 'PENDING' || registrationStatus === 'WAITLIST';
   const isNotRegistered = !registrationStatus || registrationStatus === 'CANCELLED' || registrationStatus === 'REJECTED' || registrationStatus === 'EXPIRED';
 
   const renderStatus = () => {
+    // Admin/Instructor: chỉ hiện nút quản lý
+    if (isAdminOrInstructor) {
+      return (
+        <div className="mt-3">
+          <Link
+            to={`/courses/${course.id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center gap-1.5 w-full py-2 bg-neutral-100 text-neutral-700 text-sm rounded-lg hover:bg-neutral-200 transition-colors font-medium"
+          >
+            <Settings className="w-4 h-4" />
+            Xem chi tiết
+          </Link>
+        </div>
+      );
+    }
+
     // Đã hoàn thành
     if (isCompleted) {
       return (
-        <div className="flex items-center gap-2 mt-3">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm font-medium w-full justify-center">
+        <div className="mt-3">
+          <div className="flex items-center justify-center gap-1.5 w-full py-2 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm font-medium">
             <CheckCircle className="w-4 h-4" />
             Đã hoàn thành
           </div>
@@ -31,7 +51,7 @@ export function CourseCard({ course, registrationStatus, progressPct, isComplete
       );
     }
 
-    // Đang học (CONFIRMED, chưa hoàn thành)
+    // Đang học
     if (isConfirmed) {
       const pct = progressPct ?? 0;
       return (
@@ -41,10 +61,7 @@ export function CourseCard({ course, registrationStatus, progressPct, isComplete
             <span className="font-medium text-emerald-700">{pct}%</span>
           </div>
           <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-emerald-500 rounded-full transition-all"
-              style={{ width: `${pct}%` }}
-            />
+            <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
           </div>
           <Link
             to={`/learn/${course.id}`}
@@ -70,8 +87,8 @@ export function CourseCard({ course, registrationStatus, progressPct, isComplete
       );
     }
 
-    // Chưa đăng ký
-    if (isNotRegistered) {
+    // Chưa đăng ký (chỉ student)
+    if (isStudent && isNotRegistered) {
       return (
         <div className="mt-3">
           <Link
