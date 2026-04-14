@@ -246,8 +246,8 @@ export function CourseDetailPage() {
 
   const authUserRaw = localStorage.getItem('auth_user');
   const authUser = authUserRaw ? JSON.parse(authUserRaw) : null;
-  // Chỉ instructor mới được chỉnh sửa, và chỉ khóa học của chính mình
-  const isInstructor = authUser?.role === 'INSTRUCTOR' && course?.instructor_id === authUser?.id;
+  // Chỉ instructor mới được chỉnh sửa, chỉ khóa của mình, và chỉ khi chưa published
+  const isInstructor = authUser?.role === 'INSTRUCTOR' && course?.instructor_id === authUser?.id && course?.status !== 'PUBLISHED';
 
   useEffect(() => {
     if (!courseId) return;
@@ -357,6 +357,11 @@ export function CourseDetailPage() {
           >
             Chỉnh sửa
           </button>
+        )}
+        {authUser?.role === 'INSTRUCTOR' && course?.instructor_id === authUser?.id && course?.status === 'PUBLISHED' && (
+          <span className="ml-4 text-sm text-amber-600 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl">
+            Khóa học đã published — không thể chỉnh sửa
+          </span>
         )}
       </div>
 
