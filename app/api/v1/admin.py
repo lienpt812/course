@@ -9,7 +9,13 @@ from app.db.session import get_db
 from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.common import success_response
-from app.services.seed_service import ensure_base_course, ensure_demo_courses, get_or_create_demo_instructor
+from app.services.seed_service import (
+    ensure_altwalker_e2e_fixtures,
+    ensure_base_course,
+    ensure_demo_courses,
+    ensure_mbt_pending_registration_sample,
+    get_or_create_demo_instructor,
+)
 from app.services.registration_service import auto_expire_pending, cancel_registrations_for_banned_user
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -32,9 +38,19 @@ def seed_data(
     instructor = get_or_create_demo_instructor(db)
     base_created = ensure_base_course(db, instructor.id)
     seed_result = ensure_demo_courses(db, instructor.id, total=10)
+    altwalker_fixtures = ensure_altwalker_e2e_fixtures(db)
+    pending_sample = ensure_mbt_pending_registration_sample(db)
 
     db.commit()
-    return success_response(data={"seeded": True, "base_course_created": base_created, "courses": seed_result})
+    return success_response(
+        data={
+            "seeded": True,
+            "base_course_created": base_created,
+            "courses": seed_result,
+            "altwalker": altwalker_fixtures,
+            "mbt_pending": pending_sample,
+        }
+    )
 
 
 @router.post("/seed/courses")

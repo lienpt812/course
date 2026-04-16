@@ -1,0 +1,115 @@
+{
+  "models": [
+    {
+      "id": "StudentDashboardModel",
+      "name": "StudentDashboard",
+      "generator": "quick_random(edge_coverage(100))",
+      "startElementId": "v_StudentDashboard",
+      "vertices": [
+        {
+          "id": "v_StudentDashboard",
+          "name": "v_StudentDashboard"
+        },
+        {
+          "id": "v_StatModal",
+          "name": "v_StatModal"
+        },
+        {
+          "id": "v_EnrolledCoursesSection",
+          "name": "v_EnrolledCoursesSection"
+        },
+        {
+          "id": "v_InProgressLearnPage",
+          "name": "v_InProgressLearnPage"
+        },
+        {
+          "id": "v_CompletedCourseView",
+          "name": "v_CompletedCourseView"
+        },
+        {
+          "id": "v_RegistrationHistoryView",
+          "name": "v_RegistrationHistoryView"
+        },
+        {
+          "id": "v_CertificateVerifyView",
+          "name": "v_CertificateVerifyView"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenStatModal",
+          "name": "e_OpenStatModal",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_StatModal"
+        },
+        {
+          "id": "e_CloseStatModal",
+          "name": "e_CloseStatModal",
+          "sourceVertexId": "v_StatModal",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_ViewEnrolledCoursesSection",
+          "name": "e_ViewEnrolledCoursesSection",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_EnrolledCoursesSection"
+        },
+        {
+          "id": "e_ContinueLearning",
+          "name": "e_ContinueLearning",
+          "sourceVertexId": "v_EnrolledCoursesSection",
+          "targetVertexId": "v_InProgressLearnPage"
+        },
+        {
+          "id": "e_BackFromLearning",
+          "name": "e_BackFromLearning",
+          "sourceVertexId": "v_InProgressLearnPage",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_ViewCompletedCourse",
+          "name": "e_ViewCompletedCourse",
+          "sourceVertexId": "v_EnrolledCoursesSection",
+          "targetVertexId": "v_CompletedCourseView"
+        },
+        {
+          "id": "e_VerifyMyCertificate",
+          "name": "e_VerifyMyCertificate",
+          "sourceVertexId": "v_CompletedCourseView",
+          "targetVertexId": "v_CertificateVerifyView"
+        },
+        {
+          "id": "e_BackFromCertVerify",
+          "name": "e_BackFromCertVerify",
+          "sourceVertexId": "v_CertificateVerifyView",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_ViewRegistrationHistory",
+          "name": "e_ViewRegistrationHistory",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_RegistrationHistoryView"
+        },
+        {
+          "id": "e_ClickRegistrationDetailRow",
+          "name": "e_ClickRegistrationDetailRow",
+          "sourceVertexId": "v_RegistrationHistoryView",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_BackFromEnrolledSection",
+          "name": "e_BackFromEnrolledSection",
+          "sourceVertexId": "v_EnrolledCoursesSection",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_BackFromCompletedCourse",
+          "name": "e_BackFromCompletedCourse",
+          "sourceVertexId": "v_CompletedCourseView",
+          "targetVertexId": "v_StudentDashboard"
+        }
+      ]
+    }
+  ],
+  "selectedModelIndex": 0
+}

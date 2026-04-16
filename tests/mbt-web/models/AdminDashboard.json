@@ -1,0 +1,121 @@
+{
+  "models": [
+    {
+      "id": "AdminDashboardModel",
+      "name": "AdminDashboard",
+      "generator": "quick_random(edge_coverage(100))",
+      "startElementId": "v_AdminDashboard",
+      "vertices": [
+        {
+          "id": "v_AdminDashboard",
+          "name": "v_AdminDashboard"
+        },
+        {
+          "id": "v_AdminStatModal",
+          "name": "v_AdminStatModal"
+        },
+        {
+          "id": "v_RegistrationsFiltered",
+          "name": "v_RegistrationsFiltered"
+        },
+        {
+          "id": "v_PendingRegistrationRow",
+          "name": "v_PendingRegistrationRow"
+        },
+        {
+          "id": "v_RegistrationApproved",
+          "name": "v_RegistrationApproved"
+        },
+        {
+          "id": "v_RegistrationRejected",
+          "name": "v_RegistrationRejected"
+        },
+        {
+          "id": "v_BulkApproveProcessed",
+          "name": "v_BulkApproveProcessed"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenAdminStatModal",
+          "name": "e_OpenAdminStatModal",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_AdminStatModal"
+        },
+        {
+          "id": "e_CloseAdminStatModal",
+          "name": "e_CloseAdminStatModal",
+          "sourceVertexId": "v_AdminStatModal",
+          "targetVertexId": "v_AdminDashboard"
+        },
+        {
+          "id": "e_FilterByCourseId",
+          "name": "e_FilterByCourseId",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_RegistrationsFiltered"
+        },
+        {
+          "id": "e_FilterByStatusPending",
+          "name": "e_FilterByStatusPending",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_RegistrationsFiltered"
+        },
+        {
+          "id": "e_ClearFilters",
+          "name": "e_ClearFilters",
+          "sourceVertexId": "v_RegistrationsFiltered",
+          "targetVertexId": "v_AdminDashboard"
+        },
+        {
+          "id": "e_SelectPendingRow",
+          "name": "e_SelectPendingRow",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_PendingRegistrationRow"
+        },
+        {
+          "id": "e_ApproveSelectedRegistration",
+          "name": "e_ApproveSelectedRegistration",
+          "sourceVertexId": "v_PendingRegistrationRow",
+          "targetVertexId": "v_RegistrationApproved"
+        },
+        {
+          "id": "e_RejectSelectedRegistration",
+          "name": "e_RejectSelectedRegistration",
+          "sourceVertexId": "v_PendingRegistrationRow",
+          "targetVertexId": "v_RegistrationRejected"
+        },
+        {
+          "id": "e_BackToDashboardFromApproved",
+          "name": "e_BackToDashboardFromApproved",
+          "sourceVertexId": "v_RegistrationApproved",
+          "targetVertexId": "v_AdminDashboard"
+        },
+        {
+          "id": "e_BackToDashboardFromRejected",
+          "name": "e_BackToDashboardFromRejected",
+          "sourceVertexId": "v_RegistrationRejected",
+          "targetVertexId": "v_AdminDashboard"
+        },
+        {
+          "id": "e_BulkApproveAllPending",
+          "name": "e_BulkApproveAllPending",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_BulkApproveProcessed"
+        },
+        {
+          "id": "e_BulkApproveFiltered",
+          "name": "e_BulkApproveFiltered",
+          "sourceVertexId": "v_RegistrationsFiltered",
+          "targetVertexId": "v_BulkApproveProcessed"
+        },
+        {
+          "id": "e_BackToDashboardFromBulk",
+          "name": "e_BackToDashboardFromBulk",
+          "sourceVertexId": "v_BulkApproveProcessed",
+          "targetVertexId": "v_AdminDashboard"
+        }
+      ]
+    }
+  ],
+  "selectedModelIndex": 0
+}

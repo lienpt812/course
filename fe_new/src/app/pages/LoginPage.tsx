@@ -80,6 +80,11 @@ export function LoginPage() {
               Đăng ký ngay
             </Link>
           </p>
+          <p className="text-sm text-neutral-600 text-center">
+            <Link to="/forgot-password" className="text-emerald-700 hover:underline">
+              Quên mật khẩu?
+            </Link>
+          </p>
         </form>
       </div>
     </div>

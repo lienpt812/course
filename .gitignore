@@ -58,3 +58,26 @@ frontend/dist/
 .pytest_cache/
 .tox/
 .nox/
+
+# GraphWalker CLI (tải bởi LmsGraphWalkerTests/run-graphwalker.ps1)
+LmsGraphWalkerTests/tools/graphwalker-cli-*.jar
+
+# .NET build output
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+**/.vs/
+TestResults/
+**/TestResults/
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# AltWalker / Java test runner binaries
+tests/altwalker/bin/
+
+# codetest Java Maven build
+codetest/java/target/

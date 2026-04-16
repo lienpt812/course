@@ -1,0 +1,99 @@
+{
+  "models": [
+    {
+      "id": "LearningPageModel",
+      "name": "LearningPage",
+      "generator": "quick_random(edge_coverage(100))",
+      "startElementId": "v_StudentDashboard",
+      "vertices": [
+        {
+          "id": "v_StudentDashboard",
+          "name": "v_StudentDashboard"
+        },
+        {
+          "id": "v_LearningPageOutline",
+          "name": "v_LearningPageOutline"
+        },
+        {
+          "id": "v_LessonContent",
+          "name": "v_LessonContent"
+        },
+        {
+          "id": "v_LessonCompleted",
+          "name": "v_LessonCompleted"
+        },
+        {
+          "id": "v_AllLessonsCompleted",
+          "name": "v_AllLessonsCompleted"
+        },
+        {
+          "id": "v_CertificateEarned",
+          "name": "v_CertificateEarned"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenLearnPage",
+          "name": "e_OpenLearnPage",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_LearningPageOutline"
+        },
+        {
+          "id": "e_SelectFirstLesson",
+          "name": "e_SelectFirstLesson",
+          "sourceVertexId": "v_LearningPageOutline",
+          "targetVertexId": "v_LessonContent"
+        },
+        {
+          "id": "e_MarkLessonAsComplete",
+          "name": "e_MarkLessonAsComplete",
+          "sourceVertexId": "v_LessonContent",
+          "targetVertexId": "v_LessonCompleted"
+        },
+        {
+          "id": "e_SelectNextLesson",
+          "name": "e_SelectNextLesson",
+          "sourceVertexId": "v_LessonCompleted",
+          "targetVertexId": "v_LessonContent"
+        },
+        {
+          "id": "e_FinishLastLesson",
+          "name": "e_FinishLastLesson",
+          "sourceVertexId": "v_LessonCompleted",
+          "targetVertexId": "v_AllLessonsCompleted"
+        },
+        {
+          "id": "e_IssueCourseCompletion",
+          "name": "e_IssueCourseCompletion",
+          "sourceVertexId": "v_AllLessonsCompleted",
+          "targetVertexId": "v_CertificateEarned"
+        },
+        {
+          "id": "e_BackToDashboardFromCert",
+          "name": "e_BackToDashboardFromCert",
+          "sourceVertexId": "v_CertificateEarned",
+          "targetVertexId": "v_StudentDashboard"
+        },
+        {
+          "id": "e_BackToOutlineFromLesson",
+          "name": "e_BackToOutlineFromLesson",
+          "sourceVertexId": "v_LessonContent",
+          "targetVertexId": "v_LearningPageOutline"
+        },
+        {
+          "id": "e_BackToOutlineFromCompleted",
+          "name": "e_BackToOutlineFromCompleted",
+          "sourceVertexId": "v_LessonCompleted",
+          "targetVertexId": "v_LearningPageOutline"
+        },
+        {
+          "id": "e_BackToDashboardFromOutline",
+          "name": "e_BackToDashboardFromOutline",
+          "sourceVertexId": "v_LearningPageOutline",
+          "targetVertexId": "v_StudentDashboard"
+        }
+      ]
+    }
+  ],
+  "selectedModelIndex": 0
+}

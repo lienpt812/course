@@ -206,6 +206,18 @@ export const authApi = {
   async me() {
     return request<AuthUser>('/auth/me');
   },
+  async forgotPassword(email: string) {
+    return request<{ message: string; reset_token?: string }>('/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+  },
+  async resetPassword(token: string, new_password: string) {
+    return request<{ password_reset: boolean }>('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, new_password }),
+    });
+  },
   async updateMe(payload: {
     name?: string;
     phone_number?: string;

@@ -1,0 +1,131 @@
+{
+  "models": [
+    {
+      "id": "InstructorDashboardModel",
+      "name": "InstructorDashboard",
+      "generator": "quick_random(edge_coverage(100))",
+      "startElementId": "v_InstructorDashboard",
+      "vertices": [
+        {
+          "id": "v_InstructorDashboard",
+          "name": "v_InstructorDashboard"
+        },
+        {
+          "id": "v_InstructorStatModal",
+          "name": "v_InstructorStatModal"
+        },
+        {
+          "id": "v_CreateCourseForm",
+          "name": "v_CreateCourseForm"
+        },
+        {
+          "id": "v_DraftCourseCreated",
+          "name": "v_DraftCourseCreated"
+        },
+        {
+          "id": "v_CourseEditPage",
+          "name": "v_CourseEditPage"
+        },
+        {
+          "id": "v_SectionCreatedView",
+          "name": "v_SectionCreatedView"
+        },
+        {
+          "id": "v_LessonCreatedView",
+          "name": "v_LessonCreatedView"
+        },
+        {
+          "id": "v_PublishedCourseView",
+          "name": "v_PublishedCourseView"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenInstructorStatModal",
+          "name": "e_OpenInstructorStatModal",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_InstructorStatModal"
+        },
+        {
+          "id": "e_CloseInstructorStatModal",
+          "name": "e_CloseInstructorStatModal",
+          "sourceVertexId": "v_InstructorStatModal",
+          "targetVertexId": "v_InstructorDashboard"
+        },
+        {
+          "id": "e_OpenCreateCourseForm",
+          "name": "e_OpenCreateCourseForm",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CreateCourseForm"
+        },
+        {
+          "id": "e_SubmitNewCourseForm",
+          "name": "e_SubmitNewCourseForm",
+          "sourceVertexId": "v_CreateCourseForm",
+          "targetVertexId": "v_DraftCourseCreated"
+        },
+        {
+          "id": "e_CancelCreateCourse",
+          "name": "e_CancelCreateCourse",
+          "sourceVertexId": "v_CreateCourseForm",
+          "targetVertexId": "v_InstructorDashboard"
+        },
+        {
+          "id": "e_EditExistingCourse",
+          "name": "e_EditExistingCourse",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CourseEditPage"
+        },
+        {
+          "id": "e_AddSectionToCourse",
+          "name": "e_AddSectionToCourse",
+          "sourceVertexId": "v_CourseEditPage",
+          "targetVertexId": "v_SectionCreatedView"
+        },
+        {
+          "id": "e_AddLessonToSection",
+          "name": "e_AddLessonToSection",
+          "sourceVertexId": "v_SectionCreatedView",
+          "targetVertexId": "v_LessonCreatedView"
+        },
+        {
+          "id": "e_BackToOutlineFromLesson",
+          "name": "e_BackToOutlineFromLesson",
+          "sourceVertexId": "v_LessonCreatedView",
+          "targetVertexId": "v_CourseEditPage"
+        },
+        {
+          "id": "e_PublishCourse",
+          "name": "e_PublishCourse",
+          "sourceVertexId": "v_CourseEditPage",
+          "targetVertexId": "v_PublishedCourseView"
+        },
+        {
+          "id": "e_BackToDashboardFromEdit",
+          "name": "e_BackToDashboardFromEdit",
+          "sourceVertexId": "v_CourseEditPage",
+          "targetVertexId": "v_InstructorDashboard"
+        },
+        {
+          "id": "e_BackToDashboardFromPublished",
+          "name": "e_BackToDashboardFromPublished",
+          "sourceVertexId": "v_PublishedCourseView",
+          "targetVertexId": "v_InstructorDashboard"
+        },
+        {
+          "id": "e_BackToDashboardFromDraft",
+          "name": "e_BackToDashboardFromDraft",
+          "sourceVertexId": "v_DraftCourseCreated",
+          "targetVertexId": "v_InstructorDashboard"
+        },
+        {
+          "id": "e_EditNewlyCreatedCourse",
+          "name": "e_EditNewlyCreatedCourse",
+          "sourceVertexId": "v_DraftCourseCreated",
+          "targetVertexId": "v_CourseEditPage"
+        }
+      ]
+    }
+  ],
+  "selectedModelIndex": 0
+}
