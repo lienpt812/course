@@ -13,7 +13,9 @@ from app.services.seed_service import (
     ensure_altwalker_e2e_fixtures,
     ensure_base_course,
     ensure_demo_courses,
+    ensure_mbt_graphwalker_fixtures,
     ensure_mbt_pending_registration_sample,
+    ensure_mbt_class_full_pending_scenario,
     get_or_create_demo_instructor,
 )
 from app.services.registration_service import auto_expire_pending, cancel_registrations_for_banned_user
@@ -40,6 +42,8 @@ def seed_data(
     seed_result = ensure_demo_courses(db, instructor.id, total=10)
     altwalker_fixtures = ensure_altwalker_e2e_fixtures(db)
     pending_sample = ensure_mbt_pending_registration_sample(db)
+    mbt_gw = ensure_mbt_graphwalker_fixtures(db)
+    class_full = ensure_mbt_class_full_pending_scenario(db)
 
     db.commit()
     return success_response(
@@ -49,8 +53,44 @@ def seed_data(
             "courses": seed_result,
             "altwalker": altwalker_fixtures,
             "mbt_pending": pending_sample,
+            "mbt_graphwalker": mbt_gw,
+            "mbt_class_full_pending": class_full,
         }
     )
+
+
+@router.post("/seed/class-full-pending")
+def seed_class_full_pending(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """
+    Idempotent seed: khóa capacity=1 đầy slot (mbt.student CONFIRMED) + mbt-pending-student PENDING.
+    Cho phép AdminManagement MBT kiểm tra edge e_SkipApproveClassFull và v_VerifyClassFullForApproval.
+    """
+    _must_be_admin(current_user)
+    instructor = get_or_create_demo_instructor(db)
+    ensure_demo_courses(db, instructor.id, total=10)
+    result = ensure_mbt_class_full_pending_scenario(db)
+    db.commit()
+    return success_response(data={"mbt_class_full_pending": result})
+
+
+@router.post("/seed/mbt-pending")
+def seed_mbt_pending_only(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """
+    Gọi giữa các cạnh GraphWalker (admin) khi đã hết PENDING: đảm bảo 1–2 đơn mẫu,
+    nhẹ hơn POST /admin/seed (vẫn tạo demo courses nếu thiếu).
+    """
+    _must_be_admin(current_user)
+    instructor = get_or_create_demo_instructor(db)
+    ensure_demo_courses(db, instructor.id, total=10)
+    pending = ensure_mbt_pending_registration_sample(db)
+    db.commit()
+    return success_response(data={"mbt_pending": pending})
 
 
 @router.post("/seed/courses")

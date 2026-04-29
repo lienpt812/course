@@ -44,10 +44,17 @@ export function ForgotPasswordPage() {
             />
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && (
+            <p className="text-sm text-red-600" data-testid="forgot-password-form-error">
+              {error}
+            </p>
+          )}
 
           {message && (
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-emerald-800">
+            <div
+              data-testid="forgot-password-success"
+              className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-emerald-800"
+            >
               <p>{message}</p>
               {resetToken && (
                 <p className="mt-2 font-mono text-xs break-all">

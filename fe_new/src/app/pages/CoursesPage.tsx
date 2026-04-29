@@ -108,6 +108,7 @@ export function CoursesPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
                 <input
                   type="text"
+                  data-testid="courses-search-input"
                   placeholder="Tìm khóa học..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -146,11 +147,14 @@ export function CoursesPage() {
           </div>
         </div>
 
-        <div className="mb-5 text-neutral-600 text-sm">
+        <div
+          className="mb-5 text-neutral-600 text-sm"
+          data-testid="courses-count-badge"
+        >
           Tìm thấy <span className="text-neutral-900">{filteredCourses.length}</span> khóa học
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="courses-grid">
           {filteredCourses.map((course) => {
             const reg = regByCourse.get(course.id);
             const isCompleted = certCourseIds.has(course.id);
@@ -169,11 +173,19 @@ export function CoursesPage() {
           })}
         </div>
 
-        {isLoading && <p className="text-neutral-500 mt-6">Đang tải khóa học...</p>}
-        {error && <p className="text-red-600 mt-6">{error}</p>}
+        {isLoading && (
+          <p className="text-neutral-500 mt-6" data-testid="courses-loading">
+            Đang tải khóa học...
+          </p>
+        )}
+        {error && (
+          <p className="text-red-600 mt-6" data-testid="courses-error">
+            {error}
+          </p>
+        )}
 
         {!isLoading && filteredCourses.length === 0 && (
-          <div className="text-center py-20">
+          <div className="text-center py-20" data-testid="courses-empty-state">
             <div className="text-neutral-400 mb-2">Không tìm thấy khóa học phù hợp</div>
             <div className="text-sm text-neutral-500">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</div>
           </div>

@@ -497,6 +497,7 @@ export function InstructorDashboard() {
               <div>
                 <label className="block text-xs mb-1.5 text-emerald-800">Khóa học <span className="text-red-600">*</span></label>
                 <select
+                  data-testid="instructor-manage-course-select"
                   value={selectedCourseId}
                   onChange={(e) => setSelectedCourseId(e.target.value)}
                   className="w-full px-4 py-2.5 border border-emerald-200 rounded-xl bg-emerald-50/40 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"

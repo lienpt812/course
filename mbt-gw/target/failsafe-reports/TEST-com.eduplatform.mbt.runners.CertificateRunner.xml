@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-failsafe-plugin/xsd/failsafe-test-report-3.0.xsd" version="3.0" name="com.eduplatform.mbt.runners.CertificateRunner" time="110.644" tests="1" errors="1" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\TESTING\course\mbt-gw\target\test-classes;D:\TESTING\course\mbt-gw\target\test-web-1.0.0-SNAPSHOT.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-core\4.3.3\graphwalker-core-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\sdk\graal-sdk\22.3.5\graal-sdk-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\js\js\22.3.5\js-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\regex\regex\22.3.5\regex-22.3.5.jar;C:\Users\ADMIN\.m2\repository\com\ibm\icu\icu4j\71.1\icu4j-71.1.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\js\js-scriptengine\22.3.5\js-scriptengine-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\truffle\truffle-api\22.3.5\truffle-api-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-java\4.3.3\graphwalker-java-4.3.3.jar;C:\Users\ADMIN\.m2\repository\io\github\classgraph\classgraph\4.8.174\classgraph-4.8.174.jar;C:\Users\ADMIN\.m2\repository\com\google\code\javaparser\javaparser\1.0.11\javaparser-1.0.11.jar;C:\Users\ADMIN\.m2\repository\commons-io\commons-io\2.16.1\commons-io-2.16.1.jar;C:\Users\ADMIN\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\ADMIN\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\ADMIN\.m2\repository\com\sun\xml\bind\jaxb-core\2.3.0.1\jaxb-core-2.3.0.1.jar;C:\Users\ADMIN\.m2\repository\javax\xml\bind\jaxb-api\2.4.0-b180830.0359\jaxb-api-2.4.0-b180830.0359.jar;C:\Users\ADMIN\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ADMIN\.m2\repository\com\sun\xml\bind\jaxb-impl\2.3.1\jaxb-impl-2.3.1.jar;C:\Users\ADMIN\.m2\repository\org\javassist\javassist\3.30.2-GA\javassist-3.30.2-GA.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\guava\33.2.1-jre\guava-33.2.1-jre.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\ADMIN\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\ADMIN\.m2\repository\org\checkerframework\checker-qual\3.42.0\checker-qual-3.42.0.jar;C:\Users\ADMIN\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-io\4.3.3\graphwalker-io-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;C:\Users\ADMIN\.m2\repository\org\json\json\20240303\json-20240303.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-dsl\4.3.3\graphwalker-dsl-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\antlr\antlr4-runtime\4.13.1\antlr4-runtime-4.13.1.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-maven-plugin\4.3.3\graphwalker-maven-plugin-4.3.3.jar;C:\Users\ADMIN\.m2\repository\com\codeborne\selenide\7.4.3\selenide-7.4.3.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-java\4.24.0\selenium-java-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-api\4.24.0\selenium-api-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.24.0\selenium-chrome-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.24.0\selenium-chromium-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-json\4.24.0\selenium-json-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.24.0\selenium-manager-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v126\4.24.0\selenium-devtools-v126-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v127\4.24.0\selenium-devtools-v127-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v128\4.24.0\selenium-devtools-v128-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.24.0\selenium-devtools-v85-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.24.0\selenium-edge-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.24.0\selenium-firefox-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-http\4.24.0\selenium-http-4.24.0.jar;C:\Users\ADMIN\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.24.0\selenium-ie-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.24.0\selenium-remote-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-api\1.41.0\opentelemetry-api-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-context\1.41.0\opentelemetry-context-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.41.0\opentelemetry-exporter-logging-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.41.0\opentelemetry-sdk-common-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.41.0\opentelemetry-sdk-extension-autoconfigure-spi-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.41.0\opentelemetry-sdk-extension-autoconfigure-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.41.0-alpha\opentelemetry-api-incubator-1.41.0-alpha.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.41.0\opentelemetry-sdk-trace-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.41.0\opentelemetry-sdk-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.41.0\opentelemetry-sdk-metrics-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.41.0\opentelemetry-sdk-logs-1.41.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-os\4.24.0\selenium-os-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.24.0\selenium-safari-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-support\4.24.0\selenium-support-4.24.0.jar;C:\Users\ADMIN\.m2\repository\com\codeborne\selenide-core\7.4.3\selenide-core-7.4.3.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.3.1\httpclient5-5.3.1.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2.4\httpcore5-5.2.4.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2.4\httpcore5-h2-5.2.4.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ADMIN\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\ADMIN\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\assertj\assertj-core\3.26.3\assertj-core-3.26.3.jar;C:\Users\ADMIN\.m2\repository\net\bytebuddy\byte-buddy\1.14.18\byte-buddy-1.14.18.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.1\jackson-databind-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.1\jackson-annotations-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.1\jackson-core-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.1\jackson-datatype-jsr310-2.17.1.jar;C:\Users\ADMIN\.m2\repository\org\slf4j\slf4j-api\2.0.13\slf4j-api-2.0.13.jar;C:\Users\ADMIN\.m2\repository\ch\qos\logback\logback-classic\1.5.6\logback-classic-1.5.6.jar;C:\Users\ADMIN\.m2\repository\ch\qos\logback\logback-core\1.5.6\logback-core-1.5.6.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Saigon"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="selenide.browser" value="chrome"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\ADMIN\AppData\Local\Temp\surefire7692590525596323294\surefirebooter-20260423105710966_3.jar C:\Users\ADMIN\AppData\Local\Temp\surefire7692590525596323294 2026-04-23T10-57-09_956-jvmRun1 surefire-20260423105710966_1tmp surefire_0-20260423105710966_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\TESTING\course\mbt-gw\target\test-classes;D:\TESTING\course\mbt-gw\target\test-web-1.0.0-SNAPSHOT.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-core\4.3.3\graphwalker-core-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\sdk\graal-sdk\22.3.5\graal-sdk-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\js\js\22.3.5\js-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\regex\regex\22.3.5\regex-22.3.5.jar;C:\Users\ADMIN\.m2\repository\com\ibm\icu\icu4j\71.1\icu4j-71.1.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\js\js-scriptengine\22.3.5\js-scriptengine-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\graalvm\truffle\truffle-api\22.3.5\truffle-api-22.3.5.jar;C:\Users\ADMIN\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-java\4.3.3\graphwalker-java-4.3.3.jar;C:\Users\ADMIN\.m2\repository\io\github\classgraph\classgraph\4.8.174\classgraph-4.8.174.jar;C:\Users\ADMIN\.m2\repository\com\google\code\javaparser\javaparser\1.0.11\javaparser-1.0.11.jar;C:\Users\ADMIN\.m2\repository\commons-io\commons-io\2.16.1\commons-io-2.16.1.jar;C:\Users\ADMIN\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\ADMIN\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\ADMIN\.m2\repository\com\sun\xml\bind\jaxb-core\2.3.0.1\jaxb-core-2.3.0.1.jar;C:\Users\ADMIN\.m2\repository\javax\xml\bind\jaxb-api\2.4.0-b180830.0359\jaxb-api-2.4.0-b180830.0359.jar;C:\Users\ADMIN\.m2\repository\javax\activation\javax.activation-api\1.2.0\javax.activation-api-1.2.0.jar;C:\Users\ADMIN\.m2\repository\com\sun\xml\bind\jaxb-impl\2.3.1\jaxb-impl-2.3.1.jar;C:\Users\ADMIN\.m2\repository\org\javassist\javassist\3.30.2-GA\javassist-3.30.2-GA.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\guava\33.2.1-jre\guava-33.2.1-jre.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\ADMIN\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\ADMIN\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\ADMIN\.m2\repository\org\checkerframework\checker-qual\3.42.0\checker-qual-3.42.0.jar;C:\Users\ADMIN\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-io\4.3.3\graphwalker-io-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;C:\Users\ADMIN\.m2\repository\org\json\json\20240303\json-20240303.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-dsl\4.3.3\graphwalker-dsl-4.3.3.jar;C:\Users\ADMIN\.m2\repository\org\antlr\antlr4-runtime\4.13.1\antlr4-runtime-4.13.1.jar;C:\Users\ADMIN\.m2\repository\org\graphwalker\graphwalker-maven-plugin\4.3.3\graphwalker-maven-plugin-4.3.3.jar;C:\Users\ADMIN\.m2\repository\com\codeborne\selenide\7.4.3\selenide-7.4.3.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-java\4.24.0\selenium-java-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-api\4.24.0\selenium-api-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.24.0\selenium-chrome-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.24.0\selenium-chromium-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-json\4.24.0\selenium-json-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.24.0\selenium-manager-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v126\4.24.0\selenium-devtools-v126-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v127\4.24.0\selenium-devtools-v127-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v128\4.24.0\selenium-devtools-v128-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.24.0\selenium-devtools-v85-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.24.0\selenium-edge-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.24.0\selenium-firefox-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-http\4.24.0\selenium-http-4.24.0.jar;C:\Users\ADMIN\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.24.0\selenium-ie-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.24.0\selenium-remote-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-api\1.41.0\opentelemetry-api-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-context\1.41.0\opentelemetry-context-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.41.0\opentelemetry-exporter-logging-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.41.0\opentelemetry-sdk-common-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.41.0\opentelemetry-sdk-extension-autoconfigure-spi-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.41.0\opentelemetry-sdk-extension-autoconfigure-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.41.0-alpha\opentelemetry-api-incubator-1.41.0-alpha.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.41.0\opentelemetry-sdk-trace-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.41.0\opentelemetry-sdk-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.41.0\opentelemetry-sdk-metrics-1.41.0.jar;C:\Users\ADMIN\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.41.0\opentelemetry-sdk-logs-1.41.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-os\4.24.0\selenium-os-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.24.0\selenium-safari-driver-4.24.0.jar;C:\Users\ADMIN\.m2\repository\org\seleniumhq\selenium\selenium-support\4.24.0\selenium-support-4.24.0.jar;C:\Users\ADMIN\.m2\repository\com\codeborne\selenide-core\7.4.3\selenide-core-7.4.3.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.3.1\httpclient5-5.3.1.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2.4\httpcore5-5.2.4.jar;C:\Users\ADMIN\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2.4\httpcore5-h2-5.2.4.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ADMIN\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\ADMIN\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\ADMIN\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\ADMIN\.m2\repository\org\assertj\assertj-core\3.26.3\assertj-core-3.26.3.jar;C:\Users\ADMIN\.m2\repository\net\bytebuddy\byte-buddy\1.14.18\byte-buddy-1.14.18.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.1\jackson-databind-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.1\jackson-annotations-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.1\jackson-core-2.17.1.jar;C:\Users\ADMIN\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.1\jackson-datatype-jsr310-2.17.1.jar;C:\Users\ADMIN\.m2\repository\org\slf4j\slf4j-api\2.0.13\slf4j-api-2.0.13.jar;C:\Users\ADMIN\.m2\repository\ch\qos\logback\logback-classic\1.5.6\logback-classic-1.5.6.jar;C:\Users\ADMIN\.m2\repository\ch\qos\logback\logback-core\1.5.6\logback-core-1.5.6.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\ADMIN"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\TESTING\course\mbt-gw"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\ADMIN\AppData\Local\Temp\surefire7692590525596323294\surefirebooter-20260423105710966_3.jar"/>
+    <property name="jdk.net.URLClassPath.disableClassPathURLCheck" value="true"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.18+8"/>
+    <property name="user.name" value="PhamLien"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="webBaseUrl" value="http://localhost:3000"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.18+8"/>
+    <property name="localRepository" value="C:\Users\ADMIN\.m2\repository"/>
+    <property name="apiBaseUrl" value="http://localhost:8000"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\ADMIN\AppData\Local\Temp\"/>
+    <property name="java.version" value="17.0.18"/>
+    <property name="user.dir" value="D:\TESTING\course\mbt-gw"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="graphwalker.generator" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="selenide.timeout" value="8000"/>
+    <property name="it.test" value="**/CertificateRunner.java"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\MinGW\winlibs-x86_64-posix-seh-gcc-15.2.0-mingw-w64ucrt-13.0.0-r5 (1)\mingw64\bin;C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Git\cmd;C:\Program Files\Graphviz\bin;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files\cursor\resources\app\bin;D:\App\apache-maven-3.9.12-bin\apache-maven-3.9.12\bin;;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\ADMIN\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\ADMIN\AppData\Local\Programs\Python\Python313\;C:\Users\ADMIN\AppData\Local\Programs\Python\Launcher\;C:\Users\ADMIN\AppData\Local\Microsoft\WindowsApps;C:\Users\ADMIN\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ADMIN\.dotnet\tools;C:\Users\ADMIN\winlibs-x86_64-posix-seh-gcc-12.1.0-mingw-w64msvcrt-10.0.0-r3 (1)\mingw64\bin;C:\Users\ADMIN\AppData\Roaming\npm;C:\Users\ADMIN\AppData\Local\Programs\Antigravity\bin;C:\Users\ADMIN\AppData\Roaming\Python\Scripts;C:\Users\ADMIN\AppData\Local\Python\bin;D:\App\cursor\resources\app\bin;D:\App\Kiro\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.18+8"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="selenide.headless" value="false"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="runCertificateModel" classname="com.eduplatform.mbt.runners.CertificateRunner" time="93.213">
+    <error message="Failed to execute GraphWalker for CertificateImpl" type="java.lang.RuntimeException"><![CDATA[java.lang.RuntimeException: Failed to execute GraphWalker for CertificateImpl
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:100)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+	at com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.graphwalker.java.test.TestExecutionException: java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:251)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+	... 5 more
+Caused by: java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)
+	at com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+	at com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+	at org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+	at org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+	... 8 more
+]]></error>
+    <system-out><![CDATA[10:57:26.726 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Admin&email=mbt.admin%40example.com&password=Passw0rd%21&role=ADMIN] -> 409
+10:57:26.778 INFO  [main] c.e.mbt.support.TestDataSeeder - Ensured account: mbt.admin@example.com (ADMIN) -> 
+10:57:26.948 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Instructor&email=mbt.instructor%40example.com&password=Passw0rd%21&role=INSTRUCTOR] -> 409
+10:57:26.953 INFO  [main] c.e.mbt.support.TestDataSeeder - Ensured account: mbt.instructor@example.com (INSTRUCTOR) -> 
+10:57:27.079 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Student&email=mbt.student%40example.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.080 INFO  [main] c.e.mbt.support.TestDataSeeder - Ensured account: mbt.student@example.com (STUDENT) -> 
+10:57:27.169 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Pending+Student&email=mbt-pending-student%40test.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.170 INFO  [main] c.e.mbt.support.TestDataSeeder - Ensured account: mbt-pending-student@test.com (STUDENT) -> 
+10:57:27.223 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Pending+Student+2&email=mbt-pending-student-2%40test.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.225 INFO  [main] c.e.mbt.support.TestDataSeeder - Ensured account: mbt-pending-student-2@test.com (STUDENT) -> 
+10:57:27.308 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/login] -> 200
+10:57:27.470 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed] -> 200
+10:57:27.475 WARN  [main] c.e.mbt.support.TestDataSeeder - POST /admin/seed: no mbt_pending in data; trying POST /admin/seed/mbt-pending
+10:57:27.518 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed/mbt-pending] -> 404
+10:57:27.519 WARN  [main] c.e.mbt.support.TestDataSeeder - POST /admin/seed/mbt-pending: 404 (ch?a deploy). Th? POST /admin/seed/class-full-pending, sau ?ó GET /registrations?status=PENDING
+10:57:27.536 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed/class-full-pending] -> 404
+10:57:27.538 DEBUG [main] c.e.mbt.support.TestDataSeeder - class-full-pending response: {"detail":"Not Found"}
+10:57:27.677 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/registrations?status=PENDING] -> 200
+10:57:27.688 INFO  [main] c.e.mbt.support.TestDataSeeder - Seeded demo courses and fixtures
+10:57:27.931 INFO  [main] c.e.m.r.AbstractGraphWalkerRunner - Starting GraphWalker run for CertificateImpl
+10:57:38.022 INFO  [main] c.e.m.r.AbstractGraphWalkerRunner - Model file: D:\TESTING\course\mbt-gw\target\test-classes\com\eduplatform\mbt\models\05_CertificateModel.json, generator: random(edge_coverage(100) || length(40))
+10:57:49.220 INFO  [main] c.e.mbt.impl.CertificateImpl - [STEP] v_AllLessonsCompleted | beforeAuth={isLoggedIn=false, currentRole=, hasToken=false, emailExists=true, emailNotExists=true, passwordCorrect=true, passwordStrong=true, emailValid=true, studentMajorOrGoalSet=true, expertiseSet=true, resetToken.len=0, tokenUsed=false, forgotPasswordRateLimited=false, forgotPasswordInfrastructureFailure=false, profileUpdateValid=true}
+10:58:16.246 DEBUG [main] c.e.mbt.support.ApiClient - [POST http://localhost:8000/api/v1/auth/login] -> 200
+10:58:16.267 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/auth/me] -> 200
+10:58:18.453 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=PUBLISHED] -> 200
+10:58:18.602 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=DRAFT] -> 200
+10:58:18.835 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=COMING_SOON] -> 200
+10:58:18.907 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=ARCHIVED] -> 200
+10:58:19.266 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/registrations] -> 200
+10:58:19.375 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/10/progress] -> 200
+10:58:19.406 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/7/progress] -> 200
+10:58:19.485 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/9/progress] -> 200
+10:58:19.516 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/6/progress] -> 200
+10:58:19.544 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/5/progress] -> 200
+10:58:19.582 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/14/progress] -> 200
+10:58:19.673 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/15/progress] -> 200
+10:58:19.836 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/16/progress] -> 200
+10:58:19.887 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/3/progress] -> 200
+10:58:19.914 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/17/progress] -> 200
+10:58:19.959 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/18/progress] -> 200
+10:58:20.009 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/20/progress] -> 200
+10:58:20.038 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/21/progress] -> 200
+10:58:20.095 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/22/progress] -> 200
+10:58:20.158 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/23/progress] -> 200
+10:58:20.267 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/24/progress] -> 200
+10:58:20.361 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/25/progress] -> 200
+10:58:20.475 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/27/progress] -> 200
+10:58:20.593 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/33/progress] -> 200
+10:58:20.639 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/34/progress] -> 200
+10:58:20.732 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/35/progress] -> 200
+10:58:20.800 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/36/progress] -> 200
+10:58:20.929 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/37/progress] -> 200
+10:58:20.971 DEBUG [main] c.e.mbt.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/38/progress] -> 200
+10:59:00.651 ERROR [main] o.g.c.machine.ExecutionContext - AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+10:59:00.652 ERROR [main] c.e.mbt.impl.CertificateImpl - MBT fail-fast: element='v_AllLessonsCompleted' model='CertificateModel' cause='{}'
+java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)
+	at com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+	at com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+	at org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+	at org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+	at com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+10:59:00.674 ERROR [main] o.g.java.test.TestExecutor - java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+10:59:00.889 INFO  [main] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics [CertificateImpl]: edgeCoverage=0% vertexCoverage=20% edges=0/10(10 unvisited) vertices=1/5(4 unvisited)
+10:59:00.906 DEBUG [main] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics JSON:
+{
+  "failures": [{"failure": "java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 \u2014 pick a course with sections/lessons in seed/DB\r\n\tat com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)\r\n\tat com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)\r\n\tat com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)\r\n\tat org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)\r\n\tat org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)\r\n\tat org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)\r\n\tat com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)\r\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)\r\n\tat org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)\r\n\tat org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)\r\n"}],
+  "totalFailedNumberOfModels": 1,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 4,
+  "verticesNotVisited": [
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateIssued",
+      "vertexId": "v_CertificateIssued"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateOnDashboard",
+      "vertexId": "v_CertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateVerified",
+      "vertexId": "v_CertificateVerified"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateVerifyInvalid",
+      "vertexId": "v_CertificateVerifyInvalid"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 0,
+  "totalNumberOfVisitedEdges": 0,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Issue",
+      "edgeName": "e_CompleteCourseAndIssueCertificate"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_DashFromLearnNoCode",
+      "edgeName": "e_ViewCertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Dash",
+      "edgeName": "e_ViewCertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_VerifyOk",
+      "edgeName": "e_VerifyCertificateWithCode"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_VerifyBad",
+      "edgeName": "e_VerifyCertificateInvalid"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Back",
+      "edgeName": "e_BackToCerts"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_FromInv",
+      "edgeName": "e_BackFromInvalidVerify"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Learn",
+      "edgeName": "e_GoToLearningFromCertificate"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_ArmHasVerificationCode",
+      "edgeName": "e_ArmHasVerificationCode"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_ArmNoVerificationCode",
+      "edgeName": "e_ArmNoVerificationCode"
+    }
+  ],
+  "vertexCoverage": 20,
+  "totalNumberOfEdges": 10,
+  "totalNumberOfVisitedVertices": 1,
+  "edgeCoverage": 0,
+  "totalNumberOfVertices": 5,
+  "totalNumberOfUnvisitedEdges": 10
+}
+10:59:00.921 INFO  [main] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics file: D:\TESTING\course\mbt-gw\target\graphwalker-reports\CertificateImpl-20260423-105900-913.json
+]]></system-out>
+    <system-err><![CDATA[10:57:26.726 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Admin&email=mbt.admin%40example.com&password=Passw0rd%21&role=ADMIN] -> 409
+10:57:26.778 INFO  [it] c.e.m.s.TestDataSeeder - Ensured account: mbt.admin@example.com (ADMIN) -> 
+10:57:26.948 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Instructor&email=mbt.instructor%40example.com&password=Passw0rd%21&role=INSTRUCTOR] -> 409
+10:57:26.953 INFO  [it] c.e.m.s.TestDataSeeder - Ensured account: mbt.instructor@example.com (INSTRUCTOR) -> 
+10:57:27.079 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Student&email=mbt.student%40example.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.080 INFO  [it] c.e.m.s.TestDataSeeder - Ensured account: mbt.student@example.com (STUDENT) -> 
+10:57:27.169 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Pending+Student&email=mbt-pending-student%40test.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.170 INFO  [it] c.e.m.s.TestDataSeeder - Ensured account: mbt-pending-student@test.com (STUDENT) -> 
+10:57:27.223 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/test/create-account-with-role?name=MBT+Pending+Student+2&email=mbt-pending-student-2%40test.com&password=Passw0rd%21&role=STUDENT] -> 409
+10:57:27.225 INFO  [it] c.e.m.s.TestDataSeeder - Ensured account: mbt-pending-student-2@test.com (STUDENT) -> 
+10:57:27.308 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/login] -> 200
+10:57:27.470 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed] -> 200
+10:57:27.475 WARN  [it] c.e.m.s.TestDataSeeder - POST /admin/seed: no mbt_pending in data; trying POST /admin/seed/mbt-pending
+10:57:27.518 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed/mbt-pending] -> 404
+10:57:27.519 WARN  [it] c.e.m.s.TestDataSeeder - POST /admin/seed/mbt-pending: 404 (ch?a deploy). Th? POST /admin/seed/class-full-pending, sau ?ó GET /registrations?status=PENDING
+10:57:27.536 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/admin/seed/class-full-pending] -> 404
+10:57:27.538 DEBUG [it] c.e.m.s.TestDataSeeder - class-full-pending response: {"detail":"Not Found"}
+10:57:27.677 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/registrations?status=PENDING] -> 200
+10:57:27.688 INFO  [it] c.e.m.s.TestDataSeeder - Seeded demo courses and fixtures
+10:57:27.931 INFO  [it] c.e.m.r.AbstractGraphWalkerRunner - Starting GraphWalker run for CertificateImpl
+10:57:38.022 INFO  [it] c.e.m.r.AbstractGraphWalkerRunner - Model file: D:\TESTING\course\mbt-gw\target\test-classes\com\eduplatform\mbt\models\05_CertificateModel.json, generator: random(edge_coverage(100) || length(40))
+10:57:49.220 INFO  [it] c.e.m.i.CertificateImpl - [STEP] v_AllLessonsCompleted | beforeAuth={isLoggedIn=false, currentRole=, hasToken=false, emailExists=true, emailNotExists=true, passwordCorrect=true, passwordStrong=true, emailValid=true, studentMajorOrGoalSet=true, expertiseSet=true, resetToken.len=0, tokenUsed=false, forgotPasswordRateLimited=false, forgotPasswordInfrastructureFailure=false, profileUpdateValid=true}
+Apr 23, 2026 10:58:14 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 147
+Apr 23, 2026 10:58:14 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 147.0.7727.102. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.24.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+10:58:16.246 DEBUG [it] c.e.m.support.ApiClient - [POST http://localhost:8000/api/v1/auth/login] -> 200
+10:58:16.267 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/auth/me] -> 200
+10:58:18.453 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=PUBLISHED] -> 200
+10:58:18.602 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=DRAFT] -> 200
+10:58:18.835 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=COMING_SOON] -> 200
+10:58:18.907 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/courses?status=ARCHIVED] -> 200
+10:58:19.266 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/registrations] -> 200
+10:58:19.375 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/10/progress] -> 200
+10:58:19.406 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/7/progress] -> 200
+10:58:19.485 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/9/progress] -> 200
+10:58:19.516 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/6/progress] -> 200
+10:58:19.544 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/5/progress] -> 200
+10:58:19.582 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/14/progress] -> 200
+10:58:19.673 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/15/progress] -> 200
+10:58:19.836 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/16/progress] -> 200
+10:58:19.887 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/3/progress] -> 200
+10:58:19.914 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/17/progress] -> 200
+10:58:19.959 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/18/progress] -> 200
+10:58:20.009 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/20/progress] -> 200
+10:58:20.038 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/21/progress] -> 200
+10:58:20.095 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/22/progress] -> 200
+10:58:20.158 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/23/progress] -> 200
+10:58:20.267 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/24/progress] -> 200
+10:58:20.361 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/25/progress] -> 200
+10:58:20.475 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/27/progress] -> 200
+10:58:20.593 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/33/progress] -> 200
+10:58:20.639 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/34/progress] -> 200
+10:58:20.732 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/35/progress] -> 200
+10:58:20.800 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/36/progress] -> 200
+10:58:20.929 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/37/progress] -> 200
+10:58:20.971 DEBUG [it] c.e.m.support.ApiClient - [GET http://localhost:8000/api/v1/learning/courses/38/progress] -> 200
+10:59:00.652 ERROR [it] c.e.m.i.CertificateImpl - MBT fail-fast: element='v_AllLessonsCompleted' model='CertificateModel' cause='{}'
+java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)
+	at com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+	at com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+	at org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+	at org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+	at com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+10:59:00.889 INFO  [it] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics [CertificateImpl]: edgeCoverage=0% vertexCoverage=20% edges=0/10(10 unvisited) vertices=1/5(4 unvisited)
+10:59:00.906 DEBUG [it] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics JSON:
+{
+  "failures": [{"failure": "java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 \u2014 pick a course with sections/lessons in seed/DB\r\n\tat com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)\r\n\tat com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)\r\n\tat com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)\r\n\tat org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)\r\n\tat org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)\r\n\tat org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)\r\n\tat com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)\r\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)\r\n\tat org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)\r\n\tat org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)\r\n"}],
+  "totalFailedNumberOfModels": 1,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 4,
+  "verticesNotVisited": [
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateIssued",
+      "vertexId": "v_CertificateIssued"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateOnDashboard",
+      "vertexId": "v_CertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateVerified",
+      "vertexId": "v_CertificateVerified"
+    },
+    {
+      "modelName": "CertificateModel",
+      "vertexName": "v_CertificateVerifyInvalid",
+      "vertexId": "v_CertificateVerifyInvalid"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 0,
+  "totalNumberOfVisitedEdges": 0,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Issue",
+      "edgeName": "e_CompleteCourseAndIssueCertificate"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_DashFromLearnNoCode",
+      "edgeName": "e_ViewCertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Dash",
+      "edgeName": "e_ViewCertificateOnDashboard"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_VerifyOk",
+      "edgeName": "e_VerifyCertificateWithCode"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_VerifyBad",
+      "edgeName": "e_VerifyCertificateInvalid"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Back",
+      "edgeName": "e_BackToCerts"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_FromInv",
+      "edgeName": "e_BackFromInvalidVerify"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_Learn",
+      "edgeName": "e_GoToLearningFromCertificate"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_ArmHasVerificationCode",
+      "edgeName": "e_ArmHasVerificationCode"
+    },
+    {
+      "modelName": "CertificateModel",
+      "edgeId": "e_ArmNoVerificationCode",
+      "edgeName": "e_ArmNoVerificationCode"
+    }
+  ],
+  "vertexCoverage": 20,
+  "totalNumberOfEdges": 10,
+  "totalNumberOfVisitedVertices": 1,
+  "edgeCoverage": 0,
+  "totalNumberOfVertices": 5,
+  "totalNumberOfUnvisitedEdges": 10
+}
+10:59:00.921 INFO  [it] c.e.m.r.AbstractGraphWalkerRunner - GraphWalker statistics file: D:\TESTING\course\mbt-gw\target\graphwalker-reports\CertificateImpl-20260423-105900-913.json
+]]></system-err>
+  </testcase>
+</testsuite>

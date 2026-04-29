@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import { ArrowLeft, CheckCircle, Circle, PlayCircle, FileText, HelpCircle, Award, X } from 'lucide-react';
 import {
+  ApiHttpError,
   courseApi,
   registrationApi,
   learningApi,
@@ -59,50 +60,95 @@ export function LearningPage() {
   const [showCertModal, setShowCertModal] = useState(false);
   const [hasCert, setHasCert] = useState(false);
   const [isIssuingCert, setIsIssuingCert] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     if (!courseId) return;
     const numericCourseId = Number(courseId);
+    let cancelled = false;
 
-    Promise.all([
-      courseApi.detail(numericCourseId),
-      registrationApi.list(),
-      learningApi.outline(numericCourseId),
-      learningApi.progressDetail(numericCourseId),
-      learningApi.myCertificates(),
-    ])
-      .then(([courseData, registrationData, outlineData, progressDetail, certs]) => {
-        setCourse(courseData);
-        setRegistrations(registrationData);
-        setOutline(outlineData);
+    const applyLoaded = (
+      courseData: CourseDetail,
+      registrationData: RegistrationItem[],
+      outlineData: LearningOutlineItem[],
+      progressDetail: { completed_lesson_ids: number[] },
+      certs: unknown,
+    ) => {
+      setCourse(courseData);
+      setRegistrations(registrationData);
+      setOutline(outlineData);
 
-        const completedSet = new Set(progressDetail.completed_lesson_ids);
-        setCompletedLessons(completedSet);
+      const completedSet = new Set(progressDetail.completed_lesson_ids);
+      setCompletedLessons(completedSet);
 
-        // Check if already has cert for this course
-        const existingCert = (certs as any[]).find((c) => c.course_id === numericCourseId);
-        if (existingCert) {
-          setHasCert(true);
-          // Auto-show modal once per session if 100% complete
-          const allLessons = outlineData.flatMap((x) => x.lessons);
-          const sessionKey = `cert_modal_shown_${numericCourseId}`;
-          if (
-            allLessons.length > 0 &&
-            allLessons.every((l) => completedSet.has(l.id)) &&
-            !sessionStorage.getItem(sessionKey)
-          ) {
-            sessionStorage.setItem(sessionKey, '1');
-            setShowCertModal(true);
+      const existingCert = (certs as any[]).find((c) => c.course_id === numericCourseId);
+      if (existingCert) {
+        setHasCert(true);
+        const allLessons = outlineData.flatMap((x) => x.lessons);
+        const sessionKey = `cert_modal_shown_${numericCourseId}`;
+        if (
+          allLessons.length > 0 &&
+          allLessons.every((l) => completedSet.has(l.id)) &&
+          !sessionStorage.getItem(sessionKey)
+        ) {
+          sessionStorage.setItem(sessionKey, '1');
+          setShowCertModal(true);
+        }
+      }
+
+      const firstLessonId =
+        outlineData.flatMap((x) => x.lessons).sort((a, b) => a.position - b.position)[0]?.id ?? null;
+      setSelectedLesson(firstLessonId);
+    };
+
+    const load = async () => {
+      setPageLoading(true);
+      setCourse(null);
+      const delaysMs = [0, 700, 1800, 3200];
+      for (let attempt = 0; attempt < delaysMs.length; attempt++) {
+        if (delaysMs[attempt] > 0) {
+          await new Promise((r) => setTimeout(r, delaysMs[attempt]));
+        }
+        if (cancelled) return;
+        try {
+          const [courseData, registrationData, outlineData, progressDetail, certs] = await Promise.all([
+            courseApi.detail(numericCourseId),
+            registrationApi.list(),
+            learningApi.outline(numericCourseId),
+            learningApi.progressDetail(numericCourseId),
+            learningApi.myCertificates(),
+          ]);
+          if (cancelled) return;
+          applyLoaded(courseData, registrationData, outlineData, progressDetail, certs);
+          setPageLoading(false);
+          return;
+        } catch (err) {
+          const isRateLimited = err instanceof ApiHttpError && err.status === 429;
+          const retryable = isRateLimited || (err instanceof ApiHttpError && err.status >= 500);
+          if (attempt === delaysMs.length - 1 || !retryable) {
+            if (!cancelled) {
+              setCourse(null);
+              setPageLoading(false);
+            }
+            return;
           }
         }
+      }
+    };
 
-        const firstLessonId = outlineData.flatMap((x) => x.lessons).sort((a, b) => a.position - b.position)[0]?.id ?? null;
-        setSelectedLesson(firstLessonId);
-      })
-      .catch(() => {
-        setCourse(null);
-      });
+    void load();
+    return () => {
+      cancelled = true;
+    };
   }, [courseId]);
+
+  if (pageLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-20 text-center text-neutral-600" data-testid="learning-page-loading">
+        Đang tải khóa học…
+      </div>
+    );
+  }
 
   if (!course) {
     return (
@@ -190,17 +236,22 @@ export function LearningPage() {
   const allLessonsDone = lessons.length > 0 && lessons.every((l) => completedLessons.has(l.id));
 
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
+    <div className="flex h-[calc(100vh-4rem)]" data-testid="learning-layout">
       {showCertModal && course && (
         <CertificateModal courseName={course.title} onClose={() => setShowCertModal(false)} />
       )}
-      <div className="w-96 bg-white border-r border-neutral-200 flex flex-col">
+      <div
+        className="w-96 bg-white border-r border-neutral-200 flex flex-col"
+        data-testid="learning-sidebar"
+      >
         <div className="p-6 border-b border-neutral-200">
           <Link to="/student/dashboard" className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 mb-4">
             <ArrowLeft className="w-4 h-4" />
             Quay lại Dashboard
           </Link>
-          <h2 className="text-lg mb-2 line-clamp-2">{course.title}</h2>
+          <h2 className="text-lg mb-2 line-clamp-2" data-testid="learning-course-title">
+            {course.title}
+          </h2>
           <div className="text-sm text-neutral-600 mb-3">
             {completedCount} / {totalLessons} bai hoc
           </div>
@@ -236,6 +287,8 @@ export function LearningPage() {
                   return (
                     <button
                       key={lesson.id}
+                      type="button"
+                      data-testid="learning-lesson-button"
                       onClick={() => setSelectedLesson(lesson.id)}
                       className={`w-full px-6 py-3 flex items-start gap-3 hover:bg-neutral-50 transition-colors border-l-2 ${
                         isActive ? 'border-emerald-600 bg-emerald-50' : 'border-transparent'

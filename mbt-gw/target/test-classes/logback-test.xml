@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{30} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Failsafe fork: stderr → *.dumpstream (Maven ghi stderr tiến trình test vào đây) -->
+    <appender name="STDERR_IT" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [it] %logger{24} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File dưới target/ (thư mục luôn có sau compile; tránh lỗi tạo failsafe-reports sớm) -->
+    <appender name="FILE_IT" class="ch.qos.logback.core.FileAppender">
+        <file>target/mbt-integration.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{40} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.eduplatform.mbt" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="STDERR_IT"/>
+        <appender-ref ref="FILE_IT"/>
+    </logger>
+    <logger name="org.graphwalker" level="INFO"/>
+    <logger name="com.codeborne.selenide" level="WARN"/>
+    <logger name="org.openqa.selenium" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

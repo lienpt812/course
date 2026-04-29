@@ -28,7 +28,12 @@ from app.models.course import Course
 from app.models.enums import CourseStatus, RegistrationStatus
 from app.models.registration import Registration
 from app.schemas.common import error_response
-from app.services.seed_service import ensure_base_course, ensure_demo_courses, get_or_create_demo_instructor
+from app.services.seed_service import (
+    ensure_altwalker_e2e_fixtures,
+    ensure_base_course,
+    ensure_demo_courses,
+    get_or_create_demo_instructor,
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -39,13 +44,16 @@ _rate_windows: dict[tuple[str, str], deque[float]] = defaultdict(deque)
 
 @app.middleware("http")
 async def tier_rate_limit(request: Request, call_next):
+    if not settings.http_rate_limit_enabled:
+        return await call_next(request)
     path = request.url.path
     if path in {"/health", "/docs", "/openapi.json", "/redoc"} or path.startswith("/static"):
         return await call_next(request)
 
     auth_header = request.headers.get("authorization", "")
     is_authenticated = auth_header.lower().startswith("bearer ")
-    limit = 500 if is_authenticated else 100
+    # MBT + browser + ApiClient can exceed 500/min on loopback during long GraphWalker runs.
+    limit = 5000 if is_authenticated else 100
 
     client = request.client.host if request.client else "unknown"
     key = (client, "auth" if is_authenticated else "public")
@@ -98,6 +106,8 @@ def on_startup() -> None:
         instructor = get_or_create_demo_instructor(db)
         ensure_base_course(db, instructor.id)
         ensure_demo_courses(db, instructor.id, total=10)
+        # MBT / GraphWalker: admin@test.com, student@test.com, instructor@test.com (Password123!)
+        ensure_altwalker_e2e_fixtures(db)
         db.commit()
 
 

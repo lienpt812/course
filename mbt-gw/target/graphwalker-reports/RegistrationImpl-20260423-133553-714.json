@@ -1,0 +1,37 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 1,
+  "verticesNotVisited": [{
+    "modelName": "RegistrationModel",
+    "vertexName": "v_CourseRegistrationNotAvailable",
+    "vertexId": "v_CourseRegistrationNotAvailable"
+  }],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 7,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_RegNoSlot",
+      "edgeName": "e_VerifyRegistrationNotAvailable"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_FromClosedBack",
+      "edgeName": "e_BackToOpenCourseForStudent"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_Rej",
+      "edgeName": "e_AdminReject"
+    }
+  ],
+  "vertexCoverage": 83,
+  "totalNumberOfEdges": 10,
+  "totalNumberOfVisitedVertices": 5,
+  "edgeCoverage": 90,
+  "totalNumberOfVertices": 6,
+  "totalNumberOfUnvisitedEdges": 1
+}

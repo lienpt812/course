@@ -1,0 +1,167 @@
+{
+  "models": [
+    {
+      "id": "CertificateModel",
+      "name": "CertificateModel",
+      "generator": "random(edge_coverage(100) || length(40))",
+      "startElementId": "v_AllLessonsCompleted",
+      "actions": [
+        "gwGuard_certHasVerificationCode = true;",
+        "gwGuard_certNoVerificationCode = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_AllLessonsCompleted",
+          "name": "v_AllLessonsCompleted",
+          "properties": {
+            "description": "/learn/:courseId voi completion_pct=100. FE hien 'Nhan chung chi' (chua co cert) hoac 'Xem chung chi' (da co). Impl: tim course voi completion>=100 qua GET /learning/courses/{id}/progress.",
+            "url": "/learn/:courseId",
+            "uiAssert": "claimCertButton OR viewCertButton visible",
+            "syncGuards": "check GET /learning/courses/{id}/progress + GET /certificates/me"
+          }
+        },
+        {
+          "id": "v_CertificateIssued",
+          "name": "v_CertificateIssued",
+          "properties": {
+            "description": "POST /certificates/issue/{courseId} thanh cong. Response co verification_code. FE chuyen 'Nhan chung chi' -> 'Xem chung chi'. Cross-check: GET /certificates/me tra cert cho course nay.",
+            "uiAssert": "viewCertButton 'Xem chung chi' visible",
+            "apiVerify": "GET /api/v1/certificates/me contains cert for targetCourseId"
+          }
+        },
+        {
+          "id": "v_CertificateOnDashboard",
+          "name": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "/student/dashboard - section 'Chung Chi Cua Toi' hien list cert. Moi cert co link a[href^=/api/v1/certificates/verify/]. Impl: assert sectionCertificates visible + certificates().size()>=1 neu da issue.",
+            "url": "/student/dashboard",
+            "uiAssert": "sectionCertificates 'Chung Chi Cua Toi' visible, cert links present if issued"
+          }
+        },
+        {
+          "id": "v_CertificateVerified",
+          "name": "v_CertificateVerified",
+          "properties": {
+            "description": "GET /certificates/verify/{code} thanh cong. Response: {verification_code, course_id, user_id, issued_at}. Cross-check: verificationCode khop.",
+            "apiEndpoint": "GET /api/v1/certificates/verify/{code}",
+            "expectedStatus": 200
+          }
+        },
+        {
+          "id": "v_CertificateVerifyInvalid",
+          "name": "v_CertificateVerifyInvalid",
+          "properties": {
+            "description": "GET /certificates/verify/{invalid_code}. BE tra 404 'Certificate not found'. Impl: api.verifyCertificate('INVALID-CODE-00') kiem tra khong crash.",
+            "apiEndpoint": "GET /api/v1/certificates/verify/{invalid}",
+            "expectedStatus": 404
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_Issue",
+          "name": "e_CompleteCourseAndIssueCertificate",
+          "sourceVertexId": "v_AllLessonsCompleted",
+          "targetVertexId": "v_CertificateIssued",
+          "properties": {
+            "description": "Click 'Nhan chung chi' -> POST /certificates/issue/{courseId}. Cross-check: assertSuccessEnvelope + assertCertificateIssueHasCode. set verificationCode tu response.",
+            "apiEndpoint": "POST /api/v1/certificates/issue/{courseId}",
+            "uiAction": "learningPage.claimCertButton().click() OR api.issueCertificate(targetCourseId)",
+            "requirement": "REQ-E-ISSUE"
+          }
+        },
+        {
+          "id": "e_DashFromLearnNoCode",
+          "name": "e_ViewCertificateOnDashboard",
+          "sourceVertexId": "v_AllLessonsCompleted",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "Mo dashboard ma chua issue (test negative verify path). hasVerificationCode=false.",
+            "requirement": "REQ-E-DASH"
+          }
+        },
+        {
+          "id": "e_Dash",
+          "name": "e_ViewCertificateOnDashboard",
+          "sourceVertexId": "v_CertificateIssued",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "Sau khi issue, mo /student/dashboard kiem tra section chung chi.",
+            "uiAction": "studentDash.open()",
+            "requirement": "REQ-E-DASH"
+          }
+        },
+        {
+          "id": "e_VerifyOk",
+          "name": "e_VerifyCertificateWithCode",
+          "sourceVertexId": "v_CertificateOnDashboard",
+          "targetVertexId": "v_CertificateVerified",
+          "guard": "gwGuard_certHasVerificationCode",
+          "properties": {
+            "description": "GET /certificates/verify/{code} voi ma tu issue. Cross-check: assertCertificatePublicVerifyOk + verificationCode khop.",
+            "apiEndpoint": "GET /api/v1/certificates/verify/{code}",
+            "requirement": "REQ-E-VERIFY-OK"
+          }
+        },
+        {
+          "id": "e_VerifyBad",
+          "name": "e_VerifyCertificateInvalid",
+          "sourceVertexId": "v_CertificateOnDashboard",
+          "targetVertexId": "v_CertificateVerifyInvalid",
+          "guard": "gwGuard_certNoVerificationCode",
+          "properties": {
+            "description": "Verify voi ma khong ton tai 'INVALID-CODE-00'. BE 404. Kiem tra khong crash.",
+            "requirement": "REQ-E-VERIFY-BAD"
+          }
+        },
+        {
+          "id": "e_Back",
+          "name": "e_BackToCerts",
+          "sourceVertexId": "v_CertificateVerified",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "Quay lai dashboard tu verify thanh cong."
+          }
+        },
+        {
+          "id": "e_FromInv",
+          "name": "e_BackFromInvalidVerify",
+          "sourceVertexId": "v_CertificateVerifyInvalid",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "Quay lai sau verify invalid."
+          }
+        },
+        {
+          "id": "e_Learn",
+          "name": "e_GoToLearningFromCertificate",
+          "sourceVertexId": "v_CertificateOnDashboard",
+          "targetVertexId": "v_AllLessonsCompleted",
+          "properties": {
+            "description": "Mo lai /learn tu dashboard cert."
+          }
+        },
+        {
+          "id": "e_ArmHasVerificationCode",
+          "name": "e_ArmHasVerificationCode",
+          "sourceVertexId": "v_CertificateOnDashboard",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "MBT: guard e_VerifyCertificateWithCode.",
+            "requirement": "REQ-E-ARM"
+          }
+        },
+        {
+          "id": "e_ArmNoVerificationCode",
+          "name": "e_ArmNoVerificationCode",
+          "sourceVertexId": "v_CertificateOnDashboard",
+          "targetVertexId": "v_CertificateOnDashboard",
+          "properties": {
+            "description": "MBT: guard e_VerifyCertificateInvalid.",
+            "requirement": "REQ-E-ARM"
+          }
+        }
+      ]
+    }
+  ]
+}

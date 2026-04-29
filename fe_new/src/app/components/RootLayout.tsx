@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router';
 import { BookOpen, User, GraduationCap, Settings } from 'lucide-react';
-import { authApi, AuthUser } from '../lib/api';
+import { ApiHttpError, authApi, AuthUser } from '../lib/api';
+
+function httpStatusFromError(err: unknown): number {
+  if (err instanceof ApiHttpError) return err.status;
+  if (err && typeof err === 'object' && 'status' in err) {
+    const s = Number((err as { status: unknown }).status);
+    return Number.isFinite(s) ? s : 0;
+  }
+  return 0;
+}
 
 export function RootLayout() {
   const location = useLocation();
@@ -36,7 +45,13 @@ export function RootLayout() {
         setCurrentUser(user);
         localStorage.setItem('auth_user', JSON.stringify(user));
       })
-      .catch(() => {
+      .catch((err) => {
+        const status = httpStatusFromError(err);
+        // Rate limits / transient server errors are not "logged out"; clearing tokens sends users to /courses
+        // while the SPA still shows a protected URL (breaks e2e and confuses users).
+        if (status !== 401 && status !== 403) {
+          return;
+        }
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('auth_user');

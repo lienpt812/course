@@ -1,0 +1,47 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 1,
+  "verticesNotVisited": [{
+    "modelName": "LearningModel",
+    "vertexName": "v_LearningAccessDenied",
+    "vertexId": "v_LearningAccessDenied"
+  }],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 11,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "LearningModel",
+      "edgeId": "e_EnterLearningNotConfirmed",
+      "edgeName": "e_StartLearningDenied"
+    },
+    {
+      "modelName": "LearningModel",
+      "edgeId": "e_BackToDashboardFromDenied",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "LearningModel",
+      "edgeId": "e_MarkLessonPartial",
+      "edgeName": "e_MarkLessonPartial"
+    },
+    {
+      "modelName": "LearningModel",
+      "edgeId": "e_MarkPreviewLesson",
+      "edgeName": "e_MarkPreviewLesson"
+    },
+    {
+      "modelName": "LearningModel",
+      "edgeId": "e_ContinueToNextLesson",
+      "edgeName": "e_ContinueToNextLesson"
+    }
+  ],
+  "vertexCoverage": 83,
+  "totalNumberOfEdges": 16,
+  "totalNumberOfVisitedVertices": 5,
+  "edgeCoverage": 68,
+  "totalNumberOfVertices": 6,
+  "totalNumberOfUnvisitedEdges": 5
+}

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
 import { CheckCircle, XCircle, Users, Clock, AlertCircle } from 'lucide-react';
 import { courseApi, dashboardApi, registrationApi, CourseItem, RegistrationItem } from '../lib/api';
 import { RegistrationStatusBadge } from '../components/RegistrationStatusBadge';
 import { InsightModal } from '../components/InsightModal';
 
 export function AdminDashboard() {
+  const location = useLocation();
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [dashboard, setDashboard] = useState<{ total_courses: number; total_users: number; pending_registrations: number } | null>(null);
@@ -38,7 +40,7 @@ export function AdminDashboard() {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [location.key]);
 
   const pendingRegs = registrations.filter((r) => r.status === 'PENDING');
   const confirmedRegs = registrations.filter((r) => r.status === 'CONFIRMED');
@@ -166,6 +168,8 @@ export function AdminDashboard() {
             <div>
               <label className="block text-xs mb-1.5 text-emerald-800">Khóa học</label>
               <select
+                id="admin-filter-course-select"
+                data-testid="admin-filter-course-select"
                 value={selectedCourse}
                 onChange={(e) => setSelectedCourse(e.target.value)}
                 className="w-full px-4 py-2.5 border border-emerald-200 rounded-xl focus:outline-none focus:border-emerald-500 bg-white"
@@ -180,6 +184,8 @@ export function AdminDashboard() {
             <div>
               <label className="block text-xs mb-1.5 text-emerald-800">Trạng thái</label>
               <select
+                id="admin-filter-status-select"
+                data-testid="admin-filter-status-select"
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className="w-full px-4 py-2.5 border border-emerald-200 rounded-xl focus:outline-none focus:border-emerald-500 bg-white"
@@ -206,6 +212,8 @@ export function AdminDashboard() {
           <div className="border-b border-emerald-100 px-6 py-4 flex items-center justify-between">
             <h2 className="text-xl">Danh Sách Đăng Ký</h2>
             <button
+              type="button"
+              data-testid="admin-bulk-approve"
               onClick={async () => {
                 setIsRunningJob(true);
                 setError('');
@@ -272,11 +280,21 @@ export function AdminDashboard() {
                     <td className="px-6 py-4">
                       {reg.status === 'PENDING' ? (
                         <div className="flex gap-2">
-                          <button onClick={() => handleApprove(reg.id)} className="px-3 py-1.5 bg-emerald-600 text-white text-sm hover:bg-emerald-700 transition-colors flex items-center gap-1 rounded-lg">
+                          <button
+                            type="button"
+                            data-testid="admin-reg-approve"
+                            onClick={() => handleApprove(reg.id)}
+                            className="px-3 py-1.5 bg-emerald-600 text-white text-sm hover:bg-emerald-700 transition-colors flex items-center gap-1 rounded-lg"
+                          >
                             <CheckCircle className="w-4 h-4" />
                             Duyệt
                           </button>
-                          <button onClick={() => handleReject(reg.id)} className="px-3 py-1.5 bg-red-600 text-white text-sm hover:bg-red-700 transition-colors flex items-center gap-1 rounded-lg">
+                          <button
+                            type="button"
+                            data-testid="admin-reg-reject"
+                            onClick={() => handleReject(reg.id)}
+                            className="px-3 py-1.5 bg-red-600 text-white text-sm hover:bg-red-700 transition-colors flex items-center gap-1 rounded-lg"
+                          >
                             <XCircle className="w-4 h-4" />
                             Từ chối
                           </button>

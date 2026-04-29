@@ -1,0 +1,230 @@
+{
+  "failures": [{"failure": "org.graphwalker.core.machine.MachineException: Could not calculate which weighted edge to choose from vertex: v_ProfilePage'\r\n\tat org.graphwalker.core.generator.WeightedRandomPath.getWeightedEdge(WeightedRandomPath.java:135)\r\n\tat org.graphwalker.core.generator.WeightedRandomPath.getNextStep(WeightedRandomPath.java:71)\r\n\tat org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:131)\r\n\tat org.graphwalker.core.machine.SimpleMachine.takeNextStep(SimpleMachine.java:194)\r\n\tat org.graphwalker.core.machine.SimpleMachine.walk(SimpleMachine.java:141)\r\n\tat org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:103)\r\n\tat org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)\r\n\tat com.eduplatform.mbt.runners.AuthRunner.runAuthModel(AuthRunner.java:21)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)\r\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)\r\n\tat org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)\r\n\tat org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)\r\n"}],
+  "totalFailedNumberOfModels": 1,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 5,
+  "verticesNotVisited": [
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_RegisterPage",
+      "vertexId": "v_RegisterPage"
+    },
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_ForgotPasswordPage",
+      "vertexId": "v_ForgotPasswordPage"
+    },
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_ResetPasswordPage",
+      "vertexId": "v_ResetPasswordPage"
+    },
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_InstructorDashboard",
+      "vertexId": "v_InstructorDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_AdminDashboard",
+      "vertexId": "v_AdminDashboard"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 0,
+  "totalNumberOfVisitedEdges": 4,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_GoToRegisterFromGuest",
+      "edgeName": "e_GoToRegister"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_GoToRegisterFromLogin",
+      "edgeName": "e_GoToRegister"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_GoToForgotPassword",
+      "edgeName": "e_GoToForgotPassword"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackToLoginFromRegister",
+      "edgeName": "e_BackToLogin"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsInstructor",
+      "edgeName": "e_LoginAsInstructor"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsAdmin",
+      "edgeName": "e_LoginAsAdmin"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginFail",
+      "edgeName": "e_LoginFail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterAsStudent",
+      "edgeName": "e_RegisterAsStudent"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterAsInstructor",
+      "edgeName": "e_RegisterAsInstructor"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailDuplicate",
+      "edgeName": "e_RegisterFailDuplicate"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailValidation",
+      "edgeName": "e_RegisterFailValidation"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailWeakPassword",
+      "edgeName": "e_RegisterFailWeakPassword"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailInvalidEmail",
+      "edgeName": "e_RegisterFailInvalidEmail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SubmitForgotPasswordOk",
+      "edgeName": "e_SubmitForgotPasswordOk"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SubmitForgotPasswordObscure",
+      "edgeName": "e_SubmitForgotPasswordObscure"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SubmitResetPasswordOk",
+      "edgeName": "e_SubmitResetPasswordOk"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SkipResetAfterForgotRateLimited",
+      "edgeName": "e_SkipResetAfterForgotRateLimited"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ViewProfileFromInstructor",
+      "edgeName": "e_ViewProfile"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ViewProfileFromAdmin",
+      "edgeName": "e_ViewProfile"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_UpdateProfileFail",
+      "edgeName": "e_UpdateProfileFail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmLoginFailureContext",
+      "edgeName": "e_ArmLoginFailureContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterDuplicateContext",
+      "edgeName": "e_ArmRegisterDuplicateContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterValidationContext",
+      "edgeName": "e_ArmRegisterValidationContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterWeakPasswordContext",
+      "edgeName": "e_ArmRegisterWeakPasswordContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterBadEmailContext",
+      "edgeName": "e_ArmRegisterBadEmailContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmForgotObscureContext",
+      "edgeName": "e_ArmForgotObscureContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmProfileUpdateInvalidContext",
+      "edgeName": "e_ArmProfileUpdateInvalidContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmLoginHappyContext",
+      "edgeName": "e_RearmLoginHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmRegisterHappyContext",
+      "edgeName": "e_RearmRegisterHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmForgotHappyContext",
+      "edgeName": "e_RearmForgotHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmProfileHappyContext",
+      "edgeName": "e_RearmProfileHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileStudent",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileInstructor",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileAdmin",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutStudent",
+      "edgeName": "e_Logout"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutInstructor",
+      "edgeName": "e_Logout"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutAdmin",
+      "edgeName": "e_Logout"
+    }
+  ],
+  "vertexCoverage": 44,
+  "totalNumberOfEdges": 41,
+  "totalNumberOfVisitedVertices": 4,
+  "edgeCoverage": 9,
+  "totalNumberOfVertices": 9,
+  "totalNumberOfUnvisitedEdges": 37
+}

@@ -106,7 +106,7 @@ export function CourseCard({ course, userRole, registrationStatus, progressPct, 
   };
 
   return (
-    <Link to={`/courses/${course.id}`} className="block group">
+    <Link to={`/courses/${course.id}`} className="block group" data-testid="course-card">
       <div className="bg-white border border-neutral-200 overflow-hidden transition-all hover:border-neutral-300 hover:shadow-lg rounded-xl">
         <div className="aspect-[16/10] overflow-hidden bg-gradient-to-br from-blue-100 to-cyan-100">
           {course.image_url ? (

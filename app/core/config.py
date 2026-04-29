@@ -18,6 +18,10 @@ class Settings(BaseSettings):
 
     cors_origins: str = "*"
 
+    # When False, tier_rate_limit middleware is skipped (default: local dev + MBT / e2e).
+    # Set HTTP_RATE_LIMIT_ENABLED=true in production.
+    http_rate_limit_enabled: bool = False
+
     @property
     def database_url(self) -> str:
         return (

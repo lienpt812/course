@@ -1,0 +1,149 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 2,
+  "verticesNotVisited": [
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_InstructorDashboard",
+      "vertexId": "v_InstructorDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "vertexName": "v_AdminDashboard",
+      "vertexId": "v_AdminDashboard"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 17,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_GoToRegisterFromLogin",
+      "edgeName": "e_GoToRegister"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsInstructor",
+      "edgeName": "e_LoginAsInstructor"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsAdmin",
+      "edgeName": "e_LoginAsAdmin"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterAsStudent",
+      "edgeName": "e_RegisterAsStudent"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterAsInstructor",
+      "edgeName": "e_RegisterAsInstructor"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailDuplicate",
+      "edgeName": "e_RegisterFailDuplicate"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailValidation",
+      "edgeName": "e_RegisterFailValidation"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailWeakPassword",
+      "edgeName": "e_RegisterFailWeakPassword"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterFailInvalidEmail",
+      "edgeName": "e_RegisterFailInvalidEmail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SubmitForgotPasswordObscure",
+      "edgeName": "e_SubmitForgotPasswordObscure"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SkipResetAfterForgotRateLimited",
+      "edgeName": "e_SkipResetAfterForgotRateLimited"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ViewProfileFromInstructor",
+      "edgeName": "e_ViewProfile"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ViewProfileFromAdmin",
+      "edgeName": "e_ViewProfile"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_UpdateProfileOk",
+      "edgeName": "e_UpdateProfileOk"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_UpdateProfileFail",
+      "edgeName": "e_UpdateProfileFail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterDuplicateContext",
+      "edgeName": "e_ArmRegisterDuplicateContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmRegisterBadEmailContext",
+      "edgeName": "e_ArmRegisterBadEmailContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ArmForgotObscureContext",
+      "edgeName": "e_ArmForgotObscureContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmRegisterHappyContext",
+      "edgeName": "e_RearmRegisterHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RearmForgotHappyContext",
+      "edgeName": "e_RearmForgotHappyContext"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileInstructor",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileAdmin",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutInstructor",
+      "edgeName": "e_Logout"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutAdmin",
+      "edgeName": "e_Logout"
+    }
+  ],
+  "vertexCoverage": 77,
+  "totalNumberOfEdges": 41,
+  "totalNumberOfVisitedVertices": 7,
+  "edgeCoverage": 41,
+  "totalNumberOfVertices": 9,
+  "totalNumberOfUnvisitedEdges": 24
+}

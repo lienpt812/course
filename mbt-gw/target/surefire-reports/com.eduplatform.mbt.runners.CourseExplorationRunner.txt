@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: com.eduplatform.mbt.runners.CourseExplorationRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 32.52 s <<< FAILURE! -- in com.eduplatform.mbt.runners.CourseExplorationRunner
+com.eduplatform.mbt.runners.CourseExplorationRunner.runCourseExplorationModel -- Time elapsed: 29.43 s <<< ERROR!
+java.lang.RuntimeException: Failed to execute GraphWalker for CourseExplorationImpl
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:80)
+	at com.eduplatform.mbt.runners.CourseExplorationRunner.runCourseExplorationModel(CourseExplorationRunner.java:16)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.graphwalker.java.test.TestExecutionException: java.lang.IllegalStateException: No published courses from API; seed the DB (e.g. POST /api/v1/admin/seed) before CourseExploration MBT.
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:251)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:74)
+	... 4 more
+Caused by: java.lang.IllegalStateException: No published courses from API; seed the DB (e.g. POST /api/v1/admin/seed) before CourseExploration MBT.
+	at com.eduplatform.mbt.impl.CourseExplorationImpl.v_CourseListVisible(CourseExplorationImpl.java:35)
+	at jdk.internal.reflect.GeneratedMethodAccessor14.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+	at org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+	at org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+	... 7 more
+

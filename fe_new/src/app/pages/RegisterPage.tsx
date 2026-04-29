@@ -177,7 +177,11 @@ export function RegisterPage() {
             </>
           )}
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && (
+            <p className="text-sm text-red-600" data-testid="register-form-error">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

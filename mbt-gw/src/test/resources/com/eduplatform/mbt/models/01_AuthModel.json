@@ -1,0 +1,589 @@
+{
+  "models": [
+    {
+      "id": "AuthModel",
+      "name": "AuthModel",
+      "generator": "random(edge_coverage(100))",
+      "startElementId": "v_GuestOnCourses",
+      "actions": [
+        "gwGuard_emailInvalid = true;",
+        "gwGuard_forgotEmailExists = true;",
+        "gwGuard_forgotEmailMissing = true;",
+        "gwGuard_forgotRateLimitedBlocked = true;",
+        "gwGuard_loggedIn = true;",
+        "gwGuard_loginCredentialsOk = true;",
+        "gwGuard_loginWillFail = true;",
+        "gwGuard_passwordWeak = true;",
+        "gwGuard_profileUpdateInvalid = true;",
+        "gwGuard_profileUpdateOk = true;",
+        "gwGuard_registerDuplicate = true;",
+        "gwGuard_registerInstructorOk = true;",
+        "gwGuard_registerRoleFieldsInvalid = true;",
+        "gwGuard_registerStudentOk = true;",
+        "gwGuard_resetReady = true;",
+        "gwGuard_roleAdmin = true;",
+        "gwGuard_roleInstructor = true;",
+        "gwGuard_roleStudent = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_GuestOnCourses",
+          "name": "v_GuestOnCourses",
+          "properties": {
+            "description": "Guest (chua dang nhap) dang xem /courses. localStorage khong co access_token. NavBar hien 'Dang nhap', khong co 'Logout'.",
+            "url": "/courses",
+            "uiAssert": "h1=Khoa Hoc, Logout NOT visible",
+            "requirement": "REQ-A-GUEST"
+          }
+        },
+        {
+          "id": "v_LoginPage",
+          "name": "v_LoginPage",
+          "properties": {
+            "description": "Trang /login. Form email+password, button Dang nhap, link Dang ky ngay, link Quen mat khau. p.text-red-600 khi co loi.",
+            "url": "/login",
+            "uiAssert": "h1=Dang nhap, input[type=email], input[type=password], button[type=submit]",
+            "requirement": "REQ-A-LOGIN"
+          }
+        },
+        {
+          "id": "v_RegisterPage",
+          "name": "v_RegisterPage",
+          "properties": {
+            "description": "Trang /register. Role STUDENT|INSTRUCTOR. STUDENT can student_major hoac learning_goal. INSTRUCTOR bat buoc expertise>=3 ky tu. Password regex ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,64}$.",
+            "url": "/register",
+            "uiAssert": "h1=Dang ky, select[role], conditional fields",
+            "requirement": "REQ-A-REGISTER"
+          }
+        },
+        {
+          "id": "v_ForgotPasswordPage",
+          "name": "v_ForgotPasswordPage",
+          "properties": {
+            "description": "Trang /forgot-password. POST /auth/forgot-password luon 200 (chong enumeration). Email ton tai: response co reset_token hien thi dev UI (div.bg-emerald-50 + p.font-mono).",
+            "url": "/forgot-password",
+            "uiAssert": "h1=Quen mat khau, input[type=email]",
+            "requirement": "REQ-A-FORGOT"
+          }
+        },
+        {
+          "id": "v_ResetPasswordPage",
+          "name": "v_ResetPasswordPage",
+          "properties": {
+            "description": "Trang /reset-password?token=. Token pre-fill tu URL param (useSearchParams). FE validate: newPwd != confirmPwd -> error. Success -> navigate('/login').",
+            "url": "/reset-password",
+            "uiAssert": "h1=Dat lai mat khau, token input pre-filled from URL",
+            "requirement": "REQ-A-RESET"
+          }
+        },
+        {
+          "id": "v_StudentDashboard",
+          "name": "v_StudentDashboard",
+          "properties": {
+            "description": "/student/dashboard. 4 stat cards, bang registrations, section Chung Chi. API: GET /dashboards/student + /registrations + /courses + /certificates/me.",
+            "url": "/student/dashboard",
+            "uiAssert": "h1=Dashboard Hoc Vien",
+            "requirement": "REQ-A-DASH-STUDENT"
+          }
+        },
+        {
+          "id": "v_InstructorDashboard",
+          "name": "v_InstructorDashboard",
+          "properties": {
+            "description": "/instructor/dashboard. Stat cards, bang courses, quan ly section/lesson. API: GET /dashboards/instructor.",
+            "url": "/instructor/dashboard",
+            "uiAssert": "h1=Dashboard Giang Vien",
+            "requirement": "REQ-A-DASH-INSTRUCTOR"
+          }
+        },
+        {
+          "id": "v_AdminDashboard",
+          "name": "v_AdminDashboard",
+          "properties": {
+            "description": "/admin/dashboard. 6 stat cards, bang registrations voi filter #admin-filter-course-select / #admin-filter-status-select, nut bulk-approve[data-testid=admin-bulk-approve].",
+            "url": "/admin/dashboard",
+            "uiAssert": "h1=Quan Tri He Thong, filter selects visible",
+            "requirement": "REQ-A-DASH-ADMIN"
+          }
+        },
+        {
+          "id": "v_ProfilePage",
+          "name": "v_ProfilePage",
+          "properties": {
+            "description": "/profile. GET /auth/me de load. PATCH /auth/me de update. INSTRUCTOR: expertise khong duoc rong neu trong payload. STUDENT: phai con student_major hoac learning_goal.",
+            "url": "/profile",
+            "uiAssert": "h1=Profile, button Luu",
+            "requirement": "REQ-A-PROFILE"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_GoToLogin",
+          "name": "e_GoToLogin",
+          "sourceVertexId": "v_GuestOnCourses",
+          "targetVertexId": "v_LoginPage",
+          "properties": {
+            "description": "Click nut 'Dang nhap' tren NavBar. uiAction: navBar.buttonLogin().click().",
+            "requirement": "REQ-A-NAV-LOGIN"
+          }
+        },
+        {
+          "id": "e_GoToRegisterFromGuest",
+          "name": "e_GoToRegister",
+          "sourceVertexId": "v_GuestOnCourses",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "Vao truc tiep /register.",
+            "requirement": "REQ-A-NAV-REGISTER"
+          }
+        },
+        {
+          "id": "e_GoToRegisterFromLogin",
+          "name": "e_GoToRegister",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "Click link 'Dang ky ngay' tu LoginPage. uiAction: loginPage.linkRegister().click().",
+            "requirement": "REQ-A-NAV-REGISTER"
+          }
+        },
+        {
+          "id": "e_GoToForgotPassword",
+          "name": "e_GoToForgotPassword",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_ForgotPasswordPage",
+          "properties": {
+            "description": "Click link 'Quen mat khau?' tu LoginPage. uiAction: loginPage.linkForgot().click().",
+            "requirement": "REQ-A-NAV-FORGOT"
+          }
+        },
+        {
+          "id": "e_BackToLoginFromRegister",
+          "name": "e_BackToLogin",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_LoginPage",
+          "properties": {
+            "description": "Click link 'Dang nhap' cuoi trang register. uiAction: registerPage.linkLogin().click().",
+            "requirement": "REQ-A-NAV-BACK-LOGIN"
+          }
+        },
+        {
+          "id": "e_LoginAsStudent",
+          "name": "e_LoginAsStudent",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_StudentDashboard",
+          "guard": "gwGuard_loginCredentialsOk",
+          "properties": {
+            "description": "POST /auth/login voi STUDENT. Luu tokens + auth_user vao localStorage. dashboardPathByRole('STUDENT') -> /student/dashboard. Cross-check: GET /auth/me tra role=STUDENT.",
+            "apiEndpoint": "POST /api/v1/auth/login + GET /api/v1/auth/me",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-LOGIN-STUDENT"
+          }
+        },
+        {
+          "id": "e_LoginAsInstructor",
+          "name": "e_LoginAsInstructor",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_InstructorDashboard",
+          "guard": "gwGuard_loginCredentialsOk",
+          "properties": {
+            "description": "POST /auth/login voi INSTRUCTOR -> /instructor/dashboard.",
+            "apiEndpoint": "POST /api/v1/auth/login",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-LOGIN-INSTRUCTOR"
+          }
+        },
+        {
+          "id": "e_LoginAsAdmin",
+          "name": "e_LoginAsAdmin",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_AdminDashboard",
+          "guard": "gwGuard_loginCredentialsOk",
+          "properties": {
+            "description": "POST /auth/login voi ADMIN (tao qua seed/test-endpoint) -> /admin/dashboard.",
+            "apiEndpoint": "POST /api/v1/auth/login",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-LOGIN-ADMIN"
+          }
+        },
+        {
+          "id": "e_LoginFail",
+          "name": "e_LoginFail",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_LoginPage",
+          "guard": "gwGuard_loginWillFail",
+          "properties": {
+            "description": "Email khong ton tai hoac password sai -> BE 401 'Invalid credentials'. FE hien p.text-red-600, o lai /login.",
+            "apiEndpoint": "POST /api/v1/auth/login",
+            "expectedStatus": 401,
+            "uiAssert": "p.text-red-600 visible, URL=/login",
+            "requirement": "REQ-A-LOGIN-FAIL"
+          }
+        },
+        {
+          "id": "e_RegisterAsStudent",
+          "name": "e_RegisterAsStudent",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_StudentDashboard",
+          "guard": "gwGuard_registerStudentOk",
+          "properties": {
+            "description": "POST /auth/register role=STUDENT, student_major hoac learning_goal (FE bat buoc 1 trong 2). Auto-login + redirect /student/dashboard.",
+            "apiEndpoint": "POST /api/v1/auth/register",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-REG-STUDENT"
+          }
+        },
+        {
+          "id": "e_RegisterAsInstructor",
+          "name": "e_RegisterAsInstructor",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_InstructorDashboard",
+          "guard": "gwGuard_registerInstructorOk",
+          "properties": {
+            "description": "POST /auth/register role=INSTRUCTOR, expertise>=3 ky tu (FE validate). Auto-login + redirect /instructor/dashboard.",
+            "apiEndpoint": "POST /api/v1/auth/register",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-REG-INSTRUCTOR"
+          }
+        },
+        {
+          "id": "e_RegisterFailDuplicate",
+          "name": "e_RegisterFailDuplicate",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "guard": "gwGuard_registerDuplicate",
+          "properties": {
+            "description": "Email da ton tai -> BE 409 'Email already exists'. FE hien p.text-red-600, o lai /register.",
+            "apiEndpoint": "POST /api/v1/auth/register",
+            "expectedStatus": 409,
+            "uiAssert": "p.text-red-600 visible",
+            "requirement": "REQ-A-REG-409"
+          }
+        },
+        {
+          "id": "e_RegisterFailValidation",
+          "name": "e_RegisterFailValidation",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "guard": "gwGuard_registerRoleFieldsInvalid",
+          "properties": {
+            "description": "STUDENT thieu major/goal HOAC INSTRUCTOR thieu expertise -> FE validate truoc API -> p.text-red-600.",
+            "uiAssert": "p.text-red-600 visible, no API call",
+            "requirement": "REQ-A-REG-400"
+          }
+        },
+        {
+          "id": "e_RegisterFailWeakPassword",
+          "name": "e_RegisterFailWeakPassword",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "guard": "gwGuard_passwordWeak",
+          "properties": {
+            "description": "Password khong thoa regex -> FE chan submit, hien p.text-red-600 'Mat khau phai co 8-64 ky tu, gom chu hoa, chu thuong va so'.",
+            "uiAssert": "p.text-red-600 visible",
+            "requirement": "REQ-A-REG-PWD"
+          }
+        },
+        {
+          "id": "e_RegisterFailInvalidEmail",
+          "name": "e_RegisterFailInvalidEmail",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "guard": "gwGuard_emailInvalid",
+          "properties": {
+            "description": "Email sai dinh dang -> HTML5 input[type=email] chan submit, URL o lai /register.",
+            "uiAssert": "form not submitted",
+            "requirement": "REQ-A-REG-EMAIL"
+          }
+        },
+        {
+          "id": "e_SubmitForgotPasswordOk",
+          "name": "e_SubmitForgotPasswordOk",
+          "sourceVertexId": "v_ForgotPasswordPage",
+          "targetVertexId": "v_ResetPasswordPage",
+          "guard": "gwGuard_forgotEmailExists",
+          "properties": {
+            "description": "POST /auth/forgot-password email ton tai -> BE tao PasswordResetToken (TTL 30p). Response 200 co reset_token. FE hien div.bg-emerald-50 + p.font-mono. Impl navigate /reset-password?token=.",
+            "apiEndpoint": "POST /api/v1/auth/forgot-password",
+            "expectedStatus": 200,
+            "uiAssert": "div.bg-emerald-50 visible, token in p.font-mono",
+            "requirement": "REQ-A-FORGOT-OK"
+          }
+        },
+        {
+          "id": "e_SubmitForgotPasswordObscure",
+          "name": "e_SubmitForgotPasswordObscure",
+          "sourceVertexId": "v_ForgotPasswordPage",
+          "targetVertexId": "v_ForgotPasswordPage",
+          "guard": "gwGuard_forgotEmailMissing",
+          "properties": {
+            "description": "POST /auth/forgot-password email khong ton tai -> BE van 200 'If email exists...' (chong enumeration). FE hien success block khong co token.",
+            "apiEndpoint": "POST /api/v1/auth/forgot-password",
+            "expectedStatus": 200,
+            "uiAssert": "div.bg-emerald-50 visible, no token shown",
+            "requirement": "REQ-A-FORGOT-OBSCURE"
+          }
+        },
+        {
+          "id": "e_SubmitResetPasswordOk",
+          "name": "e_SubmitResetPasswordOk",
+          "sourceVertexId": "v_ResetPasswordPage",
+          "targetVertexId": "v_LoginPage",
+          "guard": "gwGuard_resetReady",
+          "properties": {
+            "description": "POST /auth/reset-password {token, new_password}. BE: token hop le, used=false, expires_at>now -> update password_hash, used=true. FE navigate('/login').",
+            "apiEndpoint": "POST /api/v1/auth/reset-password",
+            "expectedStatus": 200,
+            "uiAssert": "Navigates to /login",
+            "requirement": "REQ-A-RESET-OK"
+          }
+        },
+        {
+          "id": "e_SkipResetAfterForgotRateLimited",
+          "name": "e_SkipResetAfterForgotRateLimited",
+          "sourceVertexId": "v_ResetPasswordPage",
+          "targetVertexId": "v_LoginPage",
+          "guard": "gwGuard_forgotRateLimitedBlocked",
+          "properties": {
+            "description": "Forgot-password bi 429 (public rate limit); khong co reset token. Thoat khoi reset flow ve /login de MBT khong ket.",
+            "requirement": "REQ-A-FORGOT-RL"
+          }
+        },
+        {
+          "id": "e_ViewProfileFromStudent",
+          "name": "e_ViewProfile",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_ProfilePage",
+          "guard": "gwGuard_loggedIn",
+          "properties": {
+            "description": "Navigate /profile tu student dashboard. GET /auth/me.",
+            "requirement": "REQ-A-PROFILE-VIEW"
+          }
+        },
+        {
+          "id": "e_ViewProfileFromInstructor",
+          "name": "e_ViewProfile",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_ProfilePage",
+          "guard": "gwGuard_loggedIn",
+          "properties": {
+            "description": "Navigate /profile tu instructor dashboard.",
+            "requirement": "REQ-A-PROFILE-VIEW"
+          }
+        },
+        {
+          "id": "e_ViewProfileFromAdmin",
+          "name": "e_ViewProfile",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_ProfilePage",
+          "guard": "gwGuard_loggedIn",
+          "properties": {
+            "description": "Navigate /profile tu admin dashboard.",
+            "requirement": "REQ-A-PROFILE-VIEW"
+          }
+        },
+        {
+          "id": "e_UpdateProfileOk",
+          "name": "e_UpdateProfileOk",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_ProfilePage",
+          "guard": "gwGuard_profileUpdateOk",
+          "properties": {
+            "description": "PATCH /auth/me - update bio/name/phone (optional). INSTRUCTOR: expertise/education khong rong neu co trong payload. STUDENT: phai con student_major hoac learning_goal.",
+            "apiEndpoint": "PATCH /api/v1/auth/me",
+            "expectedStatus": 200,
+            "requirement": "REQ-A-PROFILE-OK"
+          }
+        },
+        {
+          "id": "e_UpdateProfileFail",
+          "name": "e_UpdateProfileFail",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_ProfilePage",
+          "guard": "gwGuard_profileUpdateInvalid",
+          "properties": {
+            "description": "PATCH /auth/me vi pham rang buoc role -> 400. INSTRUCTOR empty expertise -> 'expertise cannot be empty for INSTRUCTOR'.",
+            "apiEndpoint": "PATCH /api/v1/auth/me",
+            "expectedStatus": 400,
+            "requirement": "REQ-A-PROFILE-400"
+          }
+        },
+        {
+          "id": "e_ArmLoginFailureContext",
+          "name": "e_ArmLoginFailureContext",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_LoginPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_LoginFail (GraphWalker danh gia guard truoc khi chay Java).",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmRegisterDuplicateContext",
+          "name": "e_ArmRegisterDuplicateContext",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_RegisterFailDuplicate.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmRegisterValidationContext",
+          "name": "e_ArmRegisterValidationContext",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_RegisterFailValidation (OR).",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmRegisterWeakPasswordContext",
+          "name": "e_ArmRegisterWeakPasswordContext",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_RegisterFailWeakPassword.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmRegisterBadEmailContext",
+          "name": "e_ArmRegisterBadEmailContext",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_RegisterFailInvalidEmail.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmForgotObscureContext",
+          "name": "e_ArmForgotObscureContext",
+          "sourceVertexId": "v_ForgotPasswordPage",
+          "targetVertexId": "v_ForgotPasswordPage",
+          "properties": {
+            "description": "MBT: dat guard cho e_SubmitForgotPasswordObscure.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_ArmProfileUpdateInvalidContext",
+          "name": "e_ArmProfileUpdateInvalidContext",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_ProfilePage",
+          "properties": {
+            "description": "MBT: dat guard cho e_UpdateProfileFail.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_RearmLoginHappyContext",
+          "name": "e_RearmLoginHappyContext",
+          "sourceVertexId": "v_LoginPage",
+          "targetVertexId": "v_LoginPage",
+          "properties": {
+            "description": "MBT: khoi phuc guard sau luong login fail.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_RearmRegisterHappyContext",
+          "name": "e_RearmRegisterHappyContext",
+          "sourceVertexId": "v_RegisterPage",
+          "targetVertexId": "v_RegisterPage",
+          "properties": {
+            "description": "MBT: khoi phuc guard sau cac register fail.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_RearmForgotHappyContext",
+          "name": "e_RearmForgotHappyContext",
+          "sourceVertexId": "v_ForgotPasswordPage",
+          "targetVertexId": "v_ForgotPasswordPage",
+          "properties": {
+            "description": "MBT: khoi phuc guard sau forgot obscure.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_RearmProfileHappyContext",
+          "name": "e_RearmProfileHappyContext",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_ProfilePage",
+          "properties": {
+            "description": "MBT: khoi phuc guard sau profile update fail.",
+            "requirement": "REQ-A-ARM"
+          }
+        },
+        {
+          "id": "e_BackFromProfileStudent",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_StudentDashboard",
+          "guard": "gwGuard_roleStudent",
+          "properties": {
+            "description": "Navigate ve /student/dashboard.",
+            "requirement": "REQ-A-BACK"
+          }
+        },
+        {
+          "id": "e_BackFromProfileInstructor",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_InstructorDashboard",
+          "guard": "gwGuard_roleInstructor",
+          "properties": {
+            "description": "Navigate ve /instructor/dashboard.",
+            "requirement": "REQ-A-BACK"
+          }
+        },
+        {
+          "id": "e_BackFromProfileAdmin",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_ProfilePage",
+          "targetVertexId": "v_AdminDashboard",
+          "guard": "gwGuard_roleAdmin",
+          "properties": {
+            "description": "Navigate ve /admin/dashboard.",
+            "requirement": "REQ-A-BACK"
+          }
+        },
+        {
+          "id": "e_LogoutStudent",
+          "name": "e_Logout",
+          "sourceVertexId": "v_StudentDashboard",
+          "targetVertexId": "v_GuestOnCourses",
+          "properties": {
+            "description": "Click Logout -> xoa localStorage tokens/auth_user -> navigate('/courses'). NavBar hien 'Dang nhap'.",
+            "uiAction": "navBar.buttonLogout().click()",
+            "requirement": "REQ-A-LOGOUT"
+          }
+        },
+        {
+          "id": "e_LogoutInstructor",
+          "name": "e_Logout",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_GuestOnCourses",
+          "properties": {
+            "description": "Logout tu instructor dashboard.",
+            "requirement": "REQ-A-LOGOUT"
+          }
+        },
+        {
+          "id": "e_LogoutAdmin",
+          "name": "e_Logout",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_GuestOnCourses",
+          "properties": {
+            "description": "Logout tu admin dashboard.",
+            "requirement": "REQ-A-LOGOUT"
+          }
+        }
+      ]
+    }
+  ]
+}

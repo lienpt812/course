@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.eduplatform.mbt.runners.LearningRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 90.38 s -- in com.eduplatform.mbt.runners.LearningRunner

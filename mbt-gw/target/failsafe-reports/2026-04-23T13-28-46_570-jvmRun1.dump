@@ -1,0 +1,628 @@
+# Created at 2026-04-23T13:34:26.341
+Thread dump for process (21212@PhamLien05):
+"Forwarding isElementDisplayed on session 2759f9dc91af006ff71493c188986e27 to remote" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture$Signaller.block(CompletableFuture.java:1866)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1939)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute0(JdkHttpClient.java:401)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient$$Lambda$840/0x000002165b518000.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.AddSeleniumUserAgent.lambda$apply$0(AddSeleniumUserAgent.java:42)
+        at app//org.openqa.selenium.remote.http.AddSeleniumUserAgent$$Lambda$927/0x000002165b530af0.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.Filter.lambda$andFinally$1(Filter.java:55)
+        at app//org.openqa.selenium.remote.http.Filter$$Lambda$841/0x000002165b518230.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute(JdkHttpClient.java:374)
+        at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:187)
+        at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+        at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+        at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+        at app//org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+        at app//org.openqa.selenium.remote.RemoteWebElement.isDisplayed(RemoteWebElement.java:282)
+        at app//com.codeborne.selenide.conditions.Visible.check(Visible.java:21)
+        at app//com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:116)
+        at app//com.codeborne.selenide.impl.WebElementSource.checkCondition(WebElementSource.java:103)
+        at app//com.codeborne.selenide.commands.Should.execute(Should.java:30)
+        at app//com.codeborne.selenide.commands.Should.execute(Should.java:14)
+        at app//com.codeborne.selenide.commands.Commands.execute(Commands.java:162)
+        at app//com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:134)
+        at app//com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:86)
+        at app/jdk.proxy2/jdk.proxy2.$Proxy33.shouldBe(Unknown Source)
+        at app//com.eduplatform.mbt.support.SafeUi.waitUntilVisible(SafeUi.java:63)
+        at app//com.eduplatform.mbt.pages.ResetPasswordPage.assertLoaded(ResetPasswordPage.java:51)
+        at app//com.eduplatform.mbt.impl.AuthImpl.v_ResetPasswordPage(AuthImpl.java:104)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.18/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.18/java.lang.reflect.Method.invoke(Method.java:569)
+        at app//org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+        at app//com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+        at app//org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+        at app//org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+        at app//org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+        at app//org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+        at app//org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+        at app//com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+        at app//com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+        at app//com.eduplatform.mbt.runners.AuthRunner.runAuthModel(AuthRunner.java:26)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.18/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.18/java.lang.reflect.Method.invoke(Method.java:569)
+        at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+        at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda$191/0x000002165b08a4c0.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall$$Lambda$192/0x000002165b08a8d0.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$$Lambda$370/0x000002165b0bdfe8.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda$661/0x000002165b287c28.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$295/0x000002165b0a99d0.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$294/0x000002165b0a97b0.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$293/0x000002165b0a9398.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda$299/0x000002165b0aa4c0.accept(Unknown Source)
+        at java.base@17.0.18/java.util.ArrayList.forEach(ArrayList.java:1511)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$295/0x000002165b0a99d0.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$294/0x000002165b0a97b0.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$293/0x000002165b0a9398.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda$299/0x000002165b0aa4c0.accept(Unknown Source)
+        at java.base@17.0.18/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+"Reference Handler" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+        at java.base@17.0.18/java.lang.ref.Reference.processPendingReferences(Reference.java:253)
+        at java.base@17.0.18/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:215)
+
+"Finalizer" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/java.lang.Object.wait(Native Method)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:176)
+        at java.base@17.0.18/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:172)
+
+"Signal Dispatcher" 
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" 
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" 
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/java.lang.Object.wait(Native Method)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.18/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:140)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+        at java.base@17.0.18/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
+
+"surefire-forkedjvm-stream-flusher" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1679)
+        at java.base@17.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"surefire-forkedjvm-command-thread" 
+   java.lang.Thread.State: RUNNABLE
+        at java.management@17.0.18/sun.management.ThreadImpl.getThreadInfo1(Native Method)
+        at java.management@17.0.18/sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:197)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.generateThreadDump(ForkedBooter.java:579)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.access$600(ForkedBooter.java:79)
+        at app//org.apache.maven.surefire.booter.ForkedBooter$4.update(ForkedBooter.java:322)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.callListeners(CommandReader.java:357)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:309)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"ForkJoinPool.commonPool-worker-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkUntil(LockSupport.java:410)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1726)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1623)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+
+"HttpClient-3-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"External Process Output Forwarder - C:\Users\ADMIN\.cache\selenium\chromedriver\win64\147.0.7727.117\chromedriver.exe" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/java.io.FileInputStream.readBytes(Native Method)
+        at java.base@17.0.18/java.io.FileInputStream.read(FileInputStream.java:276)
+        at java.base@17.0.18/java.io.BufferedInputStream.read1(BufferedInputStream.java:282)
+        at java.base@17.0.18/java.io.BufferedInputStream.read(BufferedInputStream.java:343)
+        at java.base@17.0.18/java.io.InputStream.transferTo(InputStream.java:782)
+        at app//org.openqa.selenium.os.ExternalProcess$Builder.lambda$start$0(ExternalProcess.java:211)
+        at app//org.openqa.selenium.os.ExternalProcess$Builder$$Lambda$789/0x000002165b503a28.run(Unknown Source)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"Driver Service Executor" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+        at java.base@17.0.18/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"Driver Service Executor" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+        at java.base@17.0.18/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-0" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-4-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"Dead threads watchdog" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/java.lang.Thread.sleep(Native Method)
+        at app//com.codeborne.selenide.impl.DeadThreadsWatchdog.run(DeadThreadsWatchdog.java:29)
+
+"JdkHttpClient-0-3" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-0" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-2" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-5" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+
+
+# Created at 2026-04-23T13:34:26.348
+Exiting self fork JVM. Received SHUTDOWN command from Maven shutdown hook.
+Thread dump before exiting the process (21212@PhamLien05):
+"Forwarding findElement on session 2759f9dc91af006ff71493c188986e27 to remote" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture$Signaller.block(CompletableFuture.java:1866)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1939)
+        at java.base@17.0.18/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute0(JdkHttpClient.java:401)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient$$Lambda$840/0x000002165b518000.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.AddSeleniumUserAgent.lambda$apply$0(AddSeleniumUserAgent.java:42)
+        at app//org.openqa.selenium.remote.http.AddSeleniumUserAgent$$Lambda$927/0x000002165b530af0.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.Filter.lambda$andFinally$1(Filter.java:55)
+        at app//org.openqa.selenium.remote.http.Filter$$Lambda$841/0x000002165b518230.execute(Unknown Source)
+        at app//org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute(JdkHttpClient.java:374)
+        at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:187)
+        at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+        at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+        at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+        at app//org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+        at app//org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+        at app//org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
+        at app//org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
+        at app//com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:73)
+        at app//com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:46)
+        at app//com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:35)
+        at app//com.codeborne.selenide.impl.ElementFinder.getWebElement(ElementFinder.java:122)
+        at app//com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:115)
+        at app//com.codeborne.selenide.impl.WebElementSource.checkCondition(WebElementSource.java:103)
+        at app//com.codeborne.selenide.commands.ShouldNot.execute(ShouldNot.java:30)
+        at app//com.codeborne.selenide.commands.ShouldNot.execute(ShouldNot.java:14)
+        at app//com.codeborne.selenide.commands.Commands.execute(Commands.java:162)
+        at app//com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:134)
+        at app//com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:86)
+        at app/jdk.proxy2/jdk.proxy2.$Proxy33.shouldNotBe(Unknown Source)
+        at app//com.eduplatform.mbt.pages.ResetPasswordPage.assertTokenPreFilled(ResetPasswordPage.java:102)
+        at app//com.eduplatform.mbt.impl.AuthImpl.v_ResetPasswordPage(AuthImpl.java:106)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.18/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.18/java.lang.reflect.Method.invoke(Method.java:569)
+        at app//org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+        at app//com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+        at app//org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+        at app//org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+        at app//org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+        at app//org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+        at app//org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+        at app//com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+        at app//com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+        at app//com.eduplatform.mbt.runners.AuthRunner.runAuthModel(AuthRunner.java:26)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base@17.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+        at java.base@17.0.18/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base@17.0.18/java.lang.reflect.Method.invoke(Method.java:569)
+        at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+        at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+        at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda$191/0x000002165b08a4c0.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall$$Lambda$192/0x000002165b08a8d0.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$$Lambda$370/0x000002165b0bdfe8.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+        at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda$661/0x000002165b287c28.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+        at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$295/0x000002165b0a99d0.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$294/0x000002165b0a97b0.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$293/0x000002165b0a9398.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda$299/0x000002165b0aa4c0.accept(Unknown Source)
+        at java.base@17.0.18/java.util.ArrayList.forEach(ArrayList.java:1511)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$295/0x000002165b0a99d0.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$294/0x000002165b0a97b0.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda$293/0x000002165b0a9398.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+
+"Reference Handler" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+        at java.base@17.0.18/java.lang.ref.Reference.processPendingReferences(Reference.java:253)
+        at java.base@17.0.18/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:215)
+
+"Finalizer" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/java.lang.Object.wait(Native Method)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:176)
+        at java.base@17.0.18/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:172)
+
+"Signal Dispatcher" 
+   java.lang.Thread.State: RUNNABLE
+
+"Attach Listener" 
+   java.lang.Thread.State: RUNNABLE
+
+"Notification Thread" 
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/java.lang.Object.wait(Native Method)
+        at java.base@17.0.18/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+        at java.base@17.0.18/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:140)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+        at java.base@17.0.18/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:162)
+
+"surefire-forkedjvm-stream-flusher" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1679)
+        at java.base@17.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+        at java.base@17.0.18/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"surefire-forkedjvm-command-thread" 
+   java.lang.Thread.State: RUNNABLE
+        at java.management@17.0.18/sun.management.ThreadImpl.getThreadInfo1(Native Method)
+        at java.management@17.0.18/sun.management.ThreadImpl.getThreadInfo(ThreadImpl.java:197)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.generateThreadDump(ForkedBooter.java:579)
+        at app//org.apache.maven.surefire.booter.ForkedBooter.access$600(ForkedBooter.java:79)
+        at app//org.apache.maven.surefire.booter.ForkedBooter$4.update(ForkedBooter.java:315)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.callListeners(CommandReader.java:357)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.exitByConfiguration(CommandReader.java:367)
+        at app//org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:330)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"ForkJoinPool.commonPool-worker-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkUntil(LockSupport.java:410)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1726)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1623)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+
+"HttpClient-3-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"External Process Output Forwarder - C:\Users\ADMIN\.cache\selenium\chromedriver\win64\147.0.7727.117\chromedriver.exe" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/java.io.FileInputStream.readBytes(Native Method)
+        at java.base@17.0.18/java.io.FileInputStream.read(FileInputStream.java:276)
+        at java.base@17.0.18/java.io.BufferedInputStream.read1(BufferedInputStream.java:282)
+        at java.base@17.0.18/java.io.BufferedInputStream.read(BufferedInputStream.java:343)
+        at java.base@17.0.18/java.io.InputStream.transferTo(InputStream.java:782)
+        at app//org.openqa.selenium.os.ExternalProcess$Builder.lambda$start$0(ExternalProcess.java:211)
+        at app//org.openqa.selenium.os.ExternalProcess$Builder$$Lambda$789/0x000002165b503a28.run(Unknown Source)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"Driver Service Executor" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+        at java.base@17.0.18/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"Driver Service Executor" 
+   java.lang.Thread.State: WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+        at java.base@17.0.18/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+        at java.base@17.0.18/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+        at java.base@17.0.18/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-0" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-4-SelectorManager" 
+   java.lang.Thread.State: RUNNABLE
+        at java.base@17.0.18/sun.nio.ch.WEPoll.wait(Native Method)
+        at java.base@17.0.18/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+        at java.base@17.0.18/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:141)
+        at platform/java.net.http@17.0.18/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1301)
+
+"Dead threads watchdog" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/java.lang.Thread.sleep(Native Method)
+        at app//com.codeborne.selenide.impl.DeadThreadsWatchdog.run(DeadThreadsWatchdog.java:29)
+
+"JdkHttpClient-0-3" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-0" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-1" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"HttpClient-2-Worker-2" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+"JdkHttpClient-0-5" 
+   java.lang.Thread.State: TIMED_WAITING
+        at java.base@17.0.18/jdk.internal.misc.Unsafe.park(Native Method)
+        at java.base@17.0.18/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+        at java.base@17.0.18/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+        at java.base@17.0.18/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+        at java.base@17.0.18/java.lang.Thread.run(Thread.java:840)
+
+
+

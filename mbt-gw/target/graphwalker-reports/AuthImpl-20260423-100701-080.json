@@ -1,0 +1,17 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 0,
+  "verticesNotVisited": [],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 41,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [],
+  "vertexCoverage": 100,
+  "totalNumberOfEdges": 41,
+  "totalNumberOfVisitedVertices": 9,
+  "edgeCoverage": 100,
+  "totalNumberOfVertices": 9,
+  "totalNumberOfUnvisitedEdges": 0
+}

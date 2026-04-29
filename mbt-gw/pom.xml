@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.eduplatform.mbt</groupId>
+    <artifactId>test-web</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>EduPlatform MBT Web Tests</name>
+    <description>
+        Model-Based Testing for the course registration platform using
+        GraphWalker 4.x + Selenide 7.x against the fe_new React frontend.
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+
+        <!-- Core libs -->
+        <graphwalker.version>4.3.3</graphwalker.version>
+        <selenide.version>7.4.3</selenide.version>
+        <selenium.version>4.23.1</selenium.version>
+        <junit.version>5.10.2</junit.version>
+        <assertj.version>3.26.3</assertj.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <logback.version>1.5.6</logback.version>
+        <jackson.version>2.17.1</jackson.version>
+
+        <!-- Plugin versions -->
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <maven.failsafe.plugin.version>3.2.5</maven.failsafe.plugin.version>
+        <build.helper.plugin.version>3.6.0</build.helper.plugin.version>
+        <jacoco.plugin.version>0.8.12</jacoco.plugin.version>
+        <!-- Surefire/Failsafe fork: giảm cảnh báo Manifest-JAR + classpath JDK (xem *.dumpstream) -->
+        <maven.test.jvmargLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</maven.test.jvmargLine>
+
+        <!-- Default runtime config (override via -D or env vars) -->
+        <web.base.url>http://localhost:3000</web.base.url>
+        <api.base.url>http://localhost:8000</api.base.url>
+        <selenide.browser>chrome</selenide.browser>
+        <selenide.headless>true</selenide.headless>
+        <selenide.timeout>8000</selenide.timeout>
+        <mbt.api.getCacheTtlMs>4000</mbt.api.getCacheTtlMs>
+        <mbt.api.minIntervalMs>50</mbt.api.minIntervalMs>
+
+        <!-- Truyền vào JVM: -Dgraphwalker.generator=... (xem AbstractGraphWalkerRunner) -->
+        <graphwalker.generator></graphwalker.generator>
+        <failsafe.timeout.seconds>0</failsafe.timeout.seconds>
+    </properties>
+
+    <dependencies>
+        <!-- ============ GraphWalker 4.x ============ -->
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-core</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-java</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-io</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-dsl</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <!-- JUnit 5 bridge for GraphWalker (provides @GraphWalker annotation + runner helpers) -->
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-maven-plugin</artifactId>
+            <version>${graphwalker.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- ============ Selenide (bundles Selenium) ============ -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+        </dependency>
+
+        <!-- ============ JUnit 5 ============ -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============ AssertJ (fluent assertions) ============ -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ============ Jackson for API helpers ============ -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- ============ Logging ============ -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Make models visible in both main and test classpath so GraphWalker can load them at runtime -->
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.json</include>
+                    <include>**/*.graphml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- ====== GraphWalker: sinh interface Java từ model JSON ======
+                 Quét src/test/resources/**/*.json và xuất ra
+                 target/generated-test-sources/graphwalker/<package>/<Model>.java.
+                 Với models ở src/test/resources/com/eduplatform/mbt/models/,
+                 generated package sẽ là com.eduplatform.mbt.models.
+            -->
+            <plugin>
+                <groupId>org.graphwalker</groupId>
+                <artifactId>graphwalker-maven-plugin</artifactId>
+                <version>${graphwalker.version}</version>
+                <executions>
+                    <execution>
+                        <id>gw-generate-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generate-test-sources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- true: tránh interface generated lệch với JSON sau khi sửa model -->
+                            <clean>true</clean>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ====== Thêm generated-test-sources vào test-source roots ======
+                 Một số IDE không tự detect thư mục generate từ GraphWalker plugin,
+                 build-helper ensures cả Maven CLI lẫn IDE đều thấy source.
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build.helper.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-gw-generated-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-test-sources/graphwalker</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ====== Surefire: chạy unit test ====== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                        <exclude>**/*Runner.java</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <webBaseUrl>${web.base.url}</webBaseUrl>
+                        <apiBaseUrl>${api.base.url}</apiBaseUrl>
+                        <selenide.browser>${selenide.browser}</selenide.browser>
+                        <selenide.headless>${selenide.headless}</selenide.headless>
+                        <selenide.timeout>${selenide.timeout}</selenide.timeout>
+                        <mbt.api.getCacheTtlMs>${mbt.api.getCacheTtlMs}</mbt.api.getCacheTtlMs>
+                        <mbt.api.minIntervalMs>${mbt.api.minIntervalMs}</mbt.api.minIntervalMs>
+                    </systemPropertyVariables>
+                    <argLine>@{jacocoArgLine} ${maven.test.jvmargLine}</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- ====== Failsafe: chạy GraphWalker runner (end-to-end) ======
+                 Quy ước: class kết thúc bằng *Runner.java hoặc *IT.java được xem là integration test,
+                 chạy ở phase verify (không chạy chung với unit test).
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>**/*Runner.java</include>
+                        <include>**/*IT.java</include>
+                    </includes>
+                    <!-- Log test (stdout/stderr) ra console Maven; *.txt output vẫn có trong failsafe-reports -->
+                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                    <trimStackTrace>false</trimStackTrace>
+                    <forkedProcessTimeoutInSeconds>${failsafe.timeout.seconds}</forkedProcessTimeoutInSeconds>
+                    <systemPropertyVariables>
+                        <webBaseUrl>${web.base.url}</webBaseUrl>
+                        <apiBaseUrl>${api.base.url}</apiBaseUrl>
+                        <selenide.browser>${selenide.browser}</selenide.browser>
+                        <selenide.headless>${selenide.headless}</selenide.headless>
+                        <selenide.timeout>${selenide.timeout}</selenide.timeout>
+                        <graphwalker.generator>${graphwalker.generator}</graphwalker.generator>
+                        <mbt.api.getCacheTtlMs>${mbt.api.getCacheTtlMs}</mbt.api.getCacheTtlMs>
+                        <mbt.api.minIntervalMs>${mbt.api.minIntervalMs}</mbt.api.minIntervalMs>
+                    </systemPropertyVariables>
+                    <argLine>${maven.test.jvmargLine}</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- ====== JaCoCo: report coverage cho code test (helper util) ====== -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-prepare</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacocoArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Chạy 1 module cụ thể: mvn -Pmodule-auth verify -->
+        <profile>
+            <id>module-auth</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/AuthRunner.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>module-registration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/RegistrationRunner.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>module-learning</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/LearningRunner.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Headed mode khi debug trực quan: mvn -Pheaded verify -->
+        <profile>
+            <id>headed</id>
+            <properties>
+                <selenide.headless>false</selenide.headless>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>gw-smoke</id>
+            <properties>
+                <graphwalker.generator>random(edge_coverage(100) || length(30))</graphwalker.generator>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>gw-full-edge</id>
+            <properties>
+                <graphwalker.generator>random(edge_coverage(100) || length(200))</graphwalker.generator>
+                <failsafe.timeout.seconds>7200</failsafe.timeout.seconds>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>gw-full-edge-vertex</id>
+            <properties>
+                <graphwalker.generator>random(edge_coverage(100) &amp;&amp; vertex_coverage(100))</graphwalker.generator>
+                <failsafe.timeout.seconds>10800</failsafe.timeout.seconds>
+            </properties>
+        </profile>
+    </profiles>
+</project>

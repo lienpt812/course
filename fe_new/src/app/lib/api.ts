@@ -76,6 +76,17 @@ export interface LearningOutlineItem {
   lessons: LearningLessonItem[];
 }
 
+/** Thrown by {@link request} so callers can distinguish HTTP status (e.g. 429 vs 401). */
+export class ApiHttpError extends Error {
+  readonly status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = 'ApiHttpError';
+    this.status = status;
+  }
+}
+
 interface ApiError {
   code?: string;
   message?: string;
@@ -164,11 +175,11 @@ async function request<T>(path: string, init?: RequestInit, withAuthRetry: boole
         if (retryResponse.ok) {
           return retryPayload?.data as T;
         }
-        throw new Error(extractErrorMessage(retryPayload));
+        throw new ApiHttpError(retryResponse.status, extractErrorMessage(retryPayload));
       }
     }
 
-    throw new Error(extractErrorMessage(payload));
+    throw new ApiHttpError(response.status, extractErrorMessage(payload));
   }
 
   return payload?.data as T;

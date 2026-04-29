@@ -1,0 +1,214 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 11,
+  "verticesNotVisited": [
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_CourseCreated",
+      "vertexId": "v_CourseCreated"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_CourseEditDetail",
+      "vertexId": "v_CourseEditDetail"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_CourseEditForm",
+      "vertexId": "v_CourseEditForm"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_CourseEditForbiddenPublished",
+      "vertexId": "v_CourseEditForbiddenPublished"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_CourseUpdated",
+      "vertexId": "v_CourseUpdated"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_SectionManagerOpen",
+      "vertexId": "v_SectionManagerOpen"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_SectionCreated",
+      "vertexId": "v_SectionCreated"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_SectionCreateError",
+      "vertexId": "v_SectionCreateError"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_LessonCreated",
+      "vertexId": "v_LessonCreated"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_LessonCreateError",
+      "vertexId": "v_LessonCreateError"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "vertexName": "v_OutlineRefreshed",
+      "vertexId": "v_OutlineRefreshed"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 13,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateCourseOk",
+      "edgeName": "e_CreateCourse"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateCourseFailTitle",
+      "edgeName": "e_CreateCourseFailTitle"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateCourseFailImage",
+      "edgeName": "e_CreateCourseFailImage"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateCourseFailCapacity",
+      "edgeName": "e_CreateCourseFailCapacity"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_ReturnDashboardAfterCreate",
+      "edgeName": "e_ReturnDashboard"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OpenCourseForEdit",
+      "edgeName": "e_OpenCourseForEdit"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OpenPublishedCourse",
+      "edgeName": "e_OpenPublishedCourse"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_ClickEditButton",
+      "edgeName": "e_ClickEditButton"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_SaveEditOk",
+      "edgeName": "e_SaveEdit"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CancelEdit",
+      "edgeName": "e_CancelEdit"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_AfterUpdateReload",
+      "edgeName": "e_AfterUpdateReload"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_BackFromPublished",
+      "edgeName": "e_BackFromPublished"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OpenSectionManager",
+      "edgeName": "e_OpenSectionManager"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OpenSectionManagerFromDetail",
+      "edgeName": "e_OpenSectionManagerFromDetail"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_RearmSectionFormGuards",
+      "edgeName": "e_RearmSectionFormGuards"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_ArmSectionTitleInvalid",
+      "edgeName": "e_ArmSectionTitleInvalid"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_RearmLessonFormGuards",
+      "edgeName": "e_RearmLessonFormGuards"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_ArmLessonTitleInvalid",
+      "edgeName": "e_ArmLessonTitleInvalid"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateSectionOk",
+      "edgeName": "e_CreateSection"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateSectionFailTitle",
+      "edgeName": "e_CreateSectionFailTitle"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_FixAndRetrySection",
+      "edgeName": "e_FixAndRetrySection"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateLessonOk",
+      "edgeName": "e_CreateLesson"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateLessonOkFromExisting",
+      "edgeName": "e_CreateLesson"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_CreateLessonFailTitle",
+      "edgeName": "e_CreateLessonFailTitle"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_FixAndRetryLesson",
+      "edgeName": "e_FixAndRetryLesson"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OutlineRefreshAfterSection",
+      "edgeName": "e_OutlineRefresh"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_OutlineRefreshAfterLesson",
+      "edgeName": "e_OutlineRefresh"
+    },
+    {
+      "modelName": "InstructorContentModel",
+      "edgeId": "e_BackToSectionManagerFromOutline",
+      "edgeName": "e_BackToSectionManagerFromOutline"
+    }
+  ],
+  "vertexCoverage": 87,
+  "totalNumberOfEdges": 41,
+  "totalNumberOfVisitedVertices": 13,
+  "edgeCoverage": 90,
+  "totalNumberOfVertices": 15,
+  "totalNumberOfUnvisitedEdges": 4
+}

@@ -1,0 +1,90 @@
+{
+  "failures": [{"failure": "Element should be enabled {by text: Đăng Ký Ngay}\r\nElement: '<button class=\"w-full bg-emerald-600 text-white py-3 hover:bg-emerald-700 transition-colors disabled:bg-neutral-300 disabled:cursor-not-allowed mb-4 rounded-xl\" disabled type=\"submit\">Đăng Ký Ngay<\/button>'\r\nActual value: disabled\r\nScreenshot: file:/D:/TESTING/course/test-web01/target/selenide-reports/1776886199899.0.png\r\nTimeout: 12 s.\r\n\tat com.codeborne.selenide.impl.WebElementSource.handleError(WebElementSource.java:148)\r\n\tat com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:126)\r\n\tat com.codeborne.selenide.impl.WebElementSource.checkCondition(WebElementSource.java:103)\r\n\tat com.codeborne.selenide.commands.Should.execute(Should.java:30)\r\n\tat com.codeborne.selenide.commands.Should.execute(Should.java:14)\r\n\tat com.codeborne.selenide.commands.Commands.execute(Commands.java:162)\r\n\tat com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:134)\r\n\tat com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:86)\r\n\tat jdk.proxy2/jdk.proxy2.$Proxy33.shouldBe(Unknown Source)\r\n\tat com.eduplatform.mbt.pages.CourseDetailPage.clickRegister(CourseDetailPage.java:137)\r\n\tat com.eduplatform.mbt.impl.RegistrationImpl.e_RegisterCourse(RegistrationImpl.java:142)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)\r\n\tat org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)\r\n\tat org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)\r\n\tat org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)\r\n\tat org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)\r\n\tat com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:74)\r\n\tat com.eduplatform.mbt.runners.RegistrationRunner.runRegistrationModel(RegistrationRunner.java:10)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:569)\r\n\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)\r\n\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)\r\n\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\r\n\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)\r\n\tat org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)\r\n\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1511)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)\r\n\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)\r\n\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)\r\n\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)\r\n\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\r\n\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)\r\n\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)\r\n\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)\r\n\tat org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)\r\n\tat org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)\r\n\tat org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)\r\n\tat org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)\r\n"}],
+  "totalFailedNumberOfModels": 1,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 5,
+  "verticesNotVisited": [
+    {
+      "modelName": "RegistrationModel",
+      "vertexName": "v_CourseRegistrationNotAvailable",
+      "vertexId": "v_CourseRegistrationNotAvailable"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "vertexName": "v_PendingRegistration",
+      "vertexId": "v_PendingRegistration"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "vertexName": "v_ConfirmedRegistration",
+      "vertexId": "v_ConfirmedRegistration"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "vertexName": "v_AdminRegistrationList",
+      "vertexId": "v_AdminRegistrationList"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "vertexName": "v_BulkApproveResult",
+      "vertexId": "v_BulkApproveResult"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 0,
+  "totalNumberOfVisitedEdges": 1,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_RegNoSlot",
+      "edgeName": "e_VerifyRegistrationNotAvailable"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_FromClosedBack",
+      "edgeName": "e_BackToOpenCourseForStudent"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_OpenAdmin",
+      "edgeName": "e_OpenAdminRegistrations"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_AdminAppr",
+      "edgeName": "e_AdminApprove"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_AdminApprNoop",
+      "edgeName": "e_AdminApproveSkipped"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_Rej",
+      "edgeName": "e_AdminReject"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_Bulk",
+      "edgeName": "e_AdminBulkApprove"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_BackL",
+      "edgeName": "e_BackToList"
+    },
+    {
+      "modelName": "RegistrationModel",
+      "edgeId": "e_Stud",
+      "edgeName": "e_StudentViewCourseDetail"
+    }
+  ],
+  "vertexCoverage": 16,
+  "totalNumberOfEdges": 10,
+  "totalNumberOfVisitedVertices": 1,
+  "edgeCoverage": 10,
+  "totalNumberOfVertices": 6,
+  "totalNumberOfUnvisitedEdges": 9
+}

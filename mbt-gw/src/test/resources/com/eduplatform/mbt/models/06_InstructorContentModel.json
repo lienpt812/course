@@ -1,0 +1,617 @@
+{
+  "models": [
+    {
+      "id": "InstructorContentModel",
+      "name": "InstructorContentModel",
+      "generator": "random(edge_coverage(100) || length(40))",
+      "startElementId": "v_InstructorDashboard",
+      "actions": [
+        "gwGuard_createCapacityInvalid = true;",
+        "gwGuard_createCourseFormAllValid = true;",
+        "gwGuard_createDescriptionInvalid = true;",
+        "gwGuard_createHoursInvalid = true;",
+        "gwGuard_createImageInvalid = true;",
+        "gwGuard_createTitleInvalid = true;",
+        "gwGuard_foreignCourseExists = true;",
+        "gwGuard_lessonCreateReady = true;",
+        "gwGuard_lessonFormValid = true;",
+        "gwGuard_lessonTitleInvalid = true;",
+        "gwGuard_ownedCourseExists = true;",
+        "gwGuard_ownedDraftExists = true;",
+        "gwGuard_ownedPublishedExists = true;",
+        "gwGuard_sectionFormValid = true;",
+        "gwGuard_sectionTitleInvalid = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_InstructorDashboard",
+          "name": "v_InstructorDashboard",
+          "properties": {
+            "description": "/instructor/dashboard. GET /dashboards/instructor: total_courses, total_students, total_registrations, list courses. Section quan ly section/lesson voi select 'Chon khoa hoc'. Nut 'Them khoa hoc'. Impl: sync ownedCourseExists, ownedDraftExists, ownedPublishedExists tu API.",
+            "url": "/instructor/dashboard",
+            "apiEndpoint": "GET /api/v1/dashboards/instructor",
+            "uiAssert": "h1=Dashboard Giang Vien",
+            "syncGuards": "ownedCourseExists, ownedDraftExists, ownedPublishedExists, foreignCourseExists",
+            "requirement": "REQ-F-DASH"
+          }
+        },
+        {
+          "id": "v_CourseCreateForm",
+          "name": "v_CourseCreateForm",
+          "properties": {
+            "description": "Form tao course inline (showCreateForm=true). Fields: title(3-255), slug(auto tu title neu trong, <=255), description(>=20), category, image_url(phai bat dau https://), maxCapacity(1-10000), estimatedHours(1-1000), level(Beginner/Intermediate/Advanced), status(DRAFT/PUBLISHED/COMING_SOON). Nut 'Luu khoa hoc' + 'Huy'.",
+            "uiAssert": "titleInput visible, saveCourseButton visible",
+            "requirement": "REQ-F-FORM"
+          }
+        },
+        {
+          "id": "v_CourseCreated",
+          "name": "v_CourseCreated",
+          "properties": {
+            "description": "POST /courses thanh cong. Course moi xuat hien trong bang. Cross-check: GET /courses/{id} tra du lieu dung (title/status/instructor_id).",
+            "apiEndpoint": "POST /api/v1/courses",
+            "uiAssert": "course rows >= 1 in table",
+            "apiVerify": "GET /api/v1/courses/{newId} -> title matches, instructor_id matches",
+            "requirement": "REQ-F-CREATE-OK"
+          }
+        },
+        {
+          "id": "v_CourseCreateError",
+          "name": "v_CourseCreateError",
+          "properties": {
+            "description": "FE validation fail (truoc khi goi API) -> p.text-red-600 hien. Cac loi: 'Ten khoa hoc phai tu 3 den 255 ky tu', 'Mo ta can it nhat 20 ky tu', 'Slug khong hop le', 'URL anh khong hop le', v.v.",
+            "uiAssert": "p.text-red-600 visible, no API call for course create",
+            "requirement": "REQ-F-CREATE-ERR"
+          }
+        },
+        {
+          "id": "v_CourseEditDetail",
+          "name": "v_CourseEditDetail",
+          "properties": {
+            "description": "/courses/:id. Instructor la chu khoa hoc, status != PUBLISHED -> nut 'Chinh sua' hien. CourseOutlineManager xuong phia duoi. Impl: open myOwnedDraftCourse.",
+            "url": "/courses/:courseId",
+            "uiAssert": "editButton 'Chinh sua' visible, backToList visible",
+            "requirement": "REQ-F-EDIT-ENTER"
+          }
+        },
+        {
+          "id": "v_CourseEditForm",
+          "name": "v_CourseEditForm",
+          "properties": {
+            "description": "setIsEditing=true tren CourseDetailPage. Edit form inline. Nut 'Luu' va 'Huy'. Impl: click edit button.",
+            "uiAssert": "backToList visible, save/cancel buttons visible",
+            "requirement": "REQ-F-EDIT-FORM"
+          }
+        },
+        {
+          "id": "v_CourseEditForbiddenPublished",
+          "name": "v_CourseEditForbiddenPublished",
+          "properties": {
+            "description": "Course da PUBLISHED -> FE hien 'Khoa hoc da published - khong the chinh sua'. Nut 'Chinh sua' khong hien. Impl: open myOwnedPublishedCourse. Seed can co PUBLISHED course.",
+            "url": "/courses/:courseId",
+            "uiAssert": "publishedLockMsg 'Khoa hoc da published...' visible, editButton NOT visible",
+            "requirement": "REQ-F-EDIT-BLOCKED-PUBLISHED"
+          }
+        },
+        {
+          "id": "v_CourseEditForbiddenNotOwner",
+          "name": "v_CourseEditForbiddenNotOwner",
+          "properties": {
+            "description": "Instructor khac hoac student -> khong thay nut 'Chinh sua'. BE PATCH /courses/{id} se tra 403 'Cannot update another instructor course'. Impl: open foreignCourse.",
+            "url": "/courses/:courseId",
+            "uiAssert": "editButton NOT visible",
+            "expectedStatus": 403,
+            "requirement": "REQ-F-EDIT-BLOCKED-NOT-OWNER"
+          }
+        },
+        {
+          "id": "v_CourseUpdated",
+          "name": "v_CourseUpdated",
+          "properties": {
+            "description": "PATCH /courses/{id} thanh cong. course detail reload, title cap nhat. Cross-check: assertSuccessEnvelope + title chua 'MBT Updated'.",
+            "apiEndpoint": "PATCH /api/v1/courses/{id}",
+            "uiAssert": "h1=updated title",
+            "requirement": "REQ-F-UPDATE-OK"
+          }
+        },
+        {
+          "id": "v_SectionManagerOpen",
+          "name": "v_SectionManagerOpen",
+          "properties": {
+            "description": "Quan ly section/lesson (InstructorDashboard: select course -> fetch outline). Co input 'Ten section', nut 'Luu section'. Co select 'Chon section', input 'Ten lesson', nut 'Luu lesson'. Impl: ensure course selected in dropdown.",
+            "uiAssert": "sectionTitleInput visible, saveSectionButton visible",
+            "requirement": "REQ-F-SECMGR"
+          }
+        },
+        {
+          "id": "v_SectionCreated",
+          "name": "v_SectionCreated",
+          "properties": {
+            "description": "POST /learning/sections thanh cong. Outline reload. Cross-check: GET /learning/courses/{id}/outline tra section moi.",
+            "apiEndpoint": "POST /api/v1/learning/sections",
+            "apiVerify": "GET /api/v1/learning/courses/{id}/outline contains new section",
+            "requirement": "REQ-F-SEC-OK"
+          }
+        },
+        {
+          "id": "v_SectionCreateError",
+          "name": "v_SectionCreateError",
+          "properties": {
+            "description": "FE validate hoac BE tra loi. Title <2 ky tu: FE button disabled (khi title rong); BE 422 khi gui. p.text-red-600 hien.",
+            "uiAssert": "p.text-red-600 OR saveSectionButton disabled",
+            "requirement": "REQ-F-SEC-ERR"
+          }
+        },
+        {
+          "id": "v_LessonCreated",
+          "name": "v_LessonCreated",
+          "properties": {
+            "description": "POST /learning/lessons thanh cong. Cross-check: GET outline tra at least 1 lesson trong section.",
+            "apiEndpoint": "POST /api/v1/learning/lessons",
+            "apiVerify": "GET outline has lessons.size() >= 1",
+            "requirement": "REQ-F-LESSON-OK"
+          }
+        },
+        {
+          "id": "v_LessonCreateError",
+          "name": "v_LessonCreateError",
+          "properties": {
+            "description": "FE: title <2 ky tu -> button disabled. BE: section khong ton tai -> 404.",
+            "uiAssert": "p.text-red-600 OR saveLessonButton disabled",
+            "requirement": "REQ-F-LESSON-ERR"
+          }
+        },
+        {
+          "id": "v_OutlineRefreshed",
+          "name": "v_OutlineRefreshed",
+          "properties": {
+            "description": "GET /learning/courses/{id}/outline sau create section/lesson. FE cap nhat 'Outline hien tai'. uiAssert: outlineBlock visible.",
+            "apiEndpoint": "GET /api/v1/learning/courses/{id}/outline",
+            "uiAssert": "outlineBlock 'Outline hien tai' visible",
+            "requirement": "REQ-F-OUTLINE"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenCreateForm",
+          "name": "e_OpenCreateForm",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "Click 'Them khoa hoc' -> showCreateForm=true, form hien. uiAction: dashboard.addCourseButton().click().",
+            "uiAction": "dashboard.addCourseButton().click()",
+            "requirement": "REQ-F-OPEN"
+          }
+        },
+        {
+          "id": "e_RearmCreateCourseFormGuards",
+          "name": "e_RearmCreateCourseFormGuards",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT: khoi phuc guard sau loi tao course.",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmCreateTitleInvalid",
+          "name": "e_ArmCreateTitleInvalid",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT arm title guard",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmCreateDescriptionInvalid",
+          "name": "e_ArmCreateDescriptionInvalid",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT arm desc guard",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmCreateImageInvalid",
+          "name": "e_ArmCreateImageInvalid",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT arm image guard",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmCreateCapacityInvalid",
+          "name": "e_ArmCreateCapacityInvalid",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT arm capacity guard",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmCreateHoursInvalid",
+          "name": "e_ArmCreateHoursInvalid",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "MBT arm hours guard",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_CreateCourseOk",
+          "name": "e_CreateCourse",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreated",
+          "guard": "gwGuard_createCourseFormAllValid",
+          "properties": {
+            "description": "Fill form hop le (title>=3, desc>=20, slug auto, image https://, cap 30, hours 20) + click 'Luu khoa hoc'. POST /courses thanh cong.",
+            "apiEndpoint": "POST /api/v1/courses",
+            "requirement": "REQ-F-CREATE-OK"
+          }
+        },
+        {
+          "id": "e_CreateCourseFailTitle",
+          "name": "e_CreateCourseFailTitle",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateError",
+          "guard": "gwGuard_createTitleInvalid",
+          "properties": {
+            "description": "Title <3 ky tu -> FE hien 'Ten khoa hoc phai tu 3 den 255 ky tu'. Impl: setValue('AB').",
+            "requirement": "REQ-F-CREATE-400-TITLE"
+          }
+        },
+        {
+          "id": "e_CreateCourseFailDescription",
+          "name": "e_CreateCourseFailDescription",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateError",
+          "guard": "gwGuard_createDescriptionInvalid",
+          "properties": {
+            "description": "Description <20 ky tu -> FE hien 'Mo ta can it nhat 20 ky tu'. Impl: setValue('short').",
+            "requirement": "REQ-F-CREATE-400-DESC"
+          }
+        },
+        {
+          "id": "e_CreateCourseFailImage",
+          "name": "e_CreateCourseFailImage",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateError",
+          "guard": "gwGuard_createImageInvalid",
+          "properties": {
+            "description": "image_url khong bat dau http:// hoac https:// -> FE hien 'URL anh khong hop le'. Impl: setValue('not-a-url').",
+            "requirement": "REQ-F-CREATE-400-IMG"
+          }
+        },
+        {
+          "id": "e_CreateCourseFailCapacity",
+          "name": "e_CreateCourseFailCapacity",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateError",
+          "guard": "gwGuard_createCapacityInvalid",
+          "properties": {
+            "description": "max_capacity <1 hoac >10000 -> FE chan.",
+            "requirement": "REQ-F-CREATE-400-CAP"
+          }
+        },
+        {
+          "id": "e_CreateCourseFailHours",
+          "name": "e_CreateCourseFailHours",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_CourseCreateError",
+          "guard": "gwGuard_createHoursInvalid",
+          "properties": {
+            "description": "estimated_hours <1 hoac >1000 -> FE chan.",
+            "requirement": "REQ-F-CREATE-400-HOURS"
+          }
+        },
+        {
+          "id": "e_CancelCreate",
+          "name": "e_CancelCreate",
+          "sourceVertexId": "v_CourseCreateForm",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Click 'Huy' -> showCreateForm=false. uiAction: dashboard.cancelButton().click(). Assert saveCourseButton NOT visible sau khi cancel.",
+            "uiAction": "dashboard.cancelButton().click()",
+            "requirement": "REQ-F-CANCEL"
+          }
+        },
+        {
+          "id": "e_FixAndRetry",
+          "name": "e_FixAndRetry",
+          "sourceVertexId": "v_CourseCreateError",
+          "targetVertexId": "v_CourseCreateForm",
+          "properties": {
+            "description": "User sua input va submit lai. Impl: goi e_CreateCourse().",
+            "requirement": "REQ-F-RETRY"
+          }
+        },
+        {
+          "id": "e_ReturnDashboardAfterCreate",
+          "name": "e_ReturnDashboard",
+          "sourceVertexId": "v_CourseCreated",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "showCreateForm=false sau create. loadData() reload list courses.",
+            "requirement": "REQ-F-DASH-REFRESH"
+          }
+        },
+        {
+          "id": "e_OpenCourseForEdit",
+          "name": "e_OpenCourseForEdit",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CourseEditDetail",
+          "guard": "gwGuard_ownedDraftExists",
+          "properties": {
+            "description": "Click link 'Chinh Sua' tren row course DRAFT trong bang -> /courses/:id voi edit button hien. Impl: mo myOwnedDraftCourseId().",
+            "syncGuards": "ownedDraftExists=true khi co DRAFT course",
+            "requirement": "REQ-F-EDIT-ENTER"
+          }
+        },
+        {
+          "id": "e_OpenPublishedCourse",
+          "name": "e_OpenPublishedCourse",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CourseEditForbiddenPublished",
+          "guard": "gwGuard_ownedPublishedExists",
+          "properties": {
+            "description": "Mo course da PUBLISHED cua chinh instructor -> FE hien lock message. Impl: mo myOwnedCourseIdWithStatus('PUBLISHED').",
+            "syncGuards": "ownedPublishedExists=true khi co PUBLISHED course",
+            "requirement": "REQ-F-EDIT-BLOCKED-PUBLISHED"
+          }
+        },
+        {
+          "id": "e_OpenForeignCourse",
+          "name": "e_OpenForeignCourse",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_CourseEditForbiddenNotOwner",
+          "guard": "gwGuard_foreignCourseExists",
+          "properties": {
+            "description": "Mo course cua instructor khac -> khong thay nut Edit. Impl: mo foreignCourseId().",
+            "syncGuards": "foreignCourseExists=true khi co course khong cua instructor nay",
+            "requirement": "REQ-F-EDIT-BLOCKED-NOT-OWNER"
+          }
+        },
+        {
+          "id": "e_ClickEditButton",
+          "name": "e_ClickEditButton",
+          "sourceVertexId": "v_CourseEditDetail",
+          "targetVertexId": "v_CourseEditForm",
+          "properties": {
+            "description": "Click 'Chinh sua' -> setIsEditing=true, form hien. uiAction: detailPage.clickEdit().",
+            "uiAction": "detailPage.clickEdit()",
+            "requirement": "REQ-F-EDIT-OPEN"
+          }
+        },
+        {
+          "id": "e_SaveEditOk",
+          "name": "e_SaveEdit",
+          "sourceVertexId": "v_CourseEditForm",
+          "targetVertexId": "v_CourseUpdated",
+          "properties": {
+            "description": "PATCH /courses/{id} (khong phai PUT) voi {title, description,...}. Cross-check: assertSuccessEnvelope + title chua 'MBT Updated'.",
+            "apiEndpoint": "PATCH /api/v1/courses/{id}",
+            "requirement": "REQ-F-UPDATE-OK"
+          }
+        },
+        {
+          "id": "e_CancelEdit",
+          "name": "e_CancelEdit",
+          "sourceVertexId": "v_CourseEditForm",
+          "targetVertexId": "v_CourseEditDetail",
+          "properties": {
+            "description": "Click 'Huy' -> setIsEditing=false.",
+            "requirement": "REQ-F-EDIT-CANCEL"
+          }
+        },
+        {
+          "id": "e_AfterUpdateReload",
+          "name": "e_AfterUpdateReload",
+          "sourceVertexId": "v_CourseUpdated",
+          "targetVertexId": "v_CourseEditDetail",
+          "properties": {
+            "description": "courseApi.detail(id) reload, setIsEditing=false. Refresh trang, title phai van hien.",
+            "requirement": "REQ-F-EDIT-RELOAD"
+          }
+        },
+        {
+          "id": "e_BackFromPublished",
+          "name": "e_BackFromPublished",
+          "sourceVertexId": "v_CourseEditForbiddenPublished",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Quay lai dashboard.",
+            "requirement": "REQ-F-BACK"
+          }
+        },
+        {
+          "id": "e_BackFromForeign",
+          "name": "e_BackFromForeign",
+          "sourceVertexId": "v_CourseEditForbiddenNotOwner",
+          "targetVertexId": "v_InstructorDashboard",
+          "properties": {
+            "description": "Quay lai dashboard.",
+            "requirement": "REQ-F-BACK"
+          }
+        },
+        {
+          "id": "e_OpenSectionManager",
+          "name": "e_OpenSectionManager",
+          "sourceVertexId": "v_InstructorDashboard",
+          "targetVertexId": "v_SectionManagerOpen",
+          "guard": "gwGuard_ownedCourseExists",
+          "properties": {
+            "description": "Chon course trong dropdown quan ly section/lesson -> load outline. Impl: courseSelect().selectOptionByValue(ownedCourseId).",
+            "uiAction": "dashboard.courseSelect().selectOptionByValue(id)",
+            "syncGuards": "ownedCourseExists=true khi instructor co it nhat 1 course",
+            "requirement": "REQ-F-SECMGR"
+          }
+        },
+        {
+          "id": "e_OpenSectionManagerFromDetail",
+          "name": "e_OpenSectionManagerFromDetail",
+          "sourceVertexId": "v_CourseEditDetail",
+          "targetVertexId": "v_SectionManagerOpen",
+          "guard": "gwGuard_ownedDraftExists",
+          "properties": {
+            "description": "CourseOutlineManager render tren CourseDetailPage khi isInstructor=true. Impl: detailPage da mo ownedCourse.",
+            "requirement": "REQ-F-SECMGR-DETAIL"
+          }
+        },
+        {
+          "id": "e_RearmSectionFormGuards",
+          "name": "e_RearmSectionFormGuards",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "MBT",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmSectionTitleInvalid",
+          "name": "e_ArmSectionTitleInvalid",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "MBT arm section title",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_RearmLessonFormGuards",
+          "name": "e_RearmLessonFormGuards",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "MBT",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_ArmLessonTitleInvalid",
+          "name": "e_ArmLessonTitleInvalid",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "MBT arm lesson title",
+            "requirement": "REQ-F-ARM"
+          }
+        },
+        {
+          "id": "e_CreateSectionOk",
+          "name": "e_CreateSection",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionCreated",
+          "guard": "gwGuard_sectionFormValid",
+          "properties": {
+            "description": "Dien 'Section MBT {ts}' (>=2 ky tu) + click 'Luu section' -> POST /learning/sections {course_id, title, position}. Cross-check: GET outline tra section moi.",
+            "apiEndpoint": "POST /api/v1/learning/sections",
+            "requirement": "REQ-F-SEC-OK"
+          }
+        },
+        {
+          "id": "e_CreateSectionFailTitle",
+          "name": "e_CreateSectionFailTitle",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_SectionCreateError",
+          "guard": "gwGuard_sectionTitleInvalid",
+          "properties": {
+            "description": "Title <2 ky tu -> FE button disabled hoac BE 422. Impl: setValue('A').",
+            "requirement": "REQ-F-SEC-400-TITLE"
+          }
+        },
+        {
+          "id": "e_FixAndRetrySection",
+          "name": "e_FixAndRetrySection",
+          "sourceVertexId": "v_SectionCreateError",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "Sua va submit lai.",
+            "requirement": "REQ-F-RETRY"
+          }
+        },
+        {
+          "id": "e_CreateLessonOk",
+          "name": "e_CreateLesson",
+          "sourceVertexId": "v_SectionCreated",
+          "targetVertexId": "v_LessonCreated",
+          "guard": "gwGuard_lessonFormValid",
+          "properties": {
+            "description": "Select section + dien 'Lesson MBT {ts}' + type VIDEO + duration 10 + position 1 + click 'Luu lesson'. POST /learning/lessons. Cross-check: GET outline tra lesson.",
+            "apiEndpoint": "POST /api/v1/learning/lessons",
+            "requirement": "REQ-F-LESSON-OK"
+          }
+        },
+        {
+          "id": "e_CreateLessonOkFromExisting",
+          "name": "e_CreateLesson",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_LessonCreated",
+          "guard": "gwGuard_lessonCreateReady",
+          "properties": {
+            "description": "Tao lesson trong section co san (selectedSectionExists=true).",
+            "requirement": "REQ-F-LESSON-OK"
+          }
+        },
+        {
+          "id": "e_CreateLessonFailTitle",
+          "name": "e_CreateLessonFailTitle",
+          "sourceVertexId": "v_SectionManagerOpen",
+          "targetVertexId": "v_LessonCreateError",
+          "guard": "gwGuard_lessonTitleInvalid",
+          "properties": {
+            "description": "Title <2 ky tu -> button disabled hoac loi. Impl: setValue('A').",
+            "requirement": "REQ-F-LESSON-400-TITLE"
+          }
+        },
+        {
+          "id": "e_FixAndRetryLesson",
+          "name": "e_FixAndRetryLesson",
+          "sourceVertexId": "v_LessonCreateError",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "Sua va submit lai.",
+            "requirement": "REQ-F-RETRY"
+          }
+        },
+        {
+          "id": "e_OutlineRefreshAfterSection",
+          "name": "e_OutlineRefresh",
+          "sourceVertexId": "v_SectionCreated",
+          "targetVertexId": "v_OutlineRefreshed",
+          "properties": {
+            "description": "Sau create section FE goi learningApi.outline(courseId). uiAssert: outlineBlock visible.",
+            "requirement": "REQ-F-OUTLINE"
+          }
+        },
+        {
+          "id": "e_OutlineRefreshAfterLesson",
+          "name": "e_OutlineRefresh",
+          "sourceVertexId": "v_LessonCreated",
+          "targetVertexId": "v_OutlineRefreshed",
+          "properties": {
+            "description": "Sau create lesson FE goi outline.",
+            "requirement": "REQ-F-OUTLINE"
+          }
+        },
+        {
+          "id": "e_BackToSectionManagerFromOutline",
+          "name": "e_BackToSectionManagerFromOutline",
+          "sourceVertexId": "v_OutlineRefreshed",
+          "targetVertexId": "v_SectionManagerOpen",
+          "properties": {
+            "description": "User tiep tuc tao section/lesson. Cung trang.",
+            "requirement": "REQ-F-CONTINUE"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "models": [
+    {
+      "id": "RegistrationModel",
+      "name": "RegistrationModel",
+      "generator": "random(edge_coverage(100) || length(45))",
+      "startElementId": "v_CourseDetailUnregistered",
+      "actions": [
+        "gwGuard_hasRemainingSlot = true;",
+        "gwGuard_noRemainingSlot = true;",
+        "gwGuard_regPipelineNotPending = true;",
+        "gwGuard_regPipelinePending = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_CourseDetailUnregistered",
+          "name": "v_CourseDetailUnregistered",
+          "properties": {
+            "description": "Hoc vien o /courses/:id chua co active registration. Impl: syncCourseRegGuards() goi GET /courses/{id} de lay remaining_slots -> set hasRemainingSlotOnTargetCourse. Nut 'Dang Ky Ngay' hien khi con slot va trong window dang ky.",
+            "url": "/courses/:courseId",
+            "uiAssert": "registerButton visible (khi con slot), loginToRegister visible (khi chua login)",
+            "syncGuards": "hasRemainingSlotOnTargetCourse = (remaining_slots > 0)"
+          }
+        },
+        {
+          "id": "v_CourseRegistrationNotAvailable",
+          "name": "v_CourseRegistrationNotAvailable",
+          "properties": {
+            "description": "Khong con slot (remaining_slots=0) hoac dang ky dong. Nut 'Dang Ky Ngay' khong hien. Impl: assert registerButton NOT visible.",
+            "uiAssert": "registerButton NOT visible"
+          }
+        },
+        {
+          "id": "v_PendingRegistration",
+          "name": "v_PendingRegistration",
+          "properties": {
+            "description": "Da dang ky: status PENDING hoac WAITLIST. Nut 'Dang Ky Ngay' bien mat. RegistrationStatusBadge hien PENDING/WAITLIST. Impl: poll GET /registrations kiem tra status.",
+            "uiAssert": "registerButton NOT visible, RegistrationStatusBadge visible"
+          }
+        },
+        {
+          "id": "v_ConfirmedRegistration",
+          "name": "v_ConfirmedRegistration",
+          "properties": {
+            "description": "Admin/API duyet: status CONFIRMED. Nut 'Vao Hoc' xuat hien tren course detail. Cross-check: GET /registrations tra status=CONFIRMED.",
+            "uiAssert": "enterLearnButton 'Vao Hoc' visible",
+            "apiVerify": "GET /api/v1/registrations -> status=CONFIRMED"
+          }
+        },
+        {
+          "id": "v_AdminRegistrationList",
+          "name": "v_AdminRegistrationList",
+          "properties": {
+            "description": "Admin dashboard /admin/dashboard. Filter PENDING active. Bang hien cac dong PENDING voi nut Duyet[data-testid=admin-reg-approve] va Tu choi[data-testid=admin-reg-reject]. Bulk approve[data-testid=admin-bulk-approve] enabled khi co PENDING.",
+            "url": "/admin/dashboard",
+            "uiAssert": "filter PENDING active, approve/reject buttons visible on PENDING rows"
+          }
+        },
+        {
+          "id": "v_BulkApproveResult",
+          "name": "v_BulkApproveResult",
+          "properties": {
+            "description": "Sau bulk-approve: so PENDING giam. Neu co khoa day lop: banner 'Danh sach hoc vien bi tu choi do lop da du' hien. API: countRegistrationsByStatus(PENDING) sau < truoc.",
+            "url": "/admin/dashboard",
+            "uiAssert": "bulkRejectedBanner may be visible"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_RegOk",
+          "name": "e_RegisterCourse",
+          "sourceVertexId": "v_CourseDetailUnregistered",
+          "targetVertexId": "v_PendingRegistration",
+          "guard": "gwGuard_hasRemainingSlot",
+          "properties": {
+            "description": "Click 'Dang Ky Ngay' -> POST /registrations {course_id}. BE tao Registration voi status=PENDING (hoac WAITLIST neu queue). Cross-check: GET /registrations tra status PENDING|WAITLIST.",
+            "apiEndpoint": "POST /api/v1/registrations",
+            "uiAction": "detailPage.clickRegister()",
+            "requirement": "REQ-C-REG-OK"
+          }
+        },
+        {
+          "id": "e_RegNoSlot",
+          "name": "e_VerifyRegistrationNotAvailable",
+          "sourceVertexId": "v_CourseDetailUnregistered",
+          "targetVertexId": "v_CourseRegistrationNotAvailable",
+          "guard": "gwGuard_noRemainingSlot",
+          "properties": {
+            "description": "remaining_slots=0: assert nut 'Dang Ky Ngay' khong hien. Impl: mo course co remaining_slots=0.",
+            "uiAssert": "registerButton NOT visible",
+            "requirement": "REQ-C-REG-NO-SLOT"
+          }
+        },
+        {
+          "id": "e_FromClosedBack",
+          "name": "e_BackToOpenCourseForStudent",
+          "sourceVertexId": "v_CourseRegistrationNotAvailable",
+          "targetVertexId": "v_CourseDetailUnregistered",
+          "properties": {
+            "description": "Quay lai course detail khac hoac reload. Impl: mo course moi khong co active reg + sync hasRemainingSlotOnTargetCourse.",
+            "syncGuards": "re-sync hasRemainingSlotOnTargetCourse",
+            "requirement": "REQ-C-BACK"
+          }
+        },
+        {
+          "id": "e_OpenAdmin",
+          "name": "e_OpenAdminRegistrations",
+          "sourceVertexId": "v_PendingRegistration",
+          "targetVertexId": "v_AdminRegistrationList",
+          "properties": {
+            "description": "Mo /admin/dashboard voi tai khoan admin. Set filter course=all + status=PENDING.",
+            "uiAction": "asAdmin(); adminDash.open(); adminDash.filterAllCoursesAndPendingStatus()"
+          }
+        },
+        {
+          "id": "e_AdminAppr",
+          "name": "e_AdminApprove",
+          "sourceVertexId": "v_AdminRegistrationList",
+          "targetVertexId": "v_ConfirmedRegistration",
+          "guard": "gwGuard_regPipelinePending",
+          "properties": {
+            "description": "POST /registrations/{id}/approve. Cross-check: poll assertRegistrationStatusEventually(CONFIRMED, 10s). Guard: regPipelineHasPending=true (sync tu API truoc).",
+            "apiEndpoint": "POST /api/v1/registrations/{id}/approve",
+            "uiAction": "adminDash.firstApproveButtonIn(row).click() + API cross-check",
+            "requirement": "REQ-C-APPROVE"
+          }
+        },
+        {
+          "id": "e_AdminApprNoop",
+          "name": "e_AdminApproveSkipped",
+          "sourceVertexId": "v_AdminRegistrationList",
+          "targetVertexId": "v_AdminRegistrationList",
+          "guard": "gwGuard_regPipelineNotPending",
+          "properties": {
+            "description": "Khong co PENDING trong pipeline - chi mo lai bang. Assert adminDash loaded.",
+            "requirement": "REQ-C-APPROVE-SKIP"
+          }
+        },
+        {
+          "id": "e_Rej",
+          "name": "e_AdminReject",
+          "sourceVertexId": "v_AdminRegistrationList",
+          "targetVertexId": "v_AdminRegistrationList",
+          "guard": "gwGuard_regPipelinePending",
+          "properties": {
+            "description": "POST /registrations/{id}/reject {reason}. Cross-check: assertRegistrationStatus(REJECTED). Guard: regPipelineHasPending=true.",
+            "apiEndpoint": "POST /api/v1/registrations/{id}/reject",
+            "uiAction": "adminDash.firstRejectButtonIn(row).click() + API cross-check",
+            "requirement": "REQ-C-REJECT"
+          }
+        },
+        {
+          "id": "e_Bulk",
+          "name": "e_AdminBulkApprove",
+          "sourceVertexId": "v_AdminRegistrationList",
+          "targetVertexId": "v_BulkApproveResult",
+          "properties": {
+            "description": "Click bulk-approve btn (data-testid=admin-bulk-approve). POST /registrations/bulk-approve. Cross-check: countPENDING(after) < countPENDING(before).",
+            "apiEndpoint": "POST /api/v1/registrations/bulk-approve",
+            "uiAction": "adminDash.bulkApproveBtn().click()",
+            "requirement": "REQ-C-BULK"
+          }
+        },
+        {
+          "id": "e_BackL",
+          "name": "e_BackToList",
+          "sourceVertexId": "v_BulkApproveResult",
+          "targetVertexId": "v_AdminRegistrationList",
+          "properties": {
+            "description": "O lai bang sau bulk. adminDash.open()."
+          }
+        },
+        {
+          "id": "e_Stud",
+          "name": "e_StudentViewCourseDetail",
+          "sourceVertexId": "v_ConfirmedRegistration",
+          "targetVertexId": "v_CourseDetailUnregistered",
+          "properties": {
+            "description": "Hoc vien mo lai trang khoa - luon lay course moi khong co active reg de pipeline tiep.",
+            "syncGuards": "re-sync hasRemainingSlotOnTargetCourse"
+          }
+        }
+      ]
+    }
+  ]
+}

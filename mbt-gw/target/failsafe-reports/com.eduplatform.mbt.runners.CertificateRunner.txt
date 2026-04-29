@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: com.eduplatform.mbt.runners.CertificateRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 110.6 s <<< FAILURE! -- in com.eduplatform.mbt.runners.CertificateRunner
+com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel -- Time elapsed: 93.21 s <<< ERROR!
+java.lang.RuntimeException: Failed to execute GraphWalker for CertificateImpl
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:100)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModel(AbstractGraphWalkerRunner.java:71)
+	at com.eduplatform.mbt.runners.CertificateRunner.runCertificateModel(CertificateRunner.java:17)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.graphwalker.java.test.TestExecutionException: java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:251)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:125)
+	at org.graphwalker.java.test.TestBuilder.execute(TestBuilder.java:129)
+	at com.eduplatform.mbt.runners.AbstractGraphWalkerRunner.runModelFor(AbstractGraphWalkerRunner.java:94)
+	... 5 more
+Caused by: java.lang.AssertionError: Learning page: no lesson buttons (empty outline?); url=http://localhost:3000/learn/10 — pick a course with sections/lessons in seed/DB
+	at com.eduplatform.mbt.pages.LearningPage.assertFullyLoaded(LearningPage.java:176)
+	at com.eduplatform.mbt.impl.CertificateImpl.v_AllLessonsCompleted(CertificateImpl.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.graphwalker.core.machine.ExecutionContext.execute(ExecutionContext.java:277)
+	at com.eduplatform.mbt.support.BaseImpl.execute(BaseImpl.java:97)
+	at org.graphwalker.core.machine.SimpleMachine.execute(SimpleMachine.java:283)
+	at org.graphwalker.core.machine.SimpleMachine.getNextStep(SimpleMachine.java:106)
+	at org.graphwalker.java.test.TestExecutor.execute(TestExecutor.java:241)
+	... 8 more
+

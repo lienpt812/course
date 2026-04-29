@@ -1,0 +1,265 @@
+{
+  "models": [
+    {
+      "id": "CourseExplorationModel",
+      "name": "CourseExplorationModel",
+      "generator": "random(edge_coverage(100) || length(45))",
+      "startElementId": "v_CourseListVisible",
+      "actions": [
+        "gwGuard_coursesLoaded = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_CourseListVisible",
+          "name": "v_CourseListVisible",
+          "properties": {
+            "description": "Trang /courses hien CourseCard grid. GET /api/v1/courses?status=PUBLISHED. Co search input (placeholder='Tim khoa hoc...'), select category (build tu Set(courses.map(c.category||General))), select level (Beginner/Intermediate/Advanced). Badge 'Tim thay N khoa hoc'. Khi login them GET /registrations + /certificates/me + /learning/progress per confirmed.",
+            "url": "/courses",
+            "apiEndpoint": "GET /api/v1/courses?status=PUBLISHED",
+            "uiAssert": "h1=Khóa Học (UiText), CourseCard links visible",
+            "requirement": "REQ-B-LIST"
+          }
+        },
+        {
+          "id": "v_CourseListFiltered",
+          "name": "v_CourseListFiltered",
+          "properties": {
+            "description": "List sau khi apply filter/search. FE filter client-side: (title||description).toLowerCase().includes(searchQuery) && (category==all||category==course.category) && (level==all||level==course.level). Badge 'Tim thay N khoa hoc' cap nhat. Cards co hoac khong co ket qua.",
+            "url": "/courses",
+            "uiAssert": "foundCountBadge visible, cards.size() >= 1",
+            "requirement": "REQ-B-FILTER"
+          }
+        },
+        {
+          "id": "v_CourseListEmpty",
+          "name": "v_CourseListEmpty",
+          "properties": {
+            "description": "Filter khong match khoa nao -> paragraph 'Khong tim thay khoa hoc phu hop'. Cards list rong.",
+            "url": "/courses",
+            "uiAssert": "emptyState 'Khong tim thay khoa hoc phu hop' visible, cards.size()=0",
+            "requirement": "REQ-B-EMPTY"
+          }
+        },
+        {
+          "id": "v_CourseDetailVisible",
+          "name": "v_CourseDetailVisible",
+          "properties": {
+            "description": "Trang /courses/:id. GET /api/v1/courses/{id}. Hien title, description, image, category, level, status, instructor_name, confirmed_slots/max_capacity, estimated_hours, price, certificate_enabled. Nut action theo trang thai: 'Dang Ky Ngay' | 'Vao Hoc' | 'Dang nhap de dang ky' | badge PENDING/WAITLIST.",
+            "url": "/courses/:courseId",
+            "apiEndpoint": "GET /api/v1/courses/{course_id}",
+            "uiAssert": "h1=course title, backToList visible",
+            "requirement": "REQ-B-DETAIL"
+          }
+        },
+        {
+          "id": "v_CourseDetailNotFound",
+          "name": "v_CourseDetailNotFound",
+          "properties": {
+            "description": "courseId khong ton tai -> BE 404. FE render: h1='Khong tim thay khoa hoc' + link 'Quay lai dashboard'.",
+            "url": "/courses/:courseId",
+            "expectedStatus": 404,
+            "uiAssert": "h1 or p 'Khong tim thay khoa hoc' visible",
+            "requirement": "REQ-B-DETAIL-404"
+          }
+        },
+        {
+          "id": "v_RegistrationClosedMsg",
+          "name": "v_RegistrationClosedMsg",
+          "properties": {
+            "description": "Course detail khi dang ky bi dong. Co the la: (1) 'Khoa hoc chua duoc cong khai.' (status!=PUBLISHED), (2) 'Dang ky mo tu {date}' (registration_open_at > now, p.text-amber-600), (3) 'Da het han dang ky.' (registration_close_at < now), (4) 'Dang nhap de dang ky' (guest). Nut 'Dang Ky Ngay' khong hien.",
+            "url": "/courses/:courseId",
+            "uiAssert": "One of: notPublishedMsg | openFromMsg | expiredMsg | loginToRegister visible. registerButton NOT visible.",
+            "requirement": "REQ-B-DETAIL-CLOSED"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_OpenCourseList",
+          "name": "e_OpenCourseList",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Reload /courses. GET /api/v1/courses (+ GET /registrations, /certificates/me, /learning/progress per confirmed neu da login).",
+            "apiEndpoint": "GET /api/v1/courses",
+            "requirement": "REQ-B-LIST-RELOAD"
+          }
+        },
+        {
+          "id": "e_ApplySearchMatch",
+          "name": "e_ApplySearch",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseListFiltered",
+          "properties": {
+            "description": "Nhap search query khop title/description it nhat 1 course. FE filter ngay, khong goi API. uiAction: searchInput().setValue(keyword).",
+            "uiAction": "coursesPage.search(keyword)",
+            "requirement": "REQ-B-SEARCH-MATCH"
+          }
+        },
+        {
+          "id": "e_ApplySearchNoMatch",
+          "name": "e_ApplySearchNoMatch",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseListEmpty",
+          "properties": {
+            "description": "Search string khong khop bat ky course nao -> empty state. uiAction: coursesPage.search('zzznomatch999').",
+            "uiAction": "coursesPage.search('zzznomatch999')",
+            "requirement": "REQ-B-SEARCH-EMPTY"
+          }
+        },
+        {
+          "id": "e_FilterByCategory",
+          "name": "e_FilterByCategory",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseListFiltered",
+          "properties": {
+            "description": "Chon danh muc tu dropdown. Options tu Array.from(new Set(courses.map(c=>c.category||'General'))). FE filter client-side.",
+            "uiAction": "coursesPage.categorySelect().selectOption(idx)",
+            "requirement": "REQ-B-FILTER-CAT"
+          }
+        },
+        {
+          "id": "e_FilterByLevel",
+          "name": "e_FilterByLevel",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseListFiltered",
+          "properties": {
+            "description": "Filter theo level Beginner/Intermediate/Advanced. uiAction: coursesPage.filterLevel('Beginner').",
+            "uiAction": "coursesPage.filterLevel('Beginner')",
+            "requirement": "REQ-B-FILTER-LEVEL"
+          }
+        },
+        {
+          "id": "e_CombinedFilters",
+          "name": "e_CombinedFilters",
+          "sourceVertexId": "v_CourseListFiltered",
+          "targetVertexId": "v_CourseListFiltered",
+          "properties": {
+            "description": "Ap dung dong thoi search + level. FE AND logic: filteredCourses = courses.filter(matchSearch && matchCategory && matchLevel).",
+            "requirement": "REQ-B-FILTER-COMBINED"
+          }
+        },
+        {
+          "id": "e_ClearFilters",
+          "name": "e_ClearFilters",
+          "sourceVertexId": "v_CourseListFiltered",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Reset filter: searchInput.clear(), categorySelect('all'), levelSelect('all'). uiAction: coursesPage.resetFilters().",
+            "uiAction": "coursesPage.resetFilters()",
+            "requirement": "REQ-B-FILTER-RESET"
+          }
+        },
+        {
+          "id": "e_ClearFiltersFromEmpty",
+          "name": "e_ClearFilters",
+          "sourceVertexId": "v_CourseListEmpty",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Reset filter tu empty state.",
+            "requirement": "REQ-B-FILTER-RESET"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailOpen",
+          "name": "e_OpenCourseDetail",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseDetailVisible",
+          "guard": "gwGuard_coursesLoaded",
+          "properties": {
+            "description": "Click CourseCard -> navigate /courses/:id. Course PUBLISHED trong window dang ky. Cross-check: FE title khop API title.",
+            "apiEndpoint": "GET /api/v1/courses/{id}",
+            "uiAssert": "h1=course title, backToList visible",
+            "requirement": "REQ-B-OPEN-DETAIL"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailFromFiltered",
+          "name": "e_OpenCourseDetail",
+          "sourceVertexId": "v_CourseListFiltered",
+          "targetVertexId": "v_CourseDetailVisible",
+          "properties": {
+            "description": "Click card tu ket qua filter.",
+            "requirement": "REQ-B-OPEN-DETAIL"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailClosed",
+          "name": "e_OpenCourseDetailClosed",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_RegistrationClosedMsg",
+          "properties": {
+            "description": "Mo course DRAFT/ARCHIVED -> FE hien 'Khoa hoc chua duoc cong khai.' Impl: open course co status DRAFT tu seed.",
+            "uiAssert": "notPublishedMsg 'Khoa hoc chua duoc cong khai.' visible",
+            "requirement": "REQ-B-DETAIL-NOT-PUBLISHED"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailNotOpenYet",
+          "name": "e_OpenCourseDetailNotOpenYet",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_RegistrationClosedMsg",
+          "properties": {
+            "description": "Course PUBLISHED nhung registration_open_at > now -> p.text-amber-600 'Dang ky mo tu {date}'. Nut 'Dang Ky Ngay' khong hien.",
+            "uiAssert": "openFromMsg visible, registerButton NOT visible",
+            "requirement": "REQ-B-DETAIL-NOT-YET"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailExpired",
+          "name": "e_OpenCourseDetailExpired",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_RegistrationClosedMsg",
+          "properties": {
+            "description": "Course PUBLISHED nhung registration_close_at < now -> 'Da het han dang ky.'",
+            "uiAssert": "expiredMsg 'Da het han dang ky.' visible",
+            "requirement": "REQ-B-DETAIL-EXPIRED"
+          }
+        },
+        {
+          "id": "e_OpenCourseDetailNotFound",
+          "name": "e_OpenCourseDetailNotFound",
+          "sourceVertexId": "v_CourseListVisible",
+          "targetVertexId": "v_CourseDetailNotFound",
+          "properties": {
+            "description": "courseId 999999 khong ton tai -> BE 404. FE hien 'Khong tim thay khoa hoc'. Impl: open('/courses/999999').",
+            "expectedStatus": 404,
+            "uiAssert": "notFoundMsg visible",
+            "requirement": "REQ-B-DETAIL-NOT-FOUND"
+          }
+        },
+        {
+          "id": "e_BackToListFromDetail",
+          "name": "e_BackToList",
+          "sourceVertexId": "v_CourseDetailVisible",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Click 'Quay lai danh sach' tren trang chi tiet -> /courses.",
+            "uiAction": "detailPage.backToList().click()",
+            "requirement": "REQ-B-BACK"
+          }
+        },
+        {
+          "id": "e_BackToListFromNotFound",
+          "name": "e_BackToList",
+          "sourceVertexId": "v_CourseDetailNotFound",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Link quay lai tu not-found.",
+            "requirement": "REQ-B-BACK"
+          }
+        },
+        {
+          "id": "e_BackToListFromClosed",
+          "name": "e_BackToList",
+          "sourceVertexId": "v_RegistrationClosedMsg",
+          "targetVertexId": "v_CourseListVisible",
+          "properties": {
+            "description": "Back list tu trang thai course dong dang ky.",
+            "requirement": "REQ-B-BACK"
+          }
+        }
+      ]
+    }
+  ]
+}

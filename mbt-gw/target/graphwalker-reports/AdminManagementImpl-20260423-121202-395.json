@@ -1,0 +1,54 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 2,
+  "verticesNotVisited": [
+    {
+      "modelName": "AdminManagementModel",
+      "vertexName": "v_BulkApproveResult",
+      "vertexId": "v_BulkApproveResult"
+    },
+    {
+      "modelName": "AdminManagementModel",
+      "vertexName": "v_VerifyClassFullForApproval",
+      "vertexId": "v_VerifyClassFullForApproval"
+    }
+  ],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 7,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "AdminManagementModel",
+      "edgeId": "e_SkipApproveClassFull",
+      "edgeName": "e_SkipApproveClassFull"
+    },
+    {
+      "modelName": "AdminManagementModel",
+      "edgeId": "e_BackFromVerifyFull",
+      "edgeName": "e_AfterVerifyClassFull"
+    },
+    {
+      "modelName": "AdminManagementModel",
+      "edgeId": "e_RejectWhenPending",
+      "edgeName": "e_RejectWhenPending"
+    },
+    {
+      "modelName": "AdminManagementModel",
+      "edgeId": "e_BulkWhenPending",
+      "edgeName": "e_BulkWhenPending"
+    },
+    {
+      "modelName": "AdminManagementModel",
+      "edgeId": "e_DismissBulk",
+      "edgeName": "e_DismissBulkMessage"
+    }
+  ],
+  "vertexCoverage": 75,
+  "totalNumberOfEdges": 12,
+  "totalNumberOfVisitedVertices": 3,
+  "edgeCoverage": 92,
+  "totalNumberOfVertices": 4,
+  "totalNumberOfUnvisitedEdges": 1
+}

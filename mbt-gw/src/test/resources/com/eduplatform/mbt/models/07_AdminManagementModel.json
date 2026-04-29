@@ -1,0 +1,187 @@
+{
+  "models": [
+    {
+      "id": "AdminManagementModel",
+      "name": "AdminManagementModel",
+      "generator": "random(edge_coverage(100) || length(45))",
+      "startElementId": "v_AdminDashboard",
+      "actions": [
+        "gwGuard_adminApprovablePending = true;",
+        "gwGuard_adminHasPending = true;",
+        "gwGuard_adminNoPending = true;",
+        "gwGuard_adminPendingButNotApprovable = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_AdminDashboard",
+          "name": "v_AdminDashboard",
+          "properties": {
+            "description": "/admin/dashboard. POST /admin/seed tao cap PENDING: (1) demo-course-03 con slot -> e_ApproveWhenApprovable / e_BulkWhenPending; (2) mbt-gw-class-full-pending day slot + PENDING -> sau khi duyet (1) thi gwGuard_adminPendingButNotApprovable -> e_SkipApproveClassFull / v_VerifyClassFullForApproval. Prune PENDING le.",
+            "url": "/admin/dashboard",
+            "uiAssert": "h1=Quan Tri He Thong, #admin-filter-course-select + #admin-filter-status-select visible",
+            "syncGuards": "adminHasPending = (PENDING count > 0); adminHasApprovablePending = (any PENDING has remaining_slots > 0)"
+          }
+        },
+        {
+          "id": "v_BulkApproveResult",
+          "name": "v_BulkApproveResult",
+          "properties": {
+            "description": "Sau bulk-approve. countPENDING(after) < countPENDING(before). Neu co khoa day lop: banner 'Danh sach hoc vien bi tu choi do lop da du' hien.",
+            "url": "/admin/dashboard",
+            "uiAssert": "bulkRejectedBanner may be visible if some courses were full"
+          }
+        },
+        {
+          "id": "v_VerifyNoPendingRow",
+          "name": "v_VerifyNoPendingRow",
+          "properties": {
+            "description": "Xac minh: 0 PENDING trong API + bulk approve button DISABLED trong UI. Guard chon vertex nay khi adminHasPending==false.",
+            "uiAssert": "bulkApproveBtn[data-testid=admin-bulk-approve] DISABLED",
+            "apiVerify": "countRegistrationsByStatus(PENDING) == 0"
+          }
+        },
+        {
+          "id": "v_VerifyClassFullForApproval",
+          "name": "v_VerifyClassFullForApproval",
+          "properties": {
+            "description": "Co PENDING nhung moi course lien quan deu full (remaining_slots=0). Guard: adminHasPending==true && adminHasApprovablePending==false. Assert: tat ca PENDING courses co remaining_slots=0.",
+            "apiVerify": "All PENDING registrations have remaining_slots=0 for their courses"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_FilterCourse",
+          "name": "e_FilterByCourse",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_AdminDashboard",
+          "properties": {
+            "description": "Chon course trong #admin-filter-course-select (client-side filter). uiAction: courseFilter().selectOption(1). Re-sync adminHasPending sau.",
+            "uiAction": "adminDash.courseFilter().selectOption(1)"
+          }
+        },
+        {
+          "id": "e_FilterStatus",
+          "name": "e_FilterByStatus",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_AdminDashboard",
+          "properties": {
+            "description": "Chon status trong #admin-filter-status-select (uu tien PENDING de thay action buttons). uiAction: statusFilter().selectOptionByValue('PENDING').",
+            "uiAction": "adminDash.statusFilter().selectOptionByValue('PENDING')"
+          }
+        },
+        {
+          "id": "e_ApproveWhenApprovable",
+          "name": "e_ApproveWhenApprovable",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_AdminDashboard",
+          "guard": "gwGuard_adminApprovablePending",
+          "properties": {
+            "description": "Click nut Duyet[data-testid=admin-reg-approve] tren PENDING row co remaining_slots>0. Cross-check: assertRegistrationStatusEventually(CONFIRMED, 15s). Re-sync guards sau.",
+            "apiEndpoint": "POST /api/v1/registrations/{id}/approve",
+            "uiAction": "adminDash.firstApproveButtonIn(row).click()",
+            "requirement": "REQ-G-APPROVE"
+          }
+        },
+        {
+          "id": "e_SkipApproveNoPending",
+          "name": "e_SkipApproveNoPending",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_VerifyNoPendingRow",
+          "guard": "gwGuard_adminNoPending",
+          "properties": {
+            "description": "Khong co PENDING -> assert bulkApproveBtn DISABLED + 0 PENDING trong API.",
+            "requirement": "REQ-G-APPROVE-SKIP-EMPTY"
+          }
+        },
+        {
+          "id": "e_SkipApproveClassFull",
+          "name": "e_SkipApproveClassFull",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_VerifyClassFullForApproval",
+          "guard": "gwGuard_adminPendingButNotApprovable",
+          "properties": {
+            "description": "Co PENDING nhung tat ca courses full (remaining_slots=0) -> assert khong the duyet. Guard: adminHasPending=true AND adminHasApprovablePending=false.",
+            "requirement": "REQ-G-APPROVE-SKIP-FULL"
+          }
+        },
+        {
+          "id": "e_BackFromVerifyNoRow",
+          "name": "e_AfterVerifyNoRow",
+          "sourceVertexId": "v_VerifyNoPendingRow",
+          "targetVertexId": "v_AdminDashboard",
+          "properties": {
+            "description": "Quay lai dashboard sau xac minh trang thai du lieu. Re-sync guards."
+          }
+        },
+        {
+          "id": "e_BackFromVerifyFull",
+          "name": "e_AfterVerifyClassFull",
+          "sourceVertexId": "v_VerifyClassFullForApproval",
+          "targetVertexId": "v_AdminDashboard",
+          "properties": {
+            "description": "Quay lai sau xac minh lop day. Re-sync guards."
+          }
+        },
+        {
+          "id": "e_RejectWhenPending",
+          "name": "e_RejectWhenPending",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_AdminDashboard",
+          "guard": "gwGuard_adminHasPending",
+          "properties": {
+            "description": "Click nut Tu choi[data-testid=admin-reg-reject]. POST /registrations/{id}/reject. Cross-check: assertRegistrationStatusEventually(REJECTED). Re-sync guards.",
+            "apiEndpoint": "POST /api/v1/registrations/{id}/reject",
+            "uiAction": "adminDash.firstRejectButtonIn(row).click()",
+            "requirement": "REQ-G-REJECT"
+          }
+        },
+        {
+          "id": "e_RejectWhenNothing",
+          "name": "e_RejectWhenNothing",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_VerifyNoPendingRow",
+          "guard": "gwGuard_adminNoPending",
+          "properties": {
+            "description": "Khong co PENDING de tu choi -> assert bulkApproveBtn DISABLED + 0 PENDING.",
+            "requirement": "REQ-G-REJECT-SKIP"
+          }
+        },
+        {
+          "id": "e_BulkWhenPending",
+          "name": "e_BulkWhenPending",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_BulkApproveResult",
+          "guard": "gwGuard_adminHasPending",
+          "properties": {
+            "description": "Click bulk-approve[data-testid=admin-bulk-approve] khi co PENDING. POST /registrations/bulk-approve. Cross-check: countPENDING(after) < countPENDING(before). Re-sync guards.",
+            "apiEndpoint": "POST /api/v1/registrations/bulk-approve",
+            "uiAction": "adminDash.bulkApproveBtn().click()",
+            "requirement": "REQ-G-BULK"
+          }
+        },
+        {
+          "id": "e_BulkWhenEmpty",
+          "name": "e_BulkWhenEmpty",
+          "sourceVertexId": "v_AdminDashboard",
+          "targetVertexId": "v_VerifyNoPendingRow",
+          "guard": "gwGuard_adminNoPending",
+          "properties": {
+            "description": "Bulk khi 0 PENDING -> nut bulk DISABLED. Assert: bulkApproveBtn shouldBe(disabled).",
+            "uiAssert": "bulkApproveBtn DISABLED",
+            "requirement": "REQ-G-BULK-SKIP"
+          }
+        },
+        {
+          "id": "e_DismissBulk",
+          "name": "e_DismissBulkMessage",
+          "sourceVertexId": "v_BulkApproveResult",
+          "targetVertexId": "v_AdminDashboard",
+          "properties": {
+            "description": "Refresh / xem lai bang sau bulk. Re-sync guards."
+          }
+        }
+      ]
+    }
+  ]
+}

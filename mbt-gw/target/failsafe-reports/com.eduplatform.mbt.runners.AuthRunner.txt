@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.eduplatform.mbt.runners.AuthRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 70.68 s -- in com.eduplatform.mbt.runners.AuthRunner

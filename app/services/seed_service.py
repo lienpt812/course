@@ -284,12 +284,217 @@ def ensure_altwalker_e2e_fixtures(db: Session) -> dict:
     }
 
 
+# --- Java GraphWalker MBT (test-web) — must match TestData.java emails -----------------
+MBT_STUDENT_EMAIL = "mbt.student@example.com"
+MBT_INSTRUCTOR_EMAIL = "mbt.instructor@example.com"
+MBT_GW_STUDENT_SLUG = "mbt-gw-student-anchor"
+MBT_GW_INSTRUCTOR_DRAFT_SLUG = "mbt-gw-instructor-draft"
+
+
+def ensure_mbt_graphwalker_fixtures(db: Session) -> dict:
+    """
+    Stable anchor data for Selenide MBT tests: mbt.student has one published course with
+    lessons, CONFIRMED registration, 100% completion, certificate_enabled, and no Certificate
+    row (so issue/view flows work). mbt.instructor owns a DRAFT course with outline data.
+
+    Call after ensure_demo_courses so demo-course-03 exists for mbt_pending sample.
+    Requires users created first (Java TestDataSeeder calls create-account before POST /seed).
+    """
+    student = db.scalar(select(User).where(User.email == MBT_STUDENT_EMAIL))
+    instructor = db.scalar(select(User).where(User.email == MBT_INSTRUCTOR_EMAIL))
+    if not student or not instructor:
+        return {
+            "skipped": True,
+            "reason": "mbt_accounts_missing",
+            "detail": {
+                "student_found": bool(student),
+                "instructor_found": bool(instructor),
+            },
+        }
+
+    student_course = _ensure_mbt_student_anchor_course(db, student.id, instructor.id)
+    draft_course = _ensure_mbt_instructor_draft_course(db, instructor.id)
+    return {
+        "skipped": False,
+        "mbt_student_anchor": student_course,
+        "mbt_instructor_draft": draft_course,
+    }
+
+
+def _ensure_mbt_student_anchor_course(db: Session, student_id: int, instructor_id: int) -> dict:
+    course = db.scalar(select(Course).where(Course.slug == MBT_GW_STUDENT_SLUG))
+    if not course:
+        course = Course(
+            title="MBT — Student anchor (GraphWalker)",
+            slug=MBT_GW_STUDENT_SLUG,
+            description="Seeded for Java MBT: confirmed reg, lessons, 100% progress, cert enabled.",
+            image_url="https://picsum.photos/id/119/1200/720",
+            instructor_id=instructor_id,
+            category="Testing",
+            max_capacity=80,
+            estimated_hours=6,
+            level="Beginner",
+            status=CourseStatus.PUBLISHED,
+            price=0,
+            certificate_enabled=True,
+        )
+        db.add(course)
+        db.flush()
+    else:
+        course.instructor_id = instructor_id
+        course.status = CourseStatus.PUBLISHED
+        course.certificate_enabled = True
+
+    section = db.scalar(
+        select(Section).where(Section.course_id == course.id).order_by(Section.position.asc()).limit(1)
+    )
+    if not section:
+        section = Section(course_id=course.id, title="MBT GW Section", position=1)
+        db.add(section)
+        db.flush()
+
+    while (
+        int(db.scalar(select(func.count(Lesson.id)).where(Lesson.section_id == section.id)) or 0) < 2
+    ):
+        max_pos = db.scalar(select(func.max(Lesson.position)).where(Lesson.section_id == section.id)) or 0
+        next_pos = int(max_pos) + 1
+        db.add(
+            Lesson(
+                section_id=section.id,
+                title=f"MBT GW Lesson {next_pos}",
+                type=LessonType.TEXT,
+                position=next_pos,
+                duration_minutes=10,
+                is_preview=(next_pos == 1),
+            )
+        )
+        db.flush()
+
+    lesson_ids = db.scalars(
+        select(Lesson.id).join(Section, Section.id == Lesson.section_id).where(Section.course_id == course.id)
+    ).all()
+
+    reg = db.scalar(
+        select(Registration).where(
+            Registration.user_id == student_id,
+            Registration.course_id == course.id,
+        )
+    )
+    if not reg:
+        reg = Registration(
+            user_id=student_id,
+            course_id=course.id,
+            status=RegistrationStatus.CONFIRMED,
+        )
+        db.add(reg)
+        db.flush()
+    elif reg.status != RegistrationStatus.CONFIRMED:
+        reg.status = RegistrationStatus.CONFIRMED
+
+    if lesson_ids:
+        db.execute(delete(Progress).where(Progress.user_id == student_id, Progress.lesson_id.in_(lesson_ids)))
+        for lid in lesson_ids:
+            db.add(
+                Progress(
+                    user_id=student_id,
+                    lesson_id=lid,
+                    completed=True,
+                    completion_pct=100,
+                )
+            )
+        db.flush()
+
+    db.execute(delete(Certificate).where(Certificate.user_id == student_id, Certificate.course_id == course.id))
+
+    return {
+        "course_id": course.id,
+        "slug": course.slug,
+        "lessons": len(lesson_ids),
+        "registration": "CONFIRMED",
+        "completion": "100%",
+        "certificate_cleared": True,
+    }
+
+
+def _ensure_mbt_instructor_draft_course(db: Session, instructor_id: int) -> dict:
+    course = db.scalar(select(Course).where(Course.slug == MBT_GW_INSTRUCTOR_DRAFT_SLUG))
+    if not course:
+        course = Course(
+            title="MBT — Instructor draft (GraphWalker)",
+            slug=MBT_GW_INSTRUCTOR_DRAFT_SLUG,
+            description="Owned by mbt.instructor for dashboard / outline MBT paths.",
+            image_url="https://picsum.photos/id/52/1200/720",
+            instructor_id=instructor_id,
+            category="Testing",
+            max_capacity=40,
+            estimated_hours=10,
+            level="Beginner",
+            status=CourseStatus.DRAFT,
+            price=0,
+            certificate_enabled=False,
+        )
+        db.add(course)
+        db.flush()
+    else:
+        course.instructor_id = instructor_id
+        course.status = CourseStatus.DRAFT
+
+    section = db.scalar(
+        select(Section).where(Section.course_id == course.id).order_by(Section.position.asc()).limit(1)
+    )
+    if not section:
+        section = Section(course_id=course.id, title="MBT Draft Section", position=1)
+        db.add(section)
+        db.flush()
+
+    if (
+        int(db.scalar(select(func.count(Lesson.id)).where(Lesson.section_id == section.id)) or 0) < 1
+    ):
+        db.add(
+            Lesson(
+                section_id=section.id,
+                title="MBT Draft Lesson 1",
+                type=LessonType.TEXT,
+                position=1,
+                duration_minutes=5,
+                is_preview=False,
+            )
+        )
+        db.flush()
+
+    return {"course_id": course.id, "slug": course.slug, "status": course.status.value}
+
+
+def _ensure_user_pending_on_course(db: Session, user: User, course: Course) -> Registration:
+    """Một (user, course) — đưa về PENDING để admin MBT luôn thấy nút Duyệt/Từ chối."""
+    reg = db.scalar(
+        select(Registration).where(
+            Registration.user_id == user.id,
+            Registration.course_id == course.id,
+        )
+    )
+    if not reg:
+        reg = Registration(
+            user_id=user.id,
+            course_id=course.id,
+            status=RegistrationStatus.PENDING,
+        )
+        db.add(reg)
+    else:
+        reg.status = RegistrationStatus.PENDING
+    db.flush()
+    return reg
+
+
 def ensure_mbt_pending_registration_sample(db: Session) -> dict:
-    """Dedicated student with PENDING registration on a demo course (admin approval MBT)."""
-    u = _get_or_create_test_user(
+    """
+    Hai đơn PENDING (hai học viên + hai khóa khi có đủ demo) để GraphWalker approve/bulk
+    không làm cạn mẫu sau một bước. Nếu thiếu demo-course-03, dùng bất kỳ khóa PUBLISHED nào.
+    """
+    u1 = _get_or_create_test_user(
         db,
         email="mbt-pending-student@test.com",
-        password="Password123!",
+        password="Passw0rd!",
         name="MBT Pending Student",
         role=UserRole.STUDENT,
         student_major="QA",
@@ -297,15 +502,147 @@ def ensure_mbt_pending_registration_sample(db: Session) -> dict:
     )
     course = db.scalar(select(Course).where(Course.slug == "demo-course-03"))
     if not course:
-        return {"mbt_pending": "skipped_no_demo_course_03"}
+        course = db.scalar(
+            select(Course)
+            .where(Course.status == CourseStatus.PUBLISHED)
+            .order_by(Course.id.asc())
+            .limit(1)
+        )
+    if not course:
+        return {"mbt_pending": "skipped_no_published_course"}
 
-    reg = db.scalar(
-        select(Registration).where(Registration.user_id == u.id, Registration.course_id == course.id)
+    reg1 = _ensure_user_pending_on_course(db, u1, course)
+
+    u2 = _get_or_create_test_user(
+        db,
+        email="mbt-pending-student-2@test.com",
+        password="Passw0rd!",
+        name="MBT Pending Student 2",
+        role=UserRole.STUDENT,
+        student_major="QA",
+        learning_goal="Admin approval tests",
     )
-    if not reg:
-        reg = Registration(user_id=u.id, course_id=course.id, status=RegistrationStatus.PENDING)
-        db.add(reg)
+    course2 = db.scalar(select(Course).where(Course.slug == "demo-course-04"))
+    if not course2 or course2.id == course.id:
+        course2 = db.scalar(
+            select(Course)
+            .where(
+                Course.status == CourseStatus.PUBLISHED,
+                Course.id != course.id,
+            )
+            .order_by(Course.id.asc())
+            .limit(1)
+        )
+
+    out: dict = {
+        "mbt_pending_registration_id": reg1.id,
+        "course_id": course.id,
+        "course_slug": course.slug,
+    }
+    if course2:
+        reg2 = _ensure_user_pending_on_course(db, u2, course2)
+        out["mbt_pending_registration_2_id"] = reg2.id
+        out["course_2_id"] = course2.id
+        out["course_2_slug"] = course2.slug
+    return out
+
+
+MBT_CLASS_FULL_PENDING_SLUG = "mbt-gw-class-full-pending"
+
+
+def ensure_mbt_class_full_pending_scenario(db: Session) -> dict:
+    """
+    Seed a 'class full + PENDING' scenario cho AdminManagement MBT:
+      - Một khóa capacity=1 đã bị lấp đầy bởi mbt.student (CONFIRMED).
+      - mbt-pending-student có một đơn PENDING trên khóa đó.
+    GraphWalker v_VerifyClassFullForApproval cần: PENDING > 0 && remaining_slots == 0.
+    Idempotent — gọi nhiều lần không tạo bản ghi thừa.
+    """
+    student = db.scalar(select(User).where(User.email == MBT_STUDENT_EMAIL))
+    instructor = db.scalar(select(User).where(User.email == MBT_INSTRUCTOR_EMAIL))
+    if not student or not instructor:
+        return {
+            "skipped": True,
+            "reason": "mbt_accounts_missing",
+            "detail": {
+                "student_found": bool(student),
+                "instructor_found": bool(instructor),
+            },
+        }
+
+    pending_student = _get_or_create_test_user(
+        db,
+        email="mbt-pending-student@test.com",
+        password="Passw0rd!",
+        name="MBT Pending Student",
+        role=UserRole.STUDENT,
+        student_major="QA",
+        learning_goal="Admin approval tests",
+    )
+
+    # Create / update the class-full course (max_capacity=1)
+    course = db.scalar(select(Course).where(Course.slug == MBT_CLASS_FULL_PENDING_SLUG))
+    if not course:
+        course = Course(
+            title="MBT — Class Full (GraphWalker)",
+            slug=MBT_CLASS_FULL_PENDING_SLUG,
+            description="Seeded for admin MBT: capacity=1, fully booked with 1 PENDING.",
+            image_url="https://picsum.photos/id/3/1200/720",
+            instructor_id=instructor.id,
+            category="Testing",
+            max_capacity=1,
+            estimated_hours=2,
+            level="Beginner",
+            status=CourseStatus.PUBLISHED,
+            price=0,
+            certificate_enabled=False,
+        )
+        db.add(course)
+        db.flush()
     else:
-        reg.status = RegistrationStatus.PENDING
+        course.max_capacity = 1
+        course.status = CourseStatus.PUBLISHED
+
+    # Ensure mbt.student has a CONFIRMED registration (fills the 1 slot)
+    confirmed_reg = db.scalar(
+        select(Registration).where(
+            Registration.user_id == student.id,
+            Registration.course_id == course.id,
+        )
+    )
+    if not confirmed_reg:
+        confirmed_reg = Registration(
+            user_id=student.id,
+            course_id=course.id,
+            status=RegistrationStatus.CONFIRMED,
+        )
+        db.add(confirmed_reg)
+    else:
+        confirmed_reg.status = RegistrationStatus.CONFIRMED
     db.flush()
-    return {"mbt_pending_registration_id": reg.id, "course_id": course.id}
+
+    # Ensure pending_student has a PENDING registration (cannot be approved — slot full)
+    pending_reg = db.scalar(
+        select(Registration).where(
+            Registration.user_id == pending_student.id,
+            Registration.course_id == course.id,
+        )
+    )
+    if not pending_reg:
+        pending_reg = Registration(
+            user_id=pending_student.id,
+            course_id=course.id,
+            status=RegistrationStatus.PENDING,
+        )
+        db.add(pending_reg)
+    else:
+        pending_reg.status = RegistrationStatus.PENDING
+    db.flush()
+
+    return {
+        "course_id": course.id,
+        "course_slug": course.slug,
+        "max_capacity": course.max_capacity,
+        "confirmed_registration_id": confirmed_reg.id,
+        "pending_registration_id": pending_reg.id,
+    }

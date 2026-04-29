@@ -1,0 +1,67 @@
+{
+  "totalFailedNumberOfModels": 0,
+  "totalNotExecutedNumberOfModels": 0,
+  "totalNumberOfUnvisitedVertices": 1,
+  "verticesNotVisited": [{
+    "modelName": "AuthModel",
+    "vertexName": "v_AdminDashboard",
+    "vertexId": "v_AdminDashboard"
+  }],
+  "totalNumberOfModels": 1,
+  "totalCompletedNumberOfModels": 1,
+  "totalNumberOfVisitedEdges": 32,
+  "totalIncompleteNumberOfModels": 0,
+  "edgesNotVisited": [
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsInstructor",
+      "edgeName": "e_LoginAsInstructor"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginAsAdmin",
+      "edgeName": "e_LoginAsAdmin"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LoginFail",
+      "edgeName": "e_LoginFail"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_RegisterAsStudent",
+      "edgeName": "e_RegisterAsStudent"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_SkipResetAfterForgotRateLimited",
+      "edgeName": "e_SkipResetAfterForgotRateLimited"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_ViewProfileFromAdmin",
+      "edgeName": "e_ViewProfile"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_UpdateProfileOk",
+      "edgeName": "e_UpdateProfileOk"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_BackFromProfileAdmin",
+      "edgeName": "e_BackToDashboard"
+    },
+    {
+      "modelName": "AuthModel",
+      "edgeId": "e_LogoutAdmin",
+      "edgeName": "e_Logout"
+    }
+  ],
+  "vertexCoverage": 88,
+  "totalNumberOfEdges": 41,
+  "totalNumberOfVisitedVertices": 8,
+  "edgeCoverage": 78,
+  "totalNumberOfVertices": 9,
+  "totalNumberOfUnvisitedEdges": 9
+}

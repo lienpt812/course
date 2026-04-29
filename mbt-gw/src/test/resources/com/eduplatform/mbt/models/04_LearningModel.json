@@ -1,0 +1,263 @@
+{
+  "models": [
+    {
+      "id": "LearningModel",
+      "name": "LearningModel",
+      "generator": "random(edge_coverage(100) || length(45))",
+      "startElementId": "v_StudentDashboardEntry",
+      "actions": [
+        "gwGuard_allLessonsComplete = true;",
+        "gwGuard_hasMoreLessonsToComplete = true;",
+        "gwGuard_markLessonCompleteAllowed = true;",
+        "gwGuard_markLessonPartialAllowed = true;",
+        "gwGuard_previewLessonMarkAllowed = true;",
+        "gwGuard_registrationConfirmed = true;",
+        "gwGuard_registrationNotConfirmed = true;"
+      ],
+      "vertices": [
+        {
+          "id": "v_StudentDashboardEntry",
+          "name": "v_StudentDashboardEntry",
+          "properties": {
+            "description": "Student dashboard /student/dashboard. Impl: goi GET /registrations, tim trang thai. setGw('registrationStatus', 'CONFIRMED'|'PENDING'|'NONE'). Neu co CONFIRMED course: hien link 'Tiep tuc hoc' -> /learn/:courseId.",
+            "url": "/student/dashboard",
+            "uiAssert": "h1=Dashboard Hoc Vien",
+            "syncGuards": "registrationStatus = detectFromAPI(GET /registrations)",
+            "requirement": "REQ-D-ENTRY"
+          }
+        },
+        {
+          "id": "v_LearningAccessDenied",
+          "name": "v_LearningAccessDenied",
+          "properties": {
+            "description": "Truy cap /learn/:courseId khi registration.status != CONFIRMED. FE hien: h1='Ban chua duoc xac nhan vao khoa hoc nay' + link 'Quay lai dashboard'. Impl: mo course co PENDING/WAITLIST registration.",
+            "url": "/learn/:courseId",
+            "uiAssert": "accessDeniedMsg 'Ban chua duoc xac nhan vao khoa hoc nay' visible",
+            "requirement": "REQ-D-ACCESS-DENIED"
+          }
+        },
+        {
+          "id": "v_LearningPageLoaded",
+          "name": "v_LearningPageLoaded",
+          "properties": {
+            "description": "/learn/:courseId voi CONFIRMED registration. FE load Promise.all: courseApi.detail, registrationApi.list, learningApi.outline, learningApi.progressDetail, learningApi.myCertificates. Sidebar hien sections+lessons (sorted by position). Thanh progress.",
+            "url": "/learn/:courseId",
+            "apiEndpoints": "GET /api/v1/learning/courses/{id}/outline, GET /api/v1/learning/courses/{id}/progress-detail",
+            "uiAssert": "sidebar title visible, lessonButtons.size() >= 1, progressBar visible",
+            "requirement": "REQ-D-LOADED"
+          }
+        },
+        {
+          "id": "v_LessonSelected",
+          "name": "v_LessonSelected",
+          "properties": {
+            "description": "Da click 1 lesson trong sidebar. currentLesson duoc set. Neu chua completed: hien nut 'Danh dau hoan thanh'. Neu da completed: hien 'Da hoan thanh' label. Impl: assert markCompleteBtn visible (neu chua completed).",
+            "uiAssert": "markCompleteBtn 'Danh dau hoan thanh' visible (khi chua completed)",
+            "requirement": "REQ-D-LESSON-SELECTED"
+          }
+        },
+        {
+          "id": "v_LessonCompleted",
+          "name": "v_LessonCompleted",
+          "properties": {
+            "description": "POST /learning/progress thanh cong. FE: completedLessons.add(lesson.id), cap nhat thanh progress. 'Da hoan thanh' label hien. completedCount tang 1. Cross-check: GET /learning/progress pct khong giam.",
+            "uiAssert": "completedLabel 'Da hoan thanh' visible, progress bar increased",
+            "apiVerify": "GET /api/v1/learning/courses/{id}/progress -> completion_pct >= truoc",
+            "requirement": "REQ-D-LESSON-COMPLETED"
+          }
+        },
+        {
+          "id": "v_AllLessonsCompleted",
+          "name": "v_AllLessonsCompleted",
+          "properties": {
+            "description": "Tat ca lessons completed=true. Progress bar 100%. FE hien nut 'Nhan chung chi' (chua co cert) hoac 'Xem chung chi' (da co). BE upsert_progress co the auto-issue cert neu certificate_enabled=true.",
+            "uiAssert": "progressBar ~100%, claimCertButton OR viewCertButton visible",
+            "requirement": "REQ-D-ALL-COMPLETED"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e_EnterLearningConfirmed",
+          "name": "e_StartLearning",
+          "sourceVertexId": "v_StudentDashboardEntry",
+          "targetVertexId": "v_LearningPageLoaded",
+          "guard": "gwGuard_registrationConfirmed",
+          "properties": {
+            "description": "Co registration CONFIRMED -> vao hoc binh thuong. uiAction: learningPage.open(targetCourseId). Impl phai ensure seed co 1 CONFIRMED reg cho STUDENT.",
+            "uiAction": "learningPage.open(targetCourseId)",
+            "requirement": "REQ-D-START-OK"
+          }
+        },
+        {
+          "id": "e_EnterLearningNotConfirmed",
+          "name": "e_StartLearningDenied",
+          "sourceVertexId": "v_StudentDashboardEntry",
+          "targetVertexId": "v_LearningAccessDenied",
+          "guard": "gwGuard_registrationNotConfirmed",
+          "properties": {
+            "description": "Registration PENDING/WAITLIST/REJECTED/null -> FE chan voi message. Impl: mo course co reg khong CONFIRMED.",
+            "uiAssert": "accessDeniedMsg visible",
+            "requirement": "REQ-D-START-DENIED"
+          }
+        },
+        {
+          "id": "e_BackToDashboardFromDenied",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_LearningAccessDenied",
+          "targetVertexId": "v_StudentDashboardEntry",
+          "properties": {
+            "description": "Click 'Quay lai Dashboard' khi bi tu choi access. uiAction: learningPage.backToDashboard().click().",
+            "uiAction": "learningPage.backToDashboard().click()",
+            "requirement": "REQ-D-BACK"
+          }
+        },
+        {
+          "id": "e_ArmLessonProgressPartial",
+          "name": "e_ArmLessonProgressPartial",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonSelected",
+          "properties": {
+            "description": "MBT: guard cho e_MarkLessonPartial.",
+            "requirement": "REQ-D-ARM"
+          }
+        },
+        {
+          "id": "e_ArmPreviewLessonComplete",
+          "name": "e_ArmPreviewLessonComplete",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonSelected",
+          "properties": {
+            "description": "MBT: guard cho e_MarkPreviewLesson.",
+            "requirement": "REQ-D-ARM"
+          }
+        },
+        {
+          "id": "e_RearmLessonProgressHappy",
+          "name": "e_RearmLessonProgressHappy",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonSelected",
+          "properties": {
+            "description": "MBT: khoi phuc pct sau partial/preview.",
+            "requirement": "REQ-D-ARM"
+          }
+        },
+        {
+          "id": "e_SelectLesson",
+          "name": "e_SelectLesson",
+          "sourceVertexId": "v_LearningPageLoaded",
+          "targetVertexId": "v_LessonSelected",
+          "properties": {
+            "description": "Click 1 lesson trong sidebar -> setSelectedLesson. outline.flatMap(x=>x.lessons).sort(position). Chon lesson chua completed.",
+            "uiAction": "learningPage.lessonButtons().get(idx).click()",
+            "requirement": "REQ-D-SELECT"
+          }
+        },
+        {
+          "id": "e_SwitchLesson",
+          "name": "e_SelectLesson",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonSelected",
+          "properties": {
+            "description": "Doi lesson dang xem.",
+            "requirement": "REQ-D-SELECT"
+          }
+        },
+        {
+          "id": "e_MarkLessonCompleted",
+          "name": "e_MarkLessonCompleted",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonCompleted",
+          "guard": "gwGuard_markLessonCompleteAllowed",
+          "properties": {
+            "description": "Click 'Danh dau hoan thanh' -> POST /learning/progress {lesson_id, completion_pct:100}. FE luon gui 100%. BE: completed=true neu pct>=80 (VIDEO) hoac pct>=100 (khac). Cross-check: progress bar khong giam.",
+            "apiEndpoint": "POST /api/v1/learning/progress",
+            "uiAction": "learningPage.markCompleteBtn().click()",
+            "uiAssert": "completedLabel 'Da hoan thanh' visible after click",
+            "requirement": "REQ-D-COMPLETE"
+          }
+        },
+        {
+          "id": "e_MarkLessonPartial",
+          "name": "e_MarkLessonPartial",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonSelected",
+          "guard": "gwGuard_markLessonPartialAllowed",
+          "properties": {
+            "description": "POST /learning/progress {lesson_id, completion_pct:50}. BE luu Progress nhung completed=false. Cross-check: response.data.completed==false.",
+            "apiEndpoint": "POST /api/v1/learning/progress",
+            "requirement": "REQ-D-PARTIAL"
+          }
+        },
+        {
+          "id": "e_MarkPreviewLesson",
+          "name": "e_MarkPreviewLesson",
+          "sourceVertexId": "v_LessonSelected",
+          "targetVertexId": "v_LessonCompleted",
+          "guard": "gwGuard_previewLessonMarkAllowed",
+          "properties": {
+            "description": "Lesson preview -> POST /learning/progress khong can CONFIRMED registration. Cross-check: assertSuccessEnvelope.",
+            "apiEndpoint": "POST /api/v1/learning/progress",
+            "requirement": "REQ-D-PREVIEW"
+          }
+        },
+        {
+          "id": "e_ContinueToNextLesson",
+          "name": "e_ContinueToNextLesson",
+          "sourceVertexId": "v_LessonCompleted",
+          "targetVertexId": "v_LessonSelected",
+          "guard": "gwGuard_hasMoreLessonsToComplete",
+          "properties": {
+            "description": "Con lesson chua hoan thanh -> click lesson tiep theo trong sidebar.",
+            "uiAction": "learningPage.lessonButtons().get(completedLessons).click()",
+            "requirement": "REQ-D-NEXT-LESSON"
+          }
+        },
+        {
+          "id": "e_ReachAllCompleted",
+          "name": "e_ReachAllCompleted",
+          "sourceVertexId": "v_LessonCompleted",
+          "targetVertexId": "v_AllLessonsCompleted",
+          "guard": "gwGuard_allLessonsComplete",
+          "properties": {
+            "description": "Da hoan thanh toan bo -> progress 100%. FE hien 'Nhan chung chi' hoac 'Xem chung chi'. Assert progress bar ~100%.",
+            "uiAssert": "progressBar ~100%, claimCertButton OR viewCertButton visible",
+            "requirement": "REQ-D-ALL-DONE"
+          }
+        },
+        {
+          "id": "e_RefreshProgress",
+          "name": "e_RefreshProgress",
+          "sourceVertexId": "v_LearningPageLoaded",
+          "targetVertexId": "v_LearningPageLoaded",
+          "properties": {
+            "description": "Refresh trang -> GET /learning/courses/{id}/progress (total/completed/pct). Data phai nhat quan voi DB.",
+            "apiEndpoint": "GET /api/v1/learning/courses/{id}/progress",
+            "requirement": "REQ-D-REFRESH"
+          }
+        },
+        {
+          "id": "e_BackToDashboardFromLearning",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_LearningPageLoaded",
+          "targetVertexId": "v_StudentDashboardEntry",
+          "properties": {
+            "description": "Click 'Quay lai Dashboard' tu sidebar. uiAction: learningPage.backToDashboard().click().",
+            "uiAction": "learningPage.backToDashboard().click()",
+            "requirement": "REQ-D-BACK"
+          }
+        },
+        {
+          "id": "e_BackToDashboardFromAllDone",
+          "name": "e_BackToDashboard",
+          "sourceVertexId": "v_AllLessonsCompleted",
+          "targetVertexId": "v_StudentDashboardEntry",
+          "properties": {
+            "description": "Back to dashboard tu man hinh da hoan thanh.",
+            "requirement": "REQ-D-BACK"
+          }
+        }
+      ]
+    }
+  ]
+}

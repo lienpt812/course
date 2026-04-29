@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.eduplatform.mbt.runners.AdminManagementRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 63.62 s -- in com.eduplatform.mbt.runners.AdminManagementRunner

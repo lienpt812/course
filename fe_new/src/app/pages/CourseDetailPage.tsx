@@ -352,6 +352,8 @@ export function CourseDetailPage() {
         </Link>
         {isInstructor && !isEditing && (
           <button
+            type="button"
+            data-testid="course-edit-button"
             className="ml-4 px-4 py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700"
             onClick={() => setIsEditing(true)}
           >
